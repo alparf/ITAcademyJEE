@@ -17,32 +17,40 @@
         <% response.sendRedirect(JSPConstant.LOGIN); %>
     </c:if>
     <c:if test="${not empty user}">
-        <div class="home">
-            <div class="home-menu">
-                <c:out value="${user.userName}"/>
-                <div class="sign-out"><a href="LogoutController">Sign out</a></div>
+        <div class="container-pillar content-center items-center">
+            <div class="container-inline large-box header-home">
+                <div class="container-inline">
+                    <c:out value="${user.userName}"/>
+                </div>
+                <div class="container-inline content-end grow">
+                    <a href="LogoutController">Sign out</a>
+                </div>
             </div>
             <c:if test="${user.userType == UserType.ADMIN}">
-                <div class="admin-panel">
-                    <div class="body">
-                        <form id="userAddForm" action="UserAddController" method="POST">
-                            <label>FIO</label>
-                            <input type="text"/>
+                <form class="container-pillar"
+                    id="userAddForm" action="UserAddController" method="POST">
+                    <label >FIO</label>
+                    <input type="text"/ name="fio">
+                    <label>User name</label>
+                    <input type="text" name="userName"/>
+                    <label>Password</label>
+                    <input type="password" name="password"/>
+                    <div class="container-inline">
+                        <div class="container-pillar">
                             <label>Age</label>
-                            <input type="number" min="0" max="100"/>
-                            <label>User name</label>
-                            <input type="text"/>
-                            <label>Password</label>
-                            <input type="password"/>
-                            <select>
+                            <input type="number" min="0" max="100" name="age"/>
+                        </div>
+                        <div class="container-pillar">
+                            <label>User type</label>
+                            <select name="userType">
                                 <c:forEach var="entry" items="${userTypes}">
                                     <option>${entry}</option>
                                 </c:forEach>
                             </select>
-                            <input type="submit" value="Add"/>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                    <input type="submit" value="Add"/>
+                </form>
             </c:if>
         </div>
     </c:if>
