@@ -32,5 +32,6 @@
                 <version>2.22.1</version>
             </plugin>
         </plugins>
+        <finalName>model</finalName>
     </build>
 </project>

@@ -1,5 +1,6 @@
 package by.academy.model.bean;
 
+import by.academy.model.bean.constant.ExceptionConstant;
 import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,7 +15,7 @@ public class UserTest extends TestCase {
             user.setAge(age);
             Assert.fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException exception) {
-            Assert.assertTrue(true);
+            assertEquals(exception.getMessage(), ExceptionConstant.INVALID_AGE_VALUE);
         }
     }
 }

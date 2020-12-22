@@ -7,6 +7,6 @@
         <title>Index</title>
     </head>
     <body>
-         <c:redirect url = "HomeController"/>
+         <% response.sendRedirect("home.jsp"); %>
     </body>
 </html>
