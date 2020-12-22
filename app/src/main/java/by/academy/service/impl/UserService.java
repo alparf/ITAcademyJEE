@@ -16,4 +16,10 @@ public class UserService implements IUserService {
         IUserDAO userDAO = new UserInMemory();
         return userDAO.addUser(user);
     }
+
+    @Override
+    public boolean removeUser(User user) {
+        IUserDAO userDAO = new UserInMemory();
+        return userDAO.removeUser(user);
+    }
 }

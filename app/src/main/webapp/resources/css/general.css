@@ -3,9 +3,12 @@
     font-size: 12pt;
 }
 
-div.header {
-    height: 100px;
+.header {
     padding: 15px;
+    text-align: center;
+}
+
+.header .inner {
     font-size: 18pt;
     font-weight: bold;
     color: #2daae1;
@@ -23,6 +26,15 @@ div.header {
     margin: auto;
 }
 
+select {
+    padding: 10px;
+    margin: 10px;
+    width: 204px;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+}
+
 input {
     padding: 10px;
     margin: 10px;
@@ -37,11 +49,50 @@ label {
     font-size: 10pt;
 }
 
-#signIn {
+input[type="submit"] {
     width: 204px;
     background-color: #2daae1;
     color: #ffffff;
     border: none;
     cursor: pointer;
 }
+
+.home {
+    display: block;
+    width: 600px;
+    padding: 10px;
+    margin: auto;
+    color: #ffffff;
+}
+
+.home a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.home .sign-out {
+    text-align: right;
+    width: inherit;
+}
+
+.admin-panel {
+    width: 580px;
+    margin: auto;
+    display: flex;
+}
+
+.admin-panel .body {
+    width: 200px;
+    margin: auto;
+}
+
+.home-menu {
+    width: 600px;
+    padding: 10px;
+    background-color: #2daae1;
+    display: flex;
+    border-radius: 3px 3px 0px 0px;
+}
+
 

@@ -30,12 +30,12 @@ public class UserInMemory implements IUserDAO {
     public User getUser(String userName, String password) throws UserNotFoundException {
         getUsers();
         Optional<User> optionalUser = users.stream().filter(user -> {
-           if(user.getUserName().equals(userName)
-                   && user.getPassword().equals(password)) {
-               return true;
-           }
-           return false; })
-                .findFirst();
+            if(null == user) {
+                return false;
+            } else {
+                return (user.getUserName().equals(userName) && user.getPassword().equals(password));
+            }
+        }).findFirst();
         if(optionalUser.isEmpty()) {
             throw new UserNotFoundException(ExceptionConstant.USER_NOT_FOUND);
         }

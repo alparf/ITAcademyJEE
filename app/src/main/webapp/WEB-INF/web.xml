@@ -6,10 +6,6 @@
          version="4.0">
 
     <servlet>
-        <servlet-name>HomeController</servlet-name>
-        <servlet-class>by.academy.controller.HomeController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LoginController</servlet-name>
         <servlet-class>by.academy.controller.LoginController</servlet-class>
         <init-param>
@@ -22,10 +18,6 @@
         </init-param>
     </servlet>
 
-    <servlet-mapping>
-        <servlet-name>HomeController</servlet-name>
-        <url-pattern>/HomeController</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
