@@ -45,7 +45,7 @@ select {
 }
 
 .mid-box {
-    width: 322px;
+    width: 400px;
 }
 
 .content-center {
@@ -54,6 +54,10 @@ select {
 
 .content-end {
     justify-content: flex-end;
+}
+
+.content-start {
+    justify-content: flex-start;
 }
 
 .items-center {
@@ -86,4 +90,15 @@ select {
 .exception {
     color: red;
     text-align: center;
+}
+
+.item {
+    padding: 5px;
+}
+
+.button {
+    color: #2daae1;
+    padding: 10px;
+    font-weight: bold;
+    text-direction: none;
 }

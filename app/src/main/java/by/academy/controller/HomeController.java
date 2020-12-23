@@ -1,8 +1,10 @@
 package by.academy.controller;
 
-import by.academy.constant.JSPConstant;
+import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
 import by.academy.model.bean.User;
+import by.academy.service.IUserService;
+import by.academy.service.impl.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,9 +21,18 @@ public class HomeController extends AbstractController {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(SessionConstant.USER);
         if(user == null) {
-            res.sendRedirect(JSPConstant.LOGIN);
-        } else {
-            res.sendRedirect(JSPConstant.HOME);
+            res.sendRedirect(ServletConstant.LOGIN);
         }
+        switch (user.getUserType()) {
+            case ADMIN: {
+                IUserService service = new UserService();
+                session.setAttribute(SessionConstant.USER_LIST, service.getUsers());
+                break;
+            }
+            case STUDENT: {
+                break;
+            }
+        }
+        res.sendRedirect(ServletConstant.HOME);
     }
 }

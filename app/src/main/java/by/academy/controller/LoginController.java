@@ -1,7 +1,7 @@
 package by.academy.controller;
 
 import by.academy.constant.ExceptionConstant;
-import by.academy.constant.JSPConstant;
+import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
 import by.academy.exception.UserServiceException;
 import by.academy.model.bean.User;
@@ -10,10 +10,12 @@ import by.academy.model.factory.UserFactory;
 import by.academy.service.IUserService;
 import by.academy.service.impl.UserService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 
 public class LoginController extends AbstractController {
@@ -24,17 +26,18 @@ public class LoginController extends AbstractController {
         String password = req.getParameter(SessionConstant.PASSWORD);
         IUserService service = new UserService();
         HttpSession session = req.getSession();
+        session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
         User user;
         try {
             user = service.userLogin(userName, password);
-            session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
         } catch (UserServiceException e) {
             e.printStackTrace();
             user = null;
             session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NOT_FOUND);
         }
         session.setAttribute(SessionConstant.USER, user);
-        res.sendRedirect(JSPConstant.HOME);
+        RequestDispatcher dispatcher = req.getRequestDispatcher(File.separator + ServletConstant.HOME_CONTROLLER);
+        dispatcher.forward(req, res);
     }
 
     @Override

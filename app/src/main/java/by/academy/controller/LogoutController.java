@@ -1,6 +1,6 @@
 package by.academy.controller;
 
-import by.academy.constant.JSPConstant;
+import by.academy.constant.ServletConstant;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +16,6 @@ public class LogoutController extends AbstractController{
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
         session.invalidate();
-        res.sendRedirect(JSPConstant.LOGIN);
+        res.sendRedirect(ServletConstant.LOGIN);
     }
 }

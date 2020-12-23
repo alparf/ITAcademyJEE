@@ -15,9 +15,9 @@ public class UserInMemory implements IUserDAO {
 
     /**
      *
-     * @param userName
-     * @param password
-     * @return
+     * @param userName User name
+     * @param password User password
+     * @return User or throw UserNotFoundException
      * @throws UserServiceException
      * looking for a user with an equivalent userName and password and return it.
      * If user is not found throw UserNotFoundException.
@@ -49,14 +49,24 @@ public class UserInMemory implements IUserDAO {
     }
 
     @Override
-    public boolean removeUser(User user) {
-        if(null != user) {
+    public boolean removeUser(String userName) {
+        if(null != userName) {
             synchronized (UserInMemory.class) {
-                users.remove(user);
+                Optional<User> foundUser = users.stream()
+                        .filter(user -> userName.equals(user.getUserName()))
+                        .findFirst();
+                if(!foundUser.isEmpty()) {
+                    users.remove(foundUser.get());
+                }
             }
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return users;
     }
 
     private boolean userFilter(User user, String userName, String password) {
