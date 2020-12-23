@@ -52,12 +52,10 @@ public class UserInMemory implements IUserDAO {
     public boolean removeUser(String userName) {
         if(null != userName) {
             synchronized (UserInMemory.class) {
-                Optional<User> foundUser = users.stream()
+                users.stream()
                         .filter(user -> userName.equals(user.getUserName()))
-                        .findFirst();
-                if(!foundUser.isEmpty()) {
-                    users.remove(foundUser.get());
-                }
+                        .findFirst()
+                        .ifPresent(users::remove);
             }
             return true;
         }
@@ -78,9 +76,9 @@ public class UserInMemory implements IUserDAO {
 
     private boolean isUserNameUsed(String userName) {
         Optional<String> result = users.stream()
-                .map(user -> user.getUserName())
+                .map(User::getUserName)
                 .filter(userName::equals)
                 .findFirst();
-        return !result.isEmpty();
+        return result.isPresent();
     }
 }

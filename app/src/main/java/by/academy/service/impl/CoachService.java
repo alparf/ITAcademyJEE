@@ -11,12 +11,14 @@ import java.util.List;
 public class CoachService implements ICoachService {
     @Override
     public Coach getCoach(User user) {
-        return null;
+        ICoachDAO coachDAO = new CoachInMemory();
+        return coachDAO.getCoach(user);
     }
 
     @Override
     public List<Coach> getCoachList() {
-        return null;
+        ICoachDAO coachDAO = new CoachInMemory();
+        return coachDAO.getCoachList();
     }
 
     @Override
