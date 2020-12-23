@@ -6,6 +6,8 @@ import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
 import by.academy.service.IUserService;
 import by.academy.service.impl.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +18,9 @@ import java.io.IOException;
 
 @WebServlet("/UserRemoveController")
 public class UserRemoveController extends AbstractController {
+
+    private static final Logger log = LoggerFactory.getLogger(UserRemoveController.class);
+
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -25,6 +30,7 @@ public class UserRemoveController extends AbstractController {
             String userName = req.getParameter(SessionConstant.USER_NAME);
             IUserService service = new UserService();
             service.removeUser(userName);
+            log.info("Remove user = {}", userName);
         }
         res.sendRedirect(ServletConstant.HOME);
     }

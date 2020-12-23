@@ -55,11 +55,14 @@
                 <div class="container-inline large-box header-home">User list</div>
                 <c:forEach var="entry" items="${userList}">
                     <div class="container-inline content-start items-center large-box">
-                        <span class="item grow" >${entry.fio}</span>
-                        <span class="item grow">${entry.age}</span>
-                        <span class="item grow">${entry.userName}</span>
-                        <span class="item grow">${entry.userType}</span>
-                        <a class="button grow" href="UserRemoveController?userName=${entry.userName}">Delete</a>
+                        <span class="item" >${entry.fio}</span>
+                        <span class="item">${entry.age}</span>
+                        <span class="item">${entry.userName}</span>
+                        <span class="item">${entry.userType}</span>
+                        <div class="container-inline content-end grow">
+                            <a class="button"
+                                href="UserRemoveController?userName=${entry.userName}">Delete</a>
+                        </div>
                     </div>
                 </c:forEach>
             </c:if>

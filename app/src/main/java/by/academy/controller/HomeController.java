@@ -22,17 +22,18 @@ public class HomeController extends AbstractController {
         User user = (User) session.getAttribute(SessionConstant.USER);
         if(user == null) {
             res.sendRedirect(ServletConstant.LOGIN);
-        }
-        switch (user.getUserType()) {
-            case ADMIN: {
-                IUserService service = new UserService();
-                session.setAttribute(SessionConstant.USER_LIST, service.getUsers());
-                break;
+        } else {
+            switch (user.getUserType()) {
+                case ADMIN: {
+                    IUserService service = new UserService();
+                    session.setAttribute(SessionConstant.USER_LIST, service.getUsers());
+                    break;
+                }
+                case STUDENT: {
+                    break;
+                }
             }
-            case STUDENT: {
-                break;
-            }
+            res.sendRedirect(ServletConstant.HOME);
         }
-        res.sendRedirect(ServletConstant.HOME);
     }
 }

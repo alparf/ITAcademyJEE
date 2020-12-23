@@ -3,12 +3,16 @@ package by.academy.controller;
 import by.academy.constant.ExceptionConstant;
 import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
+import by.academy.dao.impl.UserInMemory;
 import by.academy.exception.UserServiceException;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
 import by.academy.model.factory.UserFactory;
 import by.academy.service.IUserService;
 import by.academy.service.impl.UserService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,6 +23,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class LoginController extends AbstractController {
+
+    private static final Logger log = LoggerFactory.getLogger(UserInMemory.class);
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -31,7 +37,7 @@ public class LoginController extends AbstractController {
         try {
             user = service.userLogin(userName, password);
         } catch (UserServiceException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
             user = null;
             session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NOT_FOUND);
         }

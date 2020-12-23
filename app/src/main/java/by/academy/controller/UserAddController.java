@@ -9,6 +9,8 @@ import by.academy.model.bean.UserType;
 import by.academy.model.factory.UserFactory;
 import by.academy.service.IUserService;
 import by.academy.service.impl.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +21,8 @@ import java.io.IOException;
 
 @WebServlet("/UserAddController")
 public class UserAddController extends AbstractController {
+
+    private static final Logger log = LoggerFactory.getLogger(UserAddController.class);
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -34,8 +38,10 @@ public class UserAddController extends AbstractController {
             IUserService service = new UserService();
             try {
                 service.addUser(UserFactory.createUser(fio, age, userName, password, userType));
+                log.info("New User = {}", userName);
             } catch (UserServiceException e) {
                 e.printStackTrace();
+                log.error(e.getMessage(), e);
                 session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NAME_ALREADY_USED);
             }
         }
