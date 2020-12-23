@@ -7,4 +7,5 @@ public class SessionConstant {
     public static final String FIO = "fio";
     public static final String AGE = "age";
     public static final String USER_TYPE = "userType";
+    public static final String EXCEPTION_MESSAGE = "exceptionMessage";
 }

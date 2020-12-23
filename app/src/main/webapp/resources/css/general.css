@@ -82,3 +82,8 @@ select {
 .header-home a {
     color: #ffffff;
 }
+
+.exception {
+    color: red;
+    text-align: center;
+}

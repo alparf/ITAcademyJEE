@@ -1,8 +1,9 @@
 package by.academy.controller;
 
+import by.academy.constant.ExceptionConstant;
 import by.academy.constant.JSPConstant;
 import by.academy.constant.SessionConstant;
-import by.academy.exception.UserNotFoundException;
+import by.academy.exception.UserServiceException;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
 import by.academy.model.factory.UserFactory;
@@ -22,14 +23,16 @@ public class LoginController extends AbstractController {
         String userName = req.getParameter(SessionConstant.USER_NAME);
         String password = req.getParameter(SessionConstant.PASSWORD);
         IUserService service = new UserService();
+        HttpSession session = req.getSession();
         User user;
         try {
             user = service.userLogin(userName, password);
-        } catch (UserNotFoundException e) {
+            session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
+        } catch (UserServiceException e) {
             e.printStackTrace();
             user = null;
+            session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NOT_FOUND);
         }
-        HttpSession session = req.getSession();
         session.setAttribute(SessionConstant.USER, user);
         res.sendRedirect(JSPConstant.HOME);
     }

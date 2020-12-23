@@ -2,7 +2,7 @@ package by.academy.dao.impl;
 
 import by.academy.constant.ExceptionConstant;
 import by.academy.dao.IUserDAO;
-import by.academy.exception.UserNotFoundException;
+import by.academy.exception.UserServiceException;
 import by.academy.model.bean.User;
 
 import java.util.LinkedList;
@@ -18,17 +18,17 @@ public class UserInMemory implements IUserDAO {
      * @param userName
      * @param password
      * @return
-     * @throws UserNotFoundException
+     * @throws UserServiceException
      * looking for a user with an equivalent userName and password and return it.
      * If user is not found throw UserNotFoundException.
      */
     @Override
-    public User getUser(String userName, String password) throws UserNotFoundException {
+    public User getUser(String userName, String password) throws UserServiceException {
         Optional<User> optionalUser = users.stream()
                 .filter(user -> userFilter(user, userName, password))
                 .findFirst();
         if(optionalUser.isEmpty()) {
-            throw new UserNotFoundException(ExceptionConstant.USER_NOT_FOUND);
+            throw new UserServiceException(ExceptionConstant.USER_NOT_FOUND);
         }
         return optionalUser.get();
     }
@@ -37,7 +37,11 @@ public class UserInMemory implements IUserDAO {
     public boolean addUser(User user) {
         if(null != user) {
             synchronized (UserInMemory.class) {
-                users.add(user);
+                if(!isUserNameUsed(user.getUserName())) {
+                    users.add(user);
+                } else {
+                    throw new UserServiceException(ExceptionConstant.USER_NAME_ALREADY_USED);
+                }
             }
             return true;
         }
@@ -60,5 +64,13 @@ public class UserInMemory implements IUserDAO {
             return false;
         }
         return (user.getUserName().equals(userName) && user.getPassword().equals(password));
+    }
+
+    private boolean isUserNameUsed(String userName) {
+        Optional<String> result = users.stream()
+                .map(user -> user.getUserName())
+                .filter(userName::equals)
+                .findFirst();
+        return !result.isEmpty();
     }
 }

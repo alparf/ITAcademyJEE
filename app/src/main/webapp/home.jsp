@@ -20,7 +20,7 @@
         <div class="container-pillar content-center items-center">
             <div class="container-inline large-box header-home">
                 <div class="container-inline">
-                    <c:out value="${user.userName}"/>
+                    <c:out value="${user.fio}"/>
                 </div>
                 <div class="container-inline content-end grow">
                     <a href="LogoutController">Sign out</a>
@@ -30,15 +30,15 @@
                 <form class="container-pillar"
                     id="userAddForm" action="UserAddController" method="POST">
                     <label >FIO</label>
-                    <input type="text"/ name="fio">
+                    <input type="text"/ name="fio" value="Сидоров Александр Петрович">
                     <label>User name</label>
-                    <input type="text" name="userName"/>
+                    <input type="text" name="userName" value="Sasha1990"/>
                     <label>Password</label>
-                    <input type="password" name="password"/>
+                    <input type="password" name="password" value="12345678"/>
                     <div class="container-inline">
                         <div class="container-pillar">
                             <label>Age</label>
-                            <input type="number" min="0" max="100" name="age"/>
+                            <input type="number" min="0" max="100" name="age" value="30"/>
                         </div>
                         <div class="container-pillar">
                             <label>User type</label>
@@ -50,6 +50,7 @@
                         </div>
                     </div>
                     <input type="submit" value="Add"/>
+                    <p class="exception">${exceptionMessage}</p>
                 </form>
             </c:if>
         </div>

@@ -16,6 +16,7 @@
             <label>Password</label>
             <input type="password" name="password" value="admin"/>
             <input type="submit" value="Sign in" id="signIn"/>
+            <p class="exception">${exceptionMessage}</p>
         </form>
     </div>
 </body>
