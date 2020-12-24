@@ -9,4 +9,8 @@ public class SessionConstant {
     public static final String USER_TYPE = "userType";
     public static final String EXCEPTION_MESSAGE = "exceptionMessage";
     public static final String USER_LIST = "userList";
+    public static final String USER_NAME_TO_REMOVE = "userNameToRemove";
+    public static final String COACH_NAME = "coachName";
+    public static final String SALARY = "salary";
+    public static final String COACH_LIST = "coachList";
 }

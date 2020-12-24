@@ -30,4 +30,10 @@ public class UserService implements IUserService {
         IUserDAO userDAO = new UserInMemory();
         return userDAO.getUsers();
     }
+
+    @Override
+    public User getUser(String userName) {
+        IUserDAO userDAO = new UserInMemory();
+        return userDAO.getUser(userName);
+    }
 }

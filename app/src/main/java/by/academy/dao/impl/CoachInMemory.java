@@ -20,9 +20,9 @@ public class CoachInMemory implements ICoachDAO {
                         .filter(coach::equals)
                         .findFirst();
                 if (optional.isPresent()) {
-                    optional.get().getSalaries().addLast(salary);
+                    optional.get().addSalary(salary);
                 } else {
-                    coach.getSalaries().addLast(salary);
+                    coach.addSalary(salary);
                     coaches.add(coach);
                 }
             }
@@ -33,11 +33,13 @@ public class CoachInMemory implements ICoachDAO {
     @Override
     public Coach getCoach(User user) {
         if(null != user) {
-            Optional<Coach> optional = coaches.stream()
-                    .filter(coach -> user.equals(coach.getUser()))
-                    .findFirst();
-            if(optional.isPresent()) {
-                return optional.get();
+            synchronized (CoachInMemory.class) {
+                Optional<Coach> optional = coaches.stream()
+                        .filter(coach -> user.equals(coach.getUser()))
+                        .findFirst();
+                if (optional.isPresent()) {
+                    return optional.get();
+                }
             }
         }
         return null;

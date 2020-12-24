@@ -24,9 +24,26 @@ public class UserInMemory implements IUserDAO {
      */
     @Override
     public User getUser(String userName, String password) throws UserServiceException {
-        Optional<User> optionalUser = users.stream()
-                .filter(user -> userFilter(user, userName, password))
-                .findFirst();
+        Optional<User> optionalUser;
+        synchronized (UserInMemory.class) {
+            optionalUser = users.stream()
+                    .filter(user -> userFilter(user, userName, password))
+                    .findFirst();
+        }
+        if(optionalUser.isEmpty()) {
+            throw new UserServiceException(ExceptionConstant.USER_NOT_FOUND);
+        }
+        return optionalUser.get();
+    }
+
+    @Override
+    public User getUser(String userName) {
+        Optional<User> optionalUser;
+        synchronized (UserInMemory.class) {
+            optionalUser = users.stream()
+                    .filter(user -> userName.equals(user.getUserName()))
+                    .findFirst();
+        }
         if(optionalUser.isEmpty()) {
             throw new UserServiceException(ExceptionConstant.USER_NOT_FOUND);
         }

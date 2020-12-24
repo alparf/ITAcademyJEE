@@ -81,6 +81,8 @@ select {
     color: #ffffff;
     padding: 10px;
     border-radius: 3px 3px; 0px; 0px;
+    margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 .header-home a {
@@ -94,11 +96,4 @@ select {
 
 .item {
     padding: 5px;
-}
-
-.button {
-    color: #2daae1;
-    padding: 10px;
-    font-weight: bold;
-    text-direction: none;
 }

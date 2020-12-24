@@ -3,7 +3,9 @@ package by.academy.controller;
 import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
 import by.academy.model.bean.User;
+import by.academy.service.ICoachService;
 import by.academy.service.IUserService;
+import by.academy.service.impl.CoachService;
 import by.academy.service.impl.UserService;
 
 import javax.servlet.ServletException;
@@ -25,8 +27,10 @@ public class HomeController extends AbstractController {
         } else {
             switch (user.getUserType()) {
                 case ADMIN: {
-                    IUserService service = new UserService();
-                    session.setAttribute(SessionConstant.USER_LIST, service.getUsers());
+                    IUserService userService = new UserService();
+                    ICoachService coachService = new CoachService();
+                    session.setAttribute(SessionConstant.USER_LIST, userService.getUsers());
+                    session.setAttribute(SessionConstant.COACH_LIST, coachService.getCoachList());
                     break;
                 }
                 case STUDENT: {

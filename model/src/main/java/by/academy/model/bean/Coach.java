@@ -36,11 +36,28 @@ public class Coach {
         this.salaries = salaries;
     }
 
+    public int getAverageSalary(int monthCount) {
+        int sum = this.getSalaries().stream().mapToInt(salary -> salary).sum();
+        return sum / monthCount;
+    }
+
+    public void addSalary(int salary) {
+        this.getSalaries().addFirst(salary);
+    }
+
     @Override
     public String toString() {
         return "Coach{" +
                 "user=" + user +
                 ", salaries=" + salaries +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if((obj != null) && (null != this.getUser())) {
+            return this.getUser().equals(((Coach) obj).getUser());
+        }
+        return false;
     }
 }

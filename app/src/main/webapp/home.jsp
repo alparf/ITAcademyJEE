@@ -49,20 +49,43 @@
                             </select>
                         </div>
                     </div>
-                    <input type="submit" value="Add user"/>
+                    <input type="submit" value="Add User"/>
                     <p class="exception">${exceptionMessage}</p>
                 </form>
-                <div class="container-inline large-box header-home">User list</div>
+                <div class="container-inline large-box header-home">List of users</div>
                 <c:forEach var="entry" items="${userList}">
-                    <div class="container-inline content-start items-center large-box">
+                    <form class="container-inline content-start items-center large-box"
+                        action="UserRemoveController" method="POST">
                         <span class="item" >${entry.fio}</span>
                         <span class="item">${entry.age}</span>
                         <span class="item">${entry.userName}</span>
                         <span class="item">${entry.userType}</span>
                         <div class="container-inline content-end grow">
-                            <a class="button"
-                                href="UserRemoveController?userName=${entry.userName}">Delete</a>
+                            <input type="text" name="userNameToRemove" value="${entry.userName}" hidden/>
+                            <input type="submit" value="Remove" grow/>
                         </div>
+                    </form>
+                </c:forEach>
+                <div class="container-inline large-box header-home">List of coach</div>
+                <c:forEach var="entry" items="${userList}">
+                    <c:if test="${entry.userType == UserType.COACH}">
+                        <form class="container-inline content-start items-center large-box"
+                            action="CoachAddSalary" method="POST">
+                            <span name="coachName" class="item">${entry.fio}</span>
+                            <input name="salary" type="number" min="0"/>
+                            <span>BYN</span>
+                            <div class="container-inline content-end grow">
+                                <input type="text" name="coachName" value="${entry.userName}" hidden/>
+                                <input type="submit" value="Add Salary"/>
+                            </div>
+                        </form>
+                    </c:if>
+                </c:forEach>
+                <div class="container-inline large-box header-home">Average salaries</div>
+                <c:forEach var="entry" items="${coachList}">
+                    <div class="container-inline content-start items-center large-box"
+                        <span class="item">${entry.user.fio}</span>
+                        <span>${entry.salaries}</span>
                     </div>
                 </c:forEach>
             </c:if>

@@ -27,7 +27,7 @@ public class UserRemoveController extends AbstractController {
         session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
         User user = (User) session.getAttribute(SessionConstant.USER);
         if(null != user && user.getUserType() == UserType.ADMIN) {
-            String userName = req.getParameter(SessionConstant.USER_NAME);
+            String userName = req.getParameter(SessionConstant.USER_NAME_TO_REMOVE);
             IUserService service = new UserService();
             service.removeUser(userName);
             log.info("Remove user = {}", userName);
