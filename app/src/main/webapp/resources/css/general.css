@@ -1,7 +1,63 @@
-* {
+*,
+*:before,
+*:after {
+    border-sizing: border-box;
+}
+
+body {
+    margin: 0;
     font-family: 'Open Sans', sans-serif;
     font-size: 12pt;
 }
+
+/* Header
+=====================*/
+
+.header {
+    height: 100px;
+    border-bottom: 1px solid #2daae1;
+}
+
+.header_inner {
+    width: 100%;
+    max-width: 1000px;
+    padding: 50px 0px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header_logo {
+    font-weight: bold;
+    color: #2daae1;
+    font-size: 30px;
+}
+
+/* Nav
+=====================*/
+
+.nav {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.nav_link {
+    margin-left: 50px;
+    color: #2daae1;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.nav_link:first-child {
+    margin-left: 0px;
+}
+
+.nav_link:hover {
+    color: #2daae1;
+    transition: color .1s linear;
+}
+
 
 input {
     padding: 10px;
@@ -66,14 +122,6 @@ select {
 
 .grow {
     flex-grow: 1;
-}
-
-.header {
-    text-align: center;
-    font-weight: bold;
-    color: #2daae1;
-    font-size: 24pt;
-    padding: 10px;
 }
 
 .header-home {

@@ -83,7 +83,7 @@
                 </c:forEach>
                 <div class="container-inline large-box header-home">Average salaries</div>
                 <c:forEach var="entry" items="${coachList}">
-                    <div class="container-inline content-start items-center large-box"
+                    <div class="container-inline content-start items-center large-box">
                         <span class="item">${entry.user.fio}</span>
                         <span>${entry.salaries}</span>
                     </div>
