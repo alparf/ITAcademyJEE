@@ -7,10 +7,9 @@
     <title>Login</title>
 </head>
 <body>
-    <c:import url="/include/header.html" />
-    <div class="container-inline items-center content-center">
-        <form class="container-pillar"
-            id="loginForm" action="LoginController" method="POST">
+    <c:import url="/include/header.jsp" />
+    <div class=sign-in>
+        <form class="sign-in_form" action="LoginController" method="POST">
             <label>User</label>
             <input type="text" name="userName" value="admin"/>
             <label>Password</label>

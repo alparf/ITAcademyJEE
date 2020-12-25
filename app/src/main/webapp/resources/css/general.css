@@ -14,18 +14,18 @@ body {
 =====================*/
 
 .header {
-    height: 100px;
-    border-bottom: 1px solid #2daae1;
+    
 }
 
 .header_inner {
     width: 100%;
-    max-width: 1000px;
-    padding: 50px 0px;
+    max-width: 800px;
     margin: 0 auto;
+    padding: 15px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid #2daae1;
 }
 
 .header_logo {
@@ -54,10 +54,78 @@ body {
 }
 
 .nav_link:hover {
-    color: #2daae1;
-    transition: color .1s linear;
+    color: #009ce0;
+    transition: .1s linear;
 }
 
+/* Sign in
+======================*/
+
+.sign-in {
+    margin: 0 auto;
+    width: 250px;
+    padding-top: 25px;
+}
+
+.sign-in_form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* Admin
+======================*/
+
+.add-user {
+    width: 250px;
+    padding-top: 25px;
+    margin: 0 auto;
+    border-top: 1px solid #2daae1;
+}
+
+.add-user_form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.user-list {
+    width: 600px;
+    margin: 0 auto;
+    padding-top: 25px;
+    border-top: 1px solid #2daae1;
+}
+
+.user-list_form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.coach {
+    width: 600px;
+    padding-top: 25px;
+    margin: 0 auto;
+    border-top: 1px solid #2daae1;
+}
+
+.coach_form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.salary {
+    width: 100%;
+    padding-top: 25px;
+    border-top: 1px solid #2daae1;
+}
+
+.salary_inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 input {
     padding: 10px;
@@ -71,6 +139,13 @@ input[type="submit"] {
     background-color: #2daae1;
     border-radius: 3px;
     border: 1px solid;
+    text-transform: uppercase;
+}
+
+input[type="submit"]:hover {
+    background-color: #009ce0;
+    transition: .1s linear;
+    cursor: pointer;
 }
 
 label {
@@ -82,59 +157,6 @@ select {
     padding: 10px;
     margin: 0px 10px 10px 10px;
     border-radius: 3px;
-}
-
-.container-inline {
-    display: flex;
-    flex-direction: row;
-    flex-content: center;
-}
-
-.container-pillar {
-    display: flex;
-    flex-direction: column;
-    flex-content: center;
-}
-
-.large-box {
-    width: 600px;
-}
-
-.mid-box {
-    width: 400px;
-}
-
-.content-center {
-    justify-content: center;
-}
-
-.content-end {
-    justify-content: flex-end;
-}
-
-.content-start {
-    justify-content: flex-start;
-}
-
-.items-center {
-    align-items: center;
-}
-
-.grow {
-    flex-grow: 1;
-}
-
-.header-home {
-    background-color: #2daae1;
-    color: #ffffff;
-    padding: 10px;
-    border-radius: 3px 3px; 0px; 0px;
-    margin-bottom: 30px;
-    margin-top: 30px;
-}
-
-.header-home a {
-    color: #ffffff;
 }
 
 .exception {

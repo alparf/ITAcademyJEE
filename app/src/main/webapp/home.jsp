@@ -12,22 +12,14 @@
     <title>Home</title>
 </head>
 <body>
-    <c:import url="/include/header.html" />
+    <c:import url="/include/header.jsp" />
     <c:if test="${empty user}">
         <% response.sendRedirect(ServletConstant.LOGIN); %>
     </c:if>
     <c:if test="${not empty user}">
-        <div class="container-pillar content-center items-center">
-            <div class="container-inline large-box header-home">
-                <div class="container-inline">
-                    <c:out value="${user.fio}"/>
-                </div>
-                <div class="container-inline content-end grow">
-                    <a href="LogoutController">Sign out</a>
-                </div>
-            </div>
-            <c:if test="${user.userType == UserType.ADMIN}">
-                <form class="container-pillar"
+        <c:if test="${user.userType == UserType.ADMIN}">
+            <div class="add-user">
+                <form class="add-user_form"
                     id="userAddForm" action="UserAddController" method="POST">
                     <label >FIO</label>
                     <input type="text"/ name="fio" value="Сидоров Александр Петрович">
@@ -52,24 +44,24 @@
                     <input type="submit" value="Add User"/>
                     <p class="exception">${exceptionMessage}</p>
                 </form>
-                <div class="container-inline large-box header-home">List of users</div>
+            </div>
+            <div class="user-list">
                 <c:forEach var="entry" items="${userList}">
-                    <form class="container-inline content-start items-center large-box"
+                    <form class="user-list_form"
                         action="UserRemoveController" method="POST">
                         <span class="item" >${entry.fio}</span>
                         <span class="item">${entry.age}</span>
                         <span class="item">${entry.userName}</span>
                         <span class="item">${entry.userType}</span>
-                        <div class="container-inline content-end grow">
-                            <input type="text" name="userNameToRemove" value="${entry.userName}" hidden/>
-                            <input type="submit" value="Remove" grow/>
-                        </div>
+                        <input type="text" name="userNameToRemove" value="${entry.userName}" hidden/>
+                        <input type="submit" value="Remove" grow/>
                     </form>
                 </c:forEach>
-                <div class="container-inline large-box header-home">List of coach</div>
+            </div>
+            <div class="coach">
                 <c:forEach var="entry" items="${userList}">
                     <c:if test="${entry.userType == UserType.COACH}">
-                        <form class="container-inline content-start items-center large-box"
+                        <form class="coach_form"
                             action="CoachAddSalary" method="POST">
                             <span name="coachName" class="item">${entry.fio}</span>
                             <input name="salary" type="number" min="0"/>
@@ -81,15 +73,16 @@
                         </form>
                     </c:if>
                 </c:forEach>
-                <div class="container-inline large-box header-home">Average salaries</div>
+            </div>
+            <div class="salary">
                 <c:forEach var="entry" items="${coachList}">
-                    <div class="container-inline content-start items-center large-box">
+                    <div class="salary_inner">
                         <span class="item">${entry.user.fio}</span>
                         <span>${entry.salaries}</span>
                     </div>
                 </c:forEach>
-            </c:if>
-        </div>
+            </div>
+        </c:if>
     </c:if>
 </body>
 </html>
