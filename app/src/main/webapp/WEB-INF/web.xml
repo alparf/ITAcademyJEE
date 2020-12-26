@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>by.academy.controller.LoginController</servlet-class>
+        <servlet-class>by.academy.controller.user.LoginController</servlet-class>
         <init-param>
             <param-name>adminName</param-name>
             <param-value>admin</param-value>

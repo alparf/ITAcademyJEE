@@ -1,7 +1,8 @@
-package by.academy.controller;
+package by.academy.controller.user;
 
 import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
+import by.academy.controller.AbstractController;
 import by.academy.model.factory.CoachFactory;
 import by.academy.service.ICoachService;
 import by.academy.service.IUserService;

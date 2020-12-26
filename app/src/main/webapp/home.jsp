@@ -64,7 +64,7 @@
                         <form class="coach_form"
                             action="CoachAddSalary" method="POST">
                             <span name="coachName" class="item">${entry.fio}</span>
-                            <input name="salary" type="number" min="0"/>
+                            <input name="salary" type="text" placeholder="235.15"/>
                             <span>BYN</span>
                             <div class="container-inline content-end grow">
                                 <input type="text" name="coachName" value="${entry.userName}" hidden/>

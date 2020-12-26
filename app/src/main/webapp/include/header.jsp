@@ -6,6 +6,7 @@
         <div class="header_logo">IT-Academy</div>
         <nav class="nav">
             <a class="nav_link" href="<%= ServletConstant.INDEX %>">Welcome</a>
+            <a class="nav_link" href="AverageSalariesController">Average</a>
             <c:if test="${not empty user}">
                 <a class="nav_link" href="<%= ServletConstant.HOME %>">${user.userName}</a>
                 <a class="nav_link" href="LogoutController">Sign out</a>

@@ -1,8 +1,9 @@
-package by.academy.controller;
+package by.academy.controller.user;
 
 import by.academy.constant.ExceptionConstant;
 import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
+import by.academy.controller.AbstractController;
 import by.academy.exception.UserServiceException;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;

@@ -154,6 +154,20 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
 }
 
+/* Average panel
+==============================*/
+
+.average {
+    width: 400px;
+    margin: 0 auto;
+    padding: 25px;
+}
+
+.average_panel {
+    display: flex;
+    align-items: stretch;
+}
+
 input {
     padding: 10px;
     margin: 0px 10px 10px 10px;

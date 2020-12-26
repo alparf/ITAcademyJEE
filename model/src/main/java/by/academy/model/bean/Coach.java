@@ -37,7 +37,13 @@ public class Coach {
     }
 
     public int getAverageSalary(int monthCount) {
-        int sum = this.getSalaries().stream().mapToInt(salary -> salary).sum();
+        if(monthCount < 1) {
+            return 0;
+        }
+        int sum = this.getSalaries().stream()
+                .limit(monthCount)
+                .mapToInt(salary -> salary)
+                .sum();
         return sum / monthCount;
     }
 
