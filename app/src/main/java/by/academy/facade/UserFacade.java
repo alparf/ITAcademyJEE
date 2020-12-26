@@ -17,11 +17,6 @@ public class UserFacade {
         return coachService.addSalary(CoachFactory.createCoach(userService.getUser(coachName)), salary);
     }
 
-    public static Coach getCoach(User user) {
-        ICoachService service = new CoachService();
-        return service.getCoach(user);
-    }
-
     public static List<Coach> getCoachList() {
         ICoachService service = new CoachService();
         return service.getCoachList();
@@ -30,11 +25,6 @@ public class UserFacade {
     public static User userLogin(String userName, String password) {
         IUserService service = new UserService();
         return service.userLogin(userName, password);
-    }
-
-    public static User getUser(String userName) {
-        IUserService service = new UserService();
-        return service.getUser(userName);
     }
 
     public static List<User> getUsers() {

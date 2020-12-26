@@ -47,7 +47,7 @@ public class LoginController extends AbstractController {
     }
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         final String ADMIN_NAME = "adminName";
         final String ADMIN_PASSWORD = "adminPassword";
         String adminName = getServletConfig().getInitParameter(ADMIN_NAME);

@@ -1,8 +1,7 @@
-package by.academy.controller.web;
+package by.academy.controller;
 
 import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
-import by.academy.controller.AbstractController;
 import by.academy.facade.UserFacade;
 
 import javax.servlet.ServletException;
