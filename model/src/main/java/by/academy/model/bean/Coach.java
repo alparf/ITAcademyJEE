@@ -36,9 +36,9 @@ public class Coach {
         this.salaries = salaries;
     }
 
-    public int getAverageSalary(int monthCount) {
+    public int getAverageSalary(int monthCount) throws IllegalArgumentException {
         if(monthCount < 1) {
-            return 0;
+            throw new IllegalArgumentException(ExceptionConstant.INVALID_MONTH_COUNT);
         }
         int sum = this.getSalaries().stream()
                 .limit(monthCount)
