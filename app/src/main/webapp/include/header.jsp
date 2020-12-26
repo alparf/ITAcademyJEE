@@ -5,9 +5,9 @@
     <div class="header_inner">
         <div class="header_logo">IT-Academy</div>
         <nav class="nav">
-            <a class="nav_link" href="#">Home</a>
+            <a class="nav_link" href="<%= ServletConstant.INDEX %>">Welcome</a>
             <c:if test="${not empty user}">
-                <a class="nav_link" href="#">${user.userName}</a>
+                <a class="nav_link" href="<%= ServletConstant.HOME %>">${user.userName}</a>
                 <a class="nav_link" href="LogoutController">Sign out</a>
             </c:if>
             <c:if test="${empty user}">

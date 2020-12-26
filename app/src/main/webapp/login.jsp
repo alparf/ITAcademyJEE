@@ -11,9 +11,9 @@
     <div class=sign-in>
         <form class="sign-in_form" action="LoginController" method="POST">
             <label>User</label>
-            <input type="text" name="userName" value="admin"/>
+            <input type="text" name="userName" value="user"/>
             <label>Password</label>
-            <input type="password" name="password" value="admin"/>
+            <input type="password" name="password" value="user"/>
             <input type="submit" value="Sign in" id="signIn"/>
             <p class="exception">${exceptionMessage}</p>
         </form>

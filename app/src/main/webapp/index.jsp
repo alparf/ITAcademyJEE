@@ -4,10 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8" />
+    <c:import url="/include/head.html" />
     <title>Index</title>
 </head>
 <body>
-     <% response.sendRedirect(ServletConstant.HOME); %>
+    <c:import url="/include/header.jsp" />
+     <div class="welcome">
+        <span class="welcome_message">welcome!</span>
+     </div>
 </body>
 </html>

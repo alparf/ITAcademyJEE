@@ -27,12 +27,12 @@
                     <input type="text" name="userName" value="Sasha1990"/>
                     <label>Password</label>
                     <input type="password" name="password" value="12345678"/>
-                    <div class="container-inline">
-                        <div class="container-pillar">
+                    <div class="add-user_form_container">
+                        <div class="add-user_form_container_inner">
                             <label>Age</label>
                             <input type="number" min="0" max="100" name="age" value="30"/>
                         </div>
-                        <div class="container-pillar">
+                        <div class="add-user_form_container_inner">
                             <label>User type</label>
                             <select name="userType">
                                 <c:forEach var="entry" items="${userTypes}">
@@ -45,7 +45,7 @@
                     <p class="exception">${exceptionMessage}</p>
                 </form>
             </div>
-            <div class="user-list">
+            <div class="user-list"><h3>User List</h3>
                 <c:forEach var="entry" items="${userList}">
                     <form class="user-list_form"
                         action="UserRemoveController" method="POST">
@@ -58,7 +58,7 @@
                     </form>
                 </c:forEach>
             </div>
-            <div class="coach">
+            <div class="coach"><h3>Coach List</h3>
                 <c:forEach var="entry" items="${userList}">
                     <c:if test="${entry.userType == UserType.COACH}">
                         <form class="coach_form"
@@ -74,7 +74,7 @@
                     </c:if>
                 </c:forEach>
             </div>
-            <div class="salary">
+            <div class="salary"><h3>Salaries</h3>
                 <c:forEach var="entry" items="${coachList}">
                     <div class="salary_inner">
                         <span class="item">${entry.user.fio}</span>

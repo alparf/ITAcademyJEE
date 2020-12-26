@@ -10,11 +10,30 @@ body {
     font-size: 12pt;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    color: #2daae1;
+}
+
 /* Header
 =====================*/
 
 .header {
     
+}
+
+/* Welcome
+=====================*/
+
+.welcome {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.welcome_message {
+    width: 800px;
+    font-size: 64px;
+    text-transform: uppercase;
 }
 
 .header_inner {
@@ -89,10 +108,9 @@ body {
 }
 
 .user-list {
-    width: 600px;
+    width: 800px;
     margin: 0 auto;
     padding-top: 25px;
-    border-top: 1px solid #2daae1;
 }
 
 .user-list_form {
@@ -102,10 +120,9 @@ body {
 }
 
 .coach {
-    width: 600px;
+    width: 800px;
     padding-top: 25px;
     margin: 0 auto;
-    border-top: 1px solid #2daae1;
 }
 
 .coach_form {
@@ -118,7 +135,6 @@ body {
     width: 800px;
     padding-top: 25px;
     margin: 0 auto;
-    border-top: 1px solid #2daae1;
 }
 
 .salary_inner {
@@ -127,18 +143,28 @@ body {
     align-items: center;
 }
 
+.add-user_form_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-user_form_container_inner {
+    display: flex;
+    flex-direction: column;
+}
+
 input {
     padding: 10px;
     margin: 0px 10px 10px 10px;
-    border-radius: 3px;
-    border: 1px solid;
+    border-radius: 2px;
+    border: 1px solid gray;
 }
 
 input[type="submit"] {
     color: #ffffff;
     background-color: #2daae1;
-    border-radius: 3px;
-    border: 1px solid;
+    border-radius: 2px;
+    border: 1px solid gray;
     text-transform: uppercase;
 }
 
@@ -156,7 +182,8 @@ label {
 select {
     padding: 10px;
     margin: 0px 10px 10px 10px;
-    border-radius: 3px;
+    border: 1px solid gray;
+    border-radius: 2px;
 }
 
 .exception {

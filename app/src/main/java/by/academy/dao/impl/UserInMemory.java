@@ -4,6 +4,8 @@ import by.academy.constant.ExceptionConstant;
 import by.academy.dao.IUserDAO;
 import by.academy.exception.UserServiceException;
 import by.academy.model.bean.User;
+import by.academy.model.bean.UserType;
+import by.academy.model.factory.UserFactory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +14,11 @@ import java.util.Optional;
 public class UserInMemory implements IUserDAO {
 
     private static final List<User> users = new LinkedList<>();
+
+    static {
+        users.add(UserFactory.createUser(
+                "FirstName LastName", 19, "user", "user", UserType.STUDENT));
+    }
 
     /**
      *
