@@ -31,6 +31,7 @@ public class UserInMemory implements IUserDAO {
      * looking for a user with an equivalent userName and password and return it.
      * If user is not found throw UserNotFoundException.
      */
+
     @Override
     public User getUser(String userName, String password) throws UserServiceException {
         Optional<User> optionalUser;
@@ -44,6 +45,12 @@ public class UserInMemory implements IUserDAO {
         }
         return optionalUser.get();
     }
+
+    /**
+     *
+     * @param userName
+     * @return First User or throw UserServiceException
+     */
 
     @Override
     public User getUser(String userName) {
@@ -59,6 +66,12 @@ public class UserInMemory implements IUserDAO {
         return optionalUser.get();
     }
 
+    /**
+     *
+     * @param user
+     * @return add User to UserInMemory or throw UserServiceException if User.userName already used
+     */
+
     @Override
     public boolean addUser(User user) {
         if(null != user) {
@@ -73,6 +86,12 @@ public class UserInMemory implements IUserDAO {
         }
         return false;
     }
+
+    /**
+     *
+     * @param userName
+     * @return Remove the first User named userName
+     */
 
     @Override
     public boolean removeUser(String userName) {
