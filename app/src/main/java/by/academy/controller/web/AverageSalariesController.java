@@ -3,7 +3,7 @@ package by.academy.controller.web;
 import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
 import by.academy.controller.AbstractController;
-import by.academy.service.impl.CoachService;
+import by.academy.facade.UserFacade;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,14 +18,13 @@ public class AverageSalariesController extends AbstractController {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        CoachService service = new CoachService();
         String monthCountStr = req.getParameter(SessionConstant.MONTH_COUNT);
         int monthCount = 0;
         if(null != monthCountStr) {
             monthCount = Integer.parseInt(monthCountStr);
         }
         session.setAttribute(SessionConstant.MONTH_COUNT, monthCount);
-        session.setAttribute(SessionConstant.COACH_LIST, service.getCoachList());
+        session.setAttribute(SessionConstant.COACH_LIST, UserFacade.getCoachList());
         res.sendRedirect(ServletConstant.AVERAGE);
     }
 }

@@ -5,11 +5,10 @@ import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
 import by.academy.controller.AbstractController;
 import by.academy.exception.UserServiceException;
+import by.academy.facade.UserFacade;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
 import by.academy.model.factory.UserFactory;
-import by.academy.service.IUserService;
-import by.academy.service.impl.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +35,8 @@ public class UserAddController extends AbstractController {
             String password = req.getParameter(SessionConstant.PASSWORD);
             int age = Integer.parseInt(req.getParameter(SessionConstant.AGE));
             UserType userType = UserType.valueOf(req.getParameter(SessionConstant.USER_TYPE));
-            IUserService service = new UserService();
             try {
-                service.addUser(UserFactory.createUser(fio, age, userName, password, userType));
+                UserFacade.addUser(UserFactory.createUser(fio, age, userName, password, userType));
                 log.info("New User = {}", userName);
             } catch (UserServiceException e) {
                 e.printStackTrace();
