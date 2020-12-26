@@ -27,13 +27,14 @@ h1, h2, h3, h4, h5, h6 {
 .welcome {
     margin: 0 auto;
     display: flex;
-    align-items: center;
+    justify-content: center;
 }
 
 .welcome_message {
     width: 800px;
     font-size: 64px;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .header_inner {
