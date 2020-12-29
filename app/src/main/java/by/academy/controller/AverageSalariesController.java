@@ -18,7 +18,7 @@ public class AverageSalariesController extends AbstractController {
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
         String monthCountStr = req.getParameter(SessionConstant.MONTH_COUNT);
-        int monthCount = 0;
+        int monthCount = 1;
         if(null != monthCountStr) {
             monthCount = Integer.parseInt(monthCountStr);
         }

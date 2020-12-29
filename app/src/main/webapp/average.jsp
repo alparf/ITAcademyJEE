@@ -13,7 +13,13 @@
     <div class="average">
         <form class="average_panel" method="POST" action="AverageSalariesController">
             <label>Last of months</label>
-            <input type="number" class="average_panel_input" name="monthCount"/>
+            <c:if test="${not empty monthCount}">
+                <input type="number" class="average_panel_input"
+                name="monthCount" value="${monthCount}"/>
+            </c:if>
+            <c:if test="${empty monthCount}">
+                <input type="number" class="average_panel_input" name="monthCount"/>
+            </c:if>
             <input type="submit" class="average_panel_btn" value="Show"/>
         </form>
         <c:forEach var="entry" items="${coachList}">
