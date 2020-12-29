@@ -22,11 +22,11 @@
                 <form class="add-user_form"
                     id="userAddForm" action="UserAddController" method="POST">
                     <label >FIO</label>
-                    <input type="text"/ name="fio" value="Сидоров Александр Петрович">
+                    <input type="text"/ name="fio" value="">
                     <label>User name</label>
-                    <input type="text" name="userName" value="Sasha1990"/>
+                    <input type="text" name="userName" value=""/>
                     <label>Password</label>
-                    <input type="password" name="password" value="12345678"/>
+                    <input type="password" name="password" value=""/>
                     <div class="add-user_form_container">
                         <div class="add-user_form_container_inner">
                             <label>Age</label>

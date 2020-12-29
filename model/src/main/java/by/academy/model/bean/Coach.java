@@ -36,6 +36,13 @@ public class Coach {
         this.salaries = salaries;
     }
 
+    /**
+     * Return average salary for last monthCount month or throw IllegalArgumentException
+     * if monthCount < 1
+     * @param monthCount
+     * @return average salary for last monthCount month
+     * @throws IllegalArgumentException
+     */
     public int getAverageSalary(int monthCount) throws IllegalArgumentException {
         if(monthCount < 1) {
             throw new IllegalArgumentException(ExceptionConstant.INVALID_MONTH_COUNT);
