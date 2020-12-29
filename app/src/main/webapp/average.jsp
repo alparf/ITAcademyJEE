@@ -22,10 +22,10 @@
             </c:if>
             <input type="submit" class="average_panel_btn" value="Show"/>
         </form>
-        <c:forEach var="entry" items="${coachList}">
+        <c:forEach var="entry" items="${averageSalaries.entrySet()}">
             <div class="salary_inner">
-                <span class="item">${entry.user.fio}</span>
-                <span>${entry.getAverageSalary(monthCount) / 100}</span>
+                <span class="item">${entry.getKey()}</span>
+                <span>${entry.getValue() / 100} BYN</span>
             </div>
         </c:forEach>
     </div>

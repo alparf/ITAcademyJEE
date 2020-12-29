@@ -8,7 +8,9 @@ import by.academy.service.IUserService;
 import by.academy.service.impl.CoachService;
 import by.academy.service.impl.UserService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserFacade {
     public static boolean addSalary(String coachName, Integer salary) {
@@ -20,6 +22,17 @@ public class UserFacade {
     public static List<Coach> getCoachList() {
         ICoachService service = new CoachService();
         return service.getCoachList();
+    }
+
+    public static Map<String, Integer> getAverageSalaries(int monthCount) {
+        Map<String, Integer> averageSalaries = new HashMap<>();
+        List<Coach> coachList = getCoachList();
+        for(Coach coach: coachList) {
+            if((null != coach) && (null != coach.getUser())) {
+                averageSalaries.put(coach.getUser().getFio(), coach.getAverageSalary(monthCount));
+            }
+        }
+        return averageSalaries;
     }
 
     public static User userLogin(String userName, String password) {
