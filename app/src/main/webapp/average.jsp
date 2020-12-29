@@ -14,11 +14,10 @@
         <form class="average_panel" method="POST" action="AverageSalariesController">
             <label>Last of months</label>
             <c:if test="${not empty monthCount}">
-                <input type="number" class="average_panel_input"
-                name="monthCount" value="${monthCount}"/>
+                <input type="number" class="average_panel_input" min="1" name="monthCount" value="${monthCount}"/>
             </c:if>
             <c:if test="${empty monthCount}">
-                <input type="number" class="average_panel_input" name="monthCount"/>
+                <input type="number" class="average_panel_input" name="monthCount" min="1"/>
             </c:if>
             <input type="submit" class="average_panel_btn" value="Show"/>
         </form>
