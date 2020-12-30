@@ -7,9 +7,7 @@ import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
 import by.academy.model.factory.UserFactory;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class UserInMemory implements IUserDAO {
 
@@ -48,7 +46,7 @@ public class UserInMemory implements IUserDAO {
 
     /**
      *
-     * @param userName
+     * @param userName User name
      * @return First User or throw UserServiceException
      */
 
@@ -68,7 +66,7 @@ public class UserInMemory implements IUserDAO {
 
     /**
      *
-     * @param user
+     * @param user User name
      * @return add User to UserInMemory or throw UserServiceException if User.userName already used
      */
 
@@ -89,7 +87,7 @@ public class UserInMemory implements IUserDAO {
 
     /**
      *
-     * @param userName
+     * @param userName User name
      * @return Remove the first User named userName
      */
 
@@ -116,7 +114,8 @@ public class UserInMemory implements IUserDAO {
         if(null == user) {
             return false;
         }
-        return (user.getUserName().equals(userName) && user.getPassword().equals(password));
+        return (user.getUserName().equals(userName)
+                && (UserFactory.PASS_AUTH.authenticate(password.toCharArray(), user.getPassword())));
     }
 
     private boolean isUserNameUsed(String userName) {
