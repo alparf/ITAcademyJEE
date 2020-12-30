@@ -54,7 +54,6 @@ public class LoginController extends AbstractController {
         String adminPassword = getServletConfig().getInitParameter(ADMIN_PASSWORD);
         User admin = UserFactory.createUser(
                 "FirstName LastName", 34, adminName, adminPassword, UserType.ADMIN);
-        UserService service = new UserService();
-        service.addUser(admin);
+        UserFacade.addUser(admin);
     }
 }
