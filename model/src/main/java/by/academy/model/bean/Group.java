@@ -1,5 +1,7 @@
 package by.academy.model.bean;
 
+import by.academy.model.constant.ExceptionConstant;
+
 import java.util.List;
 
 public class Group {
@@ -13,7 +15,7 @@ public class Group {
 
     public Group(String name, User coach, List<String> themes, List<User> students) {
         this.name = name;
-        this.coach = coach;
+        this.setCoach(coach);
         this.themes = themes;
         this.students = students;
     }
@@ -31,7 +33,11 @@ public class Group {
     }
 
     public void setCoach(User coach) {
-        this.coach = coach;
+        if((null != coach) && (coach.getUserType() == UserType.COACH)) {
+            this.coach = coach;
+        } else {
+            throw new IllegalArgumentException(ExceptionConstant.USER_HAVE_TO_BE_COACH);
+        }
     }
 
     public List<String> getThemes() {
