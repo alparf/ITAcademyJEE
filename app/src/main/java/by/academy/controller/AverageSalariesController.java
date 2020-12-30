@@ -2,7 +2,10 @@ package by.academy.controller;
 
 import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
+import by.academy.dao.impl.UserInMemory;
 import by.academy.facade.UserFacade;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +17,8 @@ import java.io.IOException;
 @WebServlet("/AverageSalariesController")
 public class AverageSalariesController extends AbstractController {
 
+    private static final Logger log = LoggerFactory.getLogger(UserInMemory.class);
+
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -23,7 +28,11 @@ public class AverageSalariesController extends AbstractController {
             monthCount = Integer.parseInt(monthCountStr);
         }
         session.setAttribute(SessionConstant.MONTH_COUNT, monthCount);
-        session.setAttribute(SessionConstant.COACH_LIST, UserFacade.getCoachList());
+        try {
+            session.setAttribute(SessionConstant.AVERAGE_SALARIES, UserFacade.getAverageSalaries(monthCount));
+        } catch (IllegalArgumentException e) {
+            log.error(e.getMessage(), e);
+        }
         res.sendRedirect(ServletConstant.AVERAGE);
     }
 }

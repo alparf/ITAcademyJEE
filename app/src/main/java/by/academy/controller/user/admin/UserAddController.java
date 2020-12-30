@@ -1,4 +1,4 @@
-package by.academy.controller.user;
+package by.academy.controller.user.admin;
 
 import by.academy.constant.ExceptionConstant;
 import by.academy.constant.ServletConstant;

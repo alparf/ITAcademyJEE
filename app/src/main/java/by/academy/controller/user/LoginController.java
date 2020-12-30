@@ -33,12 +33,11 @@ public class LoginController extends AbstractController {
         String password = req.getParameter(SessionConstant.PASSWORD);
         HttpSession session = req.getSession();
         session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
-        User user;
+        User user = null;
         try {
             user = UserFacade.userLogin(userName, password);
         } catch (UserServiceException e) {
             log.error(e.getMessage(), e);
-            user = null;
             session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NOT_FOUND);
         }
         session.setAttribute(SessionConstant.USER, user);

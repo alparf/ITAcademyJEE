@@ -14,18 +14,17 @@
         <form class="average_panel" method="POST" action="AverageSalariesController">
             <label>Last of months</label>
             <c:if test="${not empty monthCount}">
-                <input type="number" class="average_panel_input"
-                name="monthCount" value="${monthCount}"/>
+                <input type="number" class="average_panel_input" min="1" name="monthCount" value="${monthCount}"/>
             </c:if>
             <c:if test="${empty monthCount}">
-                <input type="number" class="average_panel_input" name="monthCount"/>
+                <input type="number" class="average_panel_input" name="monthCount" min="1"/>
             </c:if>
             <input type="submit" class="average_panel_btn" value="Show"/>
         </form>
-        <c:forEach var="entry" items="${coachList}">
+        <c:forEach var="entry" items="${averageSalaries.entrySet()}">
             <div class="salary_inner">
-                <span class="item">${entry.user.fio}</span>
-                <span>${entry.getAverageSalary(monthCount) / 100}</span>
+                <span class="item">${entry.getKey()}</span>
+                <span>${entry.getValue() / 100} BYN</span>
             </div>
         </c:forEach>
     </div>
