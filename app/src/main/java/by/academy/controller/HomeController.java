@@ -7,13 +7,14 @@ import by.academy.model.bean.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/HomeController")
-public class HomeController extends AbstractController {
+public class HomeController extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -24,8 +25,8 @@ public class HomeController extends AbstractController {
         } else {
             switch (user.getUserType()) {
                 case ADMIN: {
-                    session.setAttribute(SessionConstant.USER_LIST, UserFacade.getUsers());
-                    session.setAttribute(SessionConstant.COACH_LIST, UserFacade.getCoachList());
+                    session.setAttribute(SessionConstant.USER_LIST, UserFacade.getAllUsers());
+                    session.setAttribute(SessionConstant.COACH_LIST, UserFacade.getAllCoaches());
                     break;
                 }
                 case STUDENT: {
