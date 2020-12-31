@@ -19,10 +19,10 @@
     <div class="home">
         <div class="home_nav">
             <nav class="home_nav_inner">
-                <a class="home_nav_inner_link non-hide" href="#">Add new user</a>
-                <a class="home_nav_inner_link" href="#">User list</a>
-                <a class="home_nav_inner_link" href="#">Coach list</a>
-                <a class="home_nav_inner_link" href="#">Salaries</a>
+                <a id="addUser-btn" class="home_nav_inner_link" href="#">Add new user</a>
+                <a id="userList-btn" class="home_nav_inner_link" href="#">User list</a>
+                <a id="coachList-btn" class="home_nav_inner_link" href="#">Coach list</a>
+                <a id="salary-btn" class="home_nav_inner_link" href="#">Salaries</a>
             </nav>
         </div>
         <div class="home_desktop">
