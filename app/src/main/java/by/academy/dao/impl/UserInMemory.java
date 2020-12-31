@@ -15,9 +15,9 @@ public class UserInMemory implements IUserDAO {
 
     static {
         users.add(UserFactory.createUser(
-                "studentName", 19, "student", "student", UserType.STUDENT));
+                "Иванов Иван Иванович", 19, "student", "student", UserType.STUDENT));
         users.add(UserFactory.createUser(
-                "coachName", 44, "coach", "coach", UserType.COACH));
+                "Петров Петр Петрович", 44, "coach", "coach", UserType.COACH));
     }
 
     /**
