@@ -11,14 +11,17 @@
 <body>
     <c:import url="/include/header.jsp" />
     <div class="average">
+        <div class="average_title"><h2>Average salaries</h2></div>
         <form class="average_panel" method="POST" action="AverageSalariesController">
-            <label>Last of months</label>
-            <c:if test="${not empty monthCount}">
-                <input type="number" class="average_panel_input" min="1" name="monthCount" value="${monthCount}"/>
-            </c:if>
-            <c:if test="${empty monthCount}">
-                <input type="number" class="average_panel_input" name="monthCount" min="1"/>
-            </c:if>
+            <div class="average_pannel_innner">
+                <label>Last of months</label>
+                <c:if test="${not empty monthCount}">
+                    <input type="number" class="average_panel_input" min="1" name="monthCount" value="${monthCount}"/>
+                </c:if>
+                <c:if test="${empty monthCount}">
+                    <input type="number" class="average_panel_input" name="monthCount" min="1"/>
+                </c:if>
+            </div>
             <input type="submit" class="average_panel_btn" value="Show"/>
         </form>
         <c:forEach var="entry" items="${averageSalaries.entrySet()}">
