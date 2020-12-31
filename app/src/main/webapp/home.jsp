@@ -28,8 +28,8 @@
         <div class="home_desktop">
         <c:if test="${not empty user}">
             <c:if test="${user.userType == UserType.ADMIN}">
-                <div class="add-user">
-                    <div id="addUser" class="add-user_form_title"><h2>Add new user</h2></div>
+                <div id="addUser" class="add-user">
+                    <div class="add-user_form_title"><h2>Add new user</h2></div>
                     <form class="add-user_form"
                         id="userAddForm" action="UserAddController" method="POST">
                         <label >FIO</label>
