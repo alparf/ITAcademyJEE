@@ -2,6 +2,8 @@ package by.academy.model.bean;
 
 import by.academy.model.constant.ExceptionConstant;
 
+import java.util.Objects;
+
 public class User {
     private String fio;
     private int age;
@@ -82,10 +84,19 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if((null == obj) && (null == this.userName)) {
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        return this.userName.equals(((User) obj).getUserName());
+        User user = (User) o;
+        return Objects.equals(userName, user.userName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userName);
     }
 }

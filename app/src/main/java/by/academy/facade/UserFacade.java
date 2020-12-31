@@ -21,7 +21,7 @@ public class UserFacade {
 
     public static List<Coach> getCoachList() {
         ICoachService service = new CoachService();
-        return service.getCoachList();
+        return service.getAll();
     }
 
     public static Map<String, Integer> getAverageSalaries(int monthCount) {
@@ -42,7 +42,7 @@ public class UserFacade {
 
     public static List<User> getUsers() {
         IUserService service = new UserService();
-        return service.getUsers();
+        return service.getAll();
     }
 
     public static boolean addUser(User user) {

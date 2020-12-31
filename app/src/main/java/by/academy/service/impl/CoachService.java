@@ -16,7 +16,7 @@ public class CoachService implements ICoachService {
     }
 
     @Override
-    public List<Coach> getCoachList() {
+    public List<Coach> getAll() {
         ICoachDAO coachDAO = new CoachInMemory();
         return coachDAO.getCoachList();
     }

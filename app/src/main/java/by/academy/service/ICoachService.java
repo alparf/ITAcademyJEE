@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ICoachService {
     Coach getCoach(User user);
-    List<Coach> getCoachList();
+    List<Coach> getAll();
     boolean addSalary(Coach coach, Integer salary);
 }
