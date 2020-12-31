@@ -79,6 +79,7 @@ public class User {
                 "fio='" + fio + '\'' +
                 ", age=" + age +
                 ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
                 ", userType=" + userType +
                 '}';
     }
@@ -88,7 +89,7 @@ public class User {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (null == o || this.getClass() != o.getClass()) {
             return false;
         }
         User user = (User) o;
