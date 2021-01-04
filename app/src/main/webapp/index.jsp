@@ -10,6 +10,17 @@
     <title>Index</title>
 </head>
 <body>
+    <%
+        Cookie[] cookies = null;
+        cookies = request.getCookies();
+        if(null != cookies) {
+            for (Cookie cookie: cookies) {
+               if("isVisited".equals(cookie.getName())) {
+                  
+               }
+            }
+        }
+    %>
     <c:import url="/include/header.jsp" />
     <div class="welcome">
        <span class="welcome_message">welcome!</span>
