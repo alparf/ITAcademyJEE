@@ -14,7 +14,7 @@ public class CoachInMemory implements ICoachDAO {
     public boolean addSalary(Coach coach, Integer salary) {
         if(null != coach) {
             synchronized (CoachInMemory.class) {
-                if((null != coach) && (null != coach.getUser())) {
+                if(null != coach.getUser()) {
                     String coachName = coach.getUser().getUserName();
                     if (coaches.containsKey(coachName)) {
                         coaches.get(coachName).addSalary(salary);
@@ -32,9 +32,7 @@ public class CoachInMemory implements ICoachDAO {
     public Coach getCoach(User user) {
         if(null != user) {
             synchronized (CoachInMemory.class) {
-                if(null != user) {
-                    return coaches.get(user.getUserName());
-                }
+                return coaches.get(user.getUserName());
             }
         }
         return null;

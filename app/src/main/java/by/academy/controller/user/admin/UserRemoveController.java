@@ -3,8 +3,6 @@ package by.academy.controller.user.admin;
 import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
 import by.academy.facade.UserFacade;
-import by.academy.model.bean.User;
-import by.academy.model.bean.UserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,8 +25,9 @@ public class UserRemoveController extends HttpServlet {
         HttpSession session = req.getSession();
         session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
         String userName = req.getParameter(SessionConstant.USER_NAME_TO_REMOVE);
-        UserFacade.removeUser(userName);
-        log.info("Remove user = {}", userName);
+        if(UserFacade.removeUser(userName)) {
+            log.info("Remove user = {}", userName);
+        }
         RequestDispatcher dispatcher = req.getRequestDispatcher(ServletConstant.HOME_CONTROLLER);
         dispatcher.forward(req, res);
     }

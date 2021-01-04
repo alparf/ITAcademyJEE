@@ -24,8 +24,9 @@ public class CoachAddSalary extends HttpServlet {
         String coachName = req.getParameter(SessionConstant.COACH_NAME);
         try {
             double salary = Double.parseDouble(req.getParameter(SessionConstant.SALARY));
-            UserFacade.addSalary(coachName, salaryFormat(salary));
-            log.info(coachName + " add salary = {}", salary);
+            if(UserFacade.addSalary(coachName, salaryFormat(salary))) {
+                log.info(coachName + " add salary = {}", salary);
+            }
         } catch (NumberFormatException e) {
             log.error(e.getMessage(), e);
         }

@@ -2,7 +2,6 @@ package by.academy.controller;
 
 import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
-import by.academy.facade.UserFacade;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
 import by.academy.strategy.IUserStrategy;

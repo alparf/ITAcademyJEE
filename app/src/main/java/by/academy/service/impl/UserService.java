@@ -8,7 +8,6 @@ import by.academy.service.IUserService;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class UserService implements IUserService {
     public User userLogin(String userName, String password) {
