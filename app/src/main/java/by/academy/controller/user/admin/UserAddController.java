@@ -11,6 +11,7 @@ import by.academy.model.factory.UserFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,21 +29,19 @@ public class UserAddController extends HttpServlet {
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
         session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
-        User user = (User) session.getAttribute(SessionConstant.USER);
-        if(null != user && user.getUserType() == UserType.ADMIN) {
-            String fio = req.getParameter(SessionConstant.FIO);
-            String userName = req.getParameter(SessionConstant.USER_NAME);
-            String password = req.getParameter(SessionConstant.PASSWORD);
-            int age = Integer.parseInt(req.getParameter(SessionConstant.AGE));
-            UserType userType = UserType.valueOf(req.getParameter(SessionConstant.USER_TYPE));
-            try {
-                UserFacade.addUser(UserFactory.createUser(fio, age, userName, password, userType));
-                log.info("New User = {}", userName);
-            } catch (UserServiceException e) {
-                log.error(e.getMessage(), e);
-                session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NAME_ALREADY_USED);
-            }
+        String fio = req.getParameter(SessionConstant.FIO);
+        String userName = req.getParameter(SessionConstant.USER_NAME);
+        String password = req.getParameter(SessionConstant.PASSWORD);
+        int age = Integer.parseInt(req.getParameter(SessionConstant.AGE));
+        UserType userType = UserType.valueOf(req.getParameter(SessionConstant.USER_TYPE));
+        try {
+            UserFacade.addUser(UserFactory.createUser(fio, age, userName, password, userType));
+            log.info("New User = {}", userName);
+        } catch (UserServiceException e) {
+            log.error(e.getMessage(), e);
+            session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NAME_ALREADY_USED);
         }
-        res.sendRedirect(ServletConstant.HOME);
+        RequestDispatcher dispatcher = req.getRequestDispatcher(ServletConstant.HOME_CONTROLLER);
+        dispatcher.forward(req, res);
     }
 }

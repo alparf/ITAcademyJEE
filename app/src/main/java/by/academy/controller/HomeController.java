@@ -24,20 +24,16 @@ public class HomeController extends HttpServlet {
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(SessionConstant.USER);
-        if(user == null) {
-            res.sendRedirect(ServletConstant.LOGIN);
-        } else {
-            IUserStrategy strategy = null;
-            if(user.getUserType() == UserType.ADMIN) {
-                strategy = AdminStrategy.create(session);
-            }
-            if(user.getUserType() == UserType.STUDENT) {
-                strategy = UserStrategy.create(session);
-            }
-            if(null != strategy) {
-                strategy.sessionInit();
-            }
-            res.sendRedirect(ServletConstant.HOME);
+        IUserStrategy strategy = null;
+        if(user.getUserType() == UserType.ADMIN) {
+            strategy = AdminStrategy.create(session);
         }
+        if(user.getUserType() == UserType.STUDENT) {
+            strategy = UserStrategy.create(session);
+        }
+        if(null != strategy) {
+            strategy.sessionInit();
+        }
+        res.sendRedirect(ServletConstant.HOME);
     }
 }
