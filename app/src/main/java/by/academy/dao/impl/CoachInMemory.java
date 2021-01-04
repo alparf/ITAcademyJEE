@@ -47,6 +47,6 @@ public class CoachInMemory implements ICoachDAO {
 
     @Override
     public List<Coach> getCoachList() {
-        return coaches;
+        return new LinkedList<>(coaches);
     }
 }

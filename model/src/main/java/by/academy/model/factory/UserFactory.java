@@ -15,4 +15,8 @@ public class UserFactory {
         }
         return new User(fio, age, userName, hashedPassword, userType);
     }
+
+    public static User createUser() {
+        return new User(null, 0, null, null, null);
+    }
 }

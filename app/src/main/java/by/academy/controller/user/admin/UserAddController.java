@@ -39,7 +39,6 @@ public class UserAddController extends HttpServlet {
                 UserFacade.addUser(UserFactory.createUser(fio, age, userName, password, userType));
                 log.info("New User = {}", userName);
             } catch (UserServiceException e) {
-                e.printStackTrace();
                 log.error(e.getMessage(), e);
                 session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NAME_ALREADY_USED);
             }

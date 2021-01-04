@@ -13,12 +13,9 @@ public class UserInMemoryTest extends TestCase {
     @Test
     public void testGetUser() {
         UserInMemory userInMemory = new UserInMemory();
-        try {
-            userInMemory.getUser("", "");
-            fail("Expected UserServiceException");
-        } catch (UserServiceException e) {
-            assertEquals(e.getMessage(), ExceptionConstant.USER_NOT_FOUND);
-        }
+        User user = userInMemory.getUser(null, null);
+        assertTrue(null != user);
+        assertTrue(user.getUserName() == null);
     }
 
     @Test

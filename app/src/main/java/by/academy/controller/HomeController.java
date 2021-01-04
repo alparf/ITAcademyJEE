@@ -4,6 +4,10 @@ import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
 import by.academy.facade.UserFacade;
 import by.academy.model.bean.User;
+import by.academy.model.bean.UserType;
+import by.academy.strategy.IUserStrategy;
+import by.academy.strategy.impl.AdminStrategy;
+import by.academy.strategy.impl.UserStrategy;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,15 +27,15 @@ public class HomeController extends HttpServlet {
         if(user == null) {
             res.sendRedirect(ServletConstant.LOGIN);
         } else {
-            switch (user.getUserType()) {
-                case ADMIN: {
-                    session.setAttribute(SessionConstant.USER_LIST, UserFacade.getAllUsers());
-                    session.setAttribute(SessionConstant.COACH_LIST, UserFacade.getAllCoaches());
-                    break;
-                }
-                case STUDENT: {
-                    break;
-                }
+            IUserStrategy strategy = null;
+            if(user.getUserType() == UserType.ADMIN) {
+                strategy = AdminStrategy.create(session);
+            }
+            if(user.getUserType() == UserType.STUDENT) {
+                strategy = UserStrategy.create(session);
+            }
+            if(null != strategy) {
+                strategy.sessionInit();
             }
             res.sendRedirect(ServletConstant.HOME);
         }

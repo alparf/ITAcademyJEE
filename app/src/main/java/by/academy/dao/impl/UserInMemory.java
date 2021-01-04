@@ -31,17 +31,14 @@ public class UserInMemory implements IUserDAO {
      */
 
     @Override
-    public User getUser(String userName, String password) throws UserServiceException {
+    public User getUser(String userName, String password) {
         Optional<User> optionalUser;
         synchronized (UserInMemory.class) {
             optionalUser = users.stream()
                     .filter(user -> userFilter(user, userName, password))
                     .findFirst();
         }
-        if(optionalUser.isEmpty()) {
-            throw new UserServiceException(ExceptionConstant.USER_NOT_FOUND);
-        }
-        return optionalUser.get();
+        return optionalUser.isPresent() ? optionalUser.get() : UserFactory.createUser();
     }
 
     /**
@@ -58,10 +55,7 @@ public class UserInMemory implements IUserDAO {
                     .filter(user -> userName.equals(user.getUserName()))
                     .findFirst();
         }
-        if(optionalUser.isEmpty()) {
-            throw new UserServiceException(ExceptionConstant.USER_NOT_FOUND);
-        }
-        return optionalUser.get();
+        return optionalUser.isPresent() ? optionalUser.get() : UserFactory.createUser();
     }
 
     /**
@@ -107,7 +101,7 @@ public class UserInMemory implements IUserDAO {
 
     @Override
     public List<User> getUsers() {
-        return users;
+        return new LinkedList<>(users);
     }
 
     private boolean userFilter(User user, String userName, String password) {

@@ -32,14 +32,14 @@ public class LoginController extends HttpServlet {
         String password = req.getParameter(SessionConstant.PASSWORD);
         HttpSession session = req.getSession();
         session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
-        User user = null;
-        try {
-            user = UserFacade.userLogin(userName, password);
-        } catch (UserServiceException e) {
-            log.error(e.getMessage(), e);
+        User user = UserFacade.userLogin(userName, password);
+        if((null != user) && (null == user.getUserName())) {
+            log.info("User = {} not found!", userName);
             session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NOT_FOUND);
+            session.setAttribute(SessionConstant.USER, null);
+        } else {
+            session.setAttribute(SessionConstant.USER, user);
         }
-        session.setAttribute(SessionConstant.USER, user);
         RequestDispatcher dispatcher = req.getRequestDispatcher(File.separator + ServletConstant.HOME_CONTROLLER);
         dispatcher.forward(req, res);
     }
