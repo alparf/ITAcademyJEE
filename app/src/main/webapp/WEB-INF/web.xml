@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>by.academy.controller.LoginController</servlet-class>
+        <servlet-class>by.academy.controller.user.LoginController</servlet-class>
         <init-param>
             <param-name>adminName</param-name>
             <param-value>admin</param-value>
@@ -22,16 +22,6 @@
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
     </servlet-mapping>
-
-    <filter>
-        <filter-name>EncodingFilter</filter-name>
-        <filter-class>by.academy.filter.EncodingFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>EncodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

@@ -7,14 +7,14 @@
     <title>Login</title>
 </head>
 <body>
-    <c:import url="/include/header.html" />
-    <div class="container-inline items-center content-center">
-        <form class="container-pillar"
-            id="loginForm" action="LoginController" method="POST">
+    <c:import url="/include/header.jsp" />
+    <div class=sign-in>
+        <div class="sign-in_title"><h2>Sign in and go!</h2></div>
+        <form class="sign-in_form" action="LoginController" method="POST">
             <label>User</label>
-            <input type="text" name="userName" value="admin"/>
+            <input type="text" name="userName" placeholder="User name"/>
             <label>Password</label>
-            <input type="password" name="password" value="admin"/>
+            <input type="password" name="password" placeholder="Password"/>
             <input type="submit" value="Sign in" id="signIn"/>
             <p class="exception">${exceptionMessage}</p>
         </form>

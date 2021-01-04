@@ -2,6 +2,8 @@ package by.academy.model.bean;
 
 import by.academy.model.constant.ExceptionConstant;
 
+import java.util.Objects;
+
 public class User {
     private String fio;
     private int age;
@@ -34,10 +36,9 @@ public class User {
     }
 
     /**
-     *
+     * Set age if age >= 0 or throw IllegalArgumentException if age < 0
      * @param age - age of user
      * @throws IllegalArgumentException
-     * Set age if age >= 0 or throw IllegalArgumentException if age < 0
      */
 
     public void setAge(int age) throws IllegalArgumentException {
@@ -78,15 +79,25 @@ public class User {
                 "fio='" + fio + '\'' +
                 ", age=" + age +
                 ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
                 ", userType=" + userType +
                 '}';
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if((null == obj) && (null == this.userName)) {
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (null == o || this.getClass() != o.getClass()) {
             return false;
         }
-        return this.userName.equals(((User) obj).getUserName());
+        User user = (User) o;
+        return Objects.equals(this.userName, user.userName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.userName);
     }
 }

@@ -2,19 +2,19 @@ package by.academy.controller;
 
 import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
+import by.academy.facade.UserFacade;
 import by.academy.model.bean.User;
-import by.academy.service.IUserService;
-import by.academy.service.impl.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/HomeController")
-public class HomeController extends AbstractController {
+public class HomeController extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -25,8 +25,8 @@ public class HomeController extends AbstractController {
         } else {
             switch (user.getUserType()) {
                 case ADMIN: {
-                    IUserService service = new UserService();
-                    session.setAttribute(SessionConstant.USER_LIST, service.getUsers());
+                    session.setAttribute(SessionConstant.USER_LIST, UserFacade.getAllUsers());
+                    session.setAttribute(SessionConstant.COACH_LIST, UserFacade.getAllCoaches());
                     break;
                 }
                 case STUDENT: {

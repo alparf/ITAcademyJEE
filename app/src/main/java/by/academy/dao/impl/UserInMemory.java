@@ -4,14 +4,21 @@ import by.academy.constant.ExceptionConstant;
 import by.academy.dao.IUserDAO;
 import by.academy.exception.UserServiceException;
 import by.academy.model.bean.User;
+import by.academy.model.bean.UserType;
+import by.academy.model.factory.UserFactory;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class UserInMemory implements IUserDAO {
 
     private static final List<User> users = new LinkedList<>();
+
+    static {
+        users.add(UserFactory.createUser(
+                "Иванов Иван Иванович", 19, "student", "student", UserType.STUDENT));
+        users.add(UserFactory.createUser(
+                "Петров Петр Петрович", 44, "coach", "coach", UserType.COACH));
+    }
 
     /**
      *
@@ -22,16 +29,46 @@ public class UserInMemory implements IUserDAO {
      * looking for a user with an equivalent userName and password and return it.
      * If user is not found throw UserNotFoundException.
      */
+
     @Override
     public User getUser(String userName, String password) throws UserServiceException {
-        Optional<User> optionalUser = users.stream()
-                .filter(user -> userFilter(user, userName, password))
-                .findFirst();
+        Optional<User> optionalUser;
+        synchronized (UserInMemory.class) {
+            optionalUser = users.stream()
+                    .filter(user -> userFilter(user, userName, password))
+                    .findFirst();
+        }
         if(optionalUser.isEmpty()) {
             throw new UserServiceException(ExceptionConstant.USER_NOT_FOUND);
         }
         return optionalUser.get();
     }
+
+    /**
+     *
+     * @param userName User name
+     * @return First User or throw UserServiceException
+     */
+
+    @Override
+    public User getUser(String userName) {
+        Optional<User> optionalUser;
+        synchronized (UserInMemory.class) {
+            optionalUser = users.stream()
+                    .filter(user -> userName.equals(user.getUserName()))
+                    .findFirst();
+        }
+        if(optionalUser.isEmpty()) {
+            throw new UserServiceException(ExceptionConstant.USER_NOT_FOUND);
+        }
+        return optionalUser.get();
+    }
+
+    /**
+     *
+     * @param user User name
+     * @return add User to UserInMemory or throw UserServiceException if User.userName already used
+     */
 
     @Override
     public boolean addUser(User user) {
@@ -48,16 +85,20 @@ public class UserInMemory implements IUserDAO {
         return false;
     }
 
+    /**
+     *
+     * @param userName User name
+     * @return Remove the first User named userName
+     */
+
     @Override
     public boolean removeUser(String userName) {
         if(null != userName) {
             synchronized (UserInMemory.class) {
-                Optional<User> foundUser = users.stream()
+                users.stream()
                         .filter(user -> userName.equals(user.getUserName()))
-                        .findFirst();
-                if(!foundUser.isEmpty()) {
-                    users.remove(foundUser.get());
-                }
+                        .findFirst()
+                        .ifPresent(users::remove);
             }
             return true;
         }
@@ -73,14 +114,15 @@ public class UserInMemory implements IUserDAO {
         if(null == user) {
             return false;
         }
-        return (user.getUserName().equals(userName) && user.getPassword().equals(password));
+        return (user.getUserName().equals(userName)
+                && (UserFactory.PASS_AUTH.authenticate(password.toCharArray(), user.getPassword())));
     }
 
     private boolean isUserNameUsed(String userName) {
         Optional<String> result = users.stream()
-                .map(user -> user.getUserName())
+                .map(User::getUserName)
                 .filter(userName::equals)
                 .findFirst();
-        return !result.isEmpty();
+        return result.isPresent();
     }
 }

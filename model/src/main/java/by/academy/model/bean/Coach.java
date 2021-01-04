@@ -36,11 +36,41 @@ public class Coach {
         this.salaries = salaries;
     }
 
+    /**
+     * Return average salary for last monthCount month or throw IllegalArgumentException
+     * if monthCount < 1
+     * @param monthCount
+     * @return average salary for last monthCount month
+     * @throws IllegalArgumentException
+     */
+    public int getAverageSalary(int monthCount) throws IllegalArgumentException {
+        if(monthCount < 1) {
+            throw new IllegalArgumentException(ExceptionConstant.INVALID_MONTH_COUNT);
+        }
+        int sum = this.getSalaries().stream()
+                .limit(monthCount)
+                .mapToInt(salary -> salary)
+                .sum();
+        return sum / monthCount;
+    }
+
+    public void addSalary(int salary) {
+        this.getSalaries().addFirst(salary);
+    }
+
     @Override
     public String toString() {
         return "Coach{" +
                 "user=" + user +
                 ", salaries=" + salaries +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if((obj != null) && (null != this.getUser())) {
+            return this.getUser().equals(((Coach) obj).getUser());
+        }
+        return false;
     }
 }

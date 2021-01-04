@@ -26,8 +26,14 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> getUsers() {
+    public List<User> getAll() {
         IUserDAO userDAO = new UserInMemory();
         return userDAO.getUsers();
+    }
+
+    @Override
+    public User getUser(String userName) {
+        IUserDAO userDAO = new UserInMemory();
+        return userDAO.getUser(userName);
     }
 }
