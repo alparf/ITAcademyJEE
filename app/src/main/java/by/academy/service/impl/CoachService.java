@@ -6,6 +6,7 @@ import by.academy.model.bean.Coach;
 import by.academy.model.bean.User;
 import by.academy.service.ICoachService;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class CoachService implements ICoachService {
@@ -18,7 +19,7 @@ public class CoachService implements ICoachService {
     @Override
     public List<Coach> getAll() {
         ICoachDAO coachDAO = new CoachInMemory();
-        return coachDAO.getCoachList();
+        return new LinkedList<>(coachDAO.getCoachList().values());
     }
 
     @Override

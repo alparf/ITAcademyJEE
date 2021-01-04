@@ -3,14 +3,22 @@ package by.academy.service.impl;
 import by.academy.dao.IUserDAO;
 import by.academy.dao.impl.UserInMemory;
 import by.academy.model.bean.User;
+import by.academy.model.factory.UserFactory;
 import by.academy.service.IUserService;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class UserService implements IUserService {
     public User userLogin(String userName, String password) {
         IUserDAO userDAO = new UserInMemory();
-        return userDAO.getUser(userName, password);
+        User user = userDAO.getUser(userName);
+        if((null != user) && (UserFactory.PASS_AUTH.authenticate(password.toCharArray(), user.getPassword()))) {
+            return user;
+        } else {
+            return UserFactory.createUser();
+        }
     }
 
     @Override
@@ -28,7 +36,7 @@ public class UserService implements IUserService {
     @Override
     public List<User> getAll() {
         IUserDAO userDAO = new UserInMemory();
-        return userDAO.getUsers();
+        return new LinkedList<>(userDAO.getUsers().values());
     }
 
     @Override

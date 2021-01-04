@@ -27,8 +27,8 @@ public class UserFacade {
 
     public static Map<String, Integer> getAverageSalaries(int monthCount) {
         Map<String, Integer> averageSalaries = new HashMap<>();
-        List<Coach> coachList = getAllCoaches();
-        for(Coach coach: coachList) {
+        List<Coach> coaches = getAllCoaches();
+        for(Coach coach: coaches) {
             if((null != coach) && (null != coach.getUser())) {
                 averageSalaries.put(coach.getUser().getFio(), coach.getAverageSalary(monthCount));
             }
