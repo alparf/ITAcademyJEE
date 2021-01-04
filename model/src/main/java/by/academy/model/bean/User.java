@@ -32,6 +32,13 @@ public class User {
         return age;
     }
 
+    /**
+     *
+     * @param age - age of user
+     * @throws IllegalArgumentException
+     * Set age if age >= 0 or throw IllegalArgumentException if age < 0
+     */
+
     public void setAge(int age) throws IllegalArgumentException {
         if(age < 0) {
             throw new IllegalArgumentException(ExceptionConstant.INVALID_AGE_VALUE);

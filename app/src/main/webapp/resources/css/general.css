@@ -3,45 +3,102 @@
     font-size: 12pt;
 }
 
-div.header {
-    height: 100px;
-    padding: 15px;
-    font-size: 18pt;
-    font-weight: bold;
-    color: #2daae1;
-}
-
-.div-login {
-    display: flex;
-    width: 300px;
-    height: 200px;
-    margin: auto;
-}
-
-.div-login .inner {
-    width: 200px;
-    margin: auto;
-}
-
 input {
     padding: 10px;
-    margin: 10px;
-    width: 180px;
+    margin: 0px 10px 10px 10px;
     border-radius: 3px;
-    border-style: solid;
-    border-width: 1px;
+    border: 1px solid;
+}
+
+input[type="submit"] {
+    color: #ffffff;
+    background-color: #2daae1;
+    border-radius: 3px;
+    border: 1px solid;
 }
 
 label {
-    margin-left: 10px;
     font-size: 10pt;
+    padding: 10px 10px 0px 10px;
 }
 
-#signIn {
-    width: 204px;
+select {
+    padding: 10px;
+    margin: 0px 10px 10px 10px;
+    border-radius: 3px;
+}
+
+.container-inline {
+    display: flex;
+    flex-direction: row;
+    flex-content: center;
+}
+
+.container-pillar {
+    display: flex;
+    flex-direction: column;
+    flex-content: center;
+}
+
+.large-box {
+    width: 600px;
+}
+
+.mid-box {
+    width: 400px;
+}
+
+.content-center {
+    justify-content: center;
+}
+
+.content-end {
+    justify-content: flex-end;
+}
+
+.content-start {
+    justify-content: flex-start;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.grow {
+    flex-grow: 1;
+}
+
+.header {
+    text-align: center;
+    font-weight: bold;
+    color: #2daae1;
+    font-size: 24pt;
+    padding: 10px;
+}
+
+.header-home {
     background-color: #2daae1;
     color: #ffffff;
-    border: none;
-    cursor: pointer;
+    padding: 10px;
+    border-radius: 3px 3px; 0px; 0px;
 }
 
+.header-home a {
+    color: #ffffff;
+}
+
+.exception {
+    color: red;
+    text-align: center;
+}
+
+.item {
+    padding: 5px;
+}
+
+.button {
+    color: #2daae1;
+    padding: 10px;
+    font-weight: bold;
+    text-direction: none;
+}
