@@ -1,6 +1,6 @@
 package by.academy.model.bean;
 
-import by.academy.model.bean.constant.ExceptionConstant;
+import by.academy.model.constant.ExceptionConstant;
 import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;

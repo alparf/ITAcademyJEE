@@ -1,6 +1,6 @@
 package by.academy.model.bean;
 
-import by.academy.model.bean.constant.ExceptionConstant;
+import by.academy.model.constant.ExceptionConstant;
 
 public class User {
     private String fio;
@@ -12,7 +12,8 @@ public class User {
     public User() {
     }
 
-    public User(String fio, int age, String userName, String password, UserType userType) {
+    public User(String fio, int age, String userName, String password, UserType userType)
+            throws IllegalArgumentException {
         this.fio = fio;
         this.setAge(age);
         this.userName = userName;
@@ -79,5 +80,13 @@ public class User {
                 ", userName='" + userName + '\'' +
                 ", userType=" + userType +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if((null == obj) && (null == this.userName)) {
+            return false;
+        }
+        return this.userName.equals(((User) obj).getUserName());
     }
 }
