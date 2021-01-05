@@ -4,26 +4,24 @@ import by.academy.dao.ICoachDAO;
 import by.academy.model.bean.Coach;
 import by.academy.model.bean.User;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class CoachInMemory implements ICoachDAO {
 
-    private static final List<Coach> coaches = new LinkedList<>();
+    private static final Map<String, Coach> coaches = new HashMap<>();
 
     @Override
     public boolean addSalary(Coach coach, Integer salary) {
         if(null != coach) {
             synchronized (CoachInMemory.class) {
-                Optional<Coach> optional = coaches.stream()
-                        .filter(coach::equals)
-                        .findFirst();
-                if (optional.isPresent()) {
-                    optional.get().addSalary(salary);
-                } else {
-                    coach.addSalary(salary);
-                    coaches.add(coach);
+                if(null != coach.getUser()) {
+                    String coachName = coach.getUser().getUserName();
+                    if (coaches.containsKey(coachName)) {
+                        coaches.get(coachName).addSalary(salary);
+                    } else {
+                        coach.addSalary(salary);
+                        coaches.put(coachName, coach);
+                    }
                 }
             }
         }
@@ -34,19 +32,14 @@ public class CoachInMemory implements ICoachDAO {
     public Coach getCoach(User user) {
         if(null != user) {
             synchronized (CoachInMemory.class) {
-                Optional<Coach> optional = coaches.stream()
-                        .filter(coach -> user.equals(coach.getUser()))
-                        .findFirst();
-                if (optional.isPresent()) {
-                    return optional.get();
-                }
+                return coaches.get(user.getUserName());
             }
         }
         return null;
     }
 
     @Override
-    public List<Coach> getCoachList() {
-        return new LinkedList<>(coaches);
+    public Map<String, Coach> getCoachList() {
+        return new HashMap<>(coaches);
     }
 }

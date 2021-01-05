@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet {
         User user = UserFacade.userLogin(userName, password);
         if((null != user) && (null == user.getUserName())) {
             log.info("User = {} not found!", userName);
-            session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NOT_FOUND);
+            session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, ExceptionConstant.INVALID_USER_NAME_OR_PASSWORD);
             session.setAttribute(SessionConstant.USER, null);
         } else {
             log.info("User = {} signed in", userName);

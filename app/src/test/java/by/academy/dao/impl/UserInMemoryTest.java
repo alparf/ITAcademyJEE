@@ -1,6 +1,7 @@
 package by.academy.dao.impl;
 
 import by.academy.constant.ExceptionConstant;
+import by.academy.dao.IUserDAO;
 import by.academy.exception.UserServiceException;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
@@ -10,25 +11,23 @@ import org.junit.Test;
 
 public class UserInMemoryTest extends TestCase {
 
-    @Test
-    public void testGetUser() {
-        UserInMemory userInMemory = new UserInMemory();
-        User user = userInMemory.getUser(null, null);
-        assertTrue(null != user);
-        assertTrue(user.getUserName() == null);
-    }
+    private static final IUserDAO userDAO = new UserInMemory();
 
     @Test
     public void testAddUser() {
-        UserInMemory userInMemory = new UserInMemory();
         User user = UserFactory.createUser(
                 "FIO", 18, "userName", "password", UserType.STUDENT);
         try {
-            userInMemory.addUser(user);
-            userInMemory.addUser(user);
+            userDAO.addUser(user);
+            userDAO.addUser(user);
             fail("Expected UserServiceException");
         } catch (UserServiceException e) {
             assertEquals(e.getMessage(), ExceptionConstant.USER_NAME_ALREADY_USED);
         }
+    }
+
+    public void testGetUser() {
+        assertTrue(null == userDAO.getUser(""));
+        assertTrue(null != userDAO.getUser("userName"));
     }
 }

@@ -39,9 +39,9 @@ public class Coach {
     /**
      * Return average salary for last monthCount month or throw IllegalArgumentException
      * if monthCount < 1
-     * @param monthCount
+     * @param monthCount month count
      * @return average salary for last monthCount month
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if monthCount < 1
      */
     public int getAverageSalary(int monthCount) throws IllegalArgumentException {
         if(monthCount < 1) {
@@ -68,8 +68,10 @@ public class Coach {
 
     @Override
     public boolean equals(Object obj) {
-        if((obj != null) && (null != this.getUser())) {
-            return this.getUser().equals(((Coach) obj).getUser());
+        if(obj instanceof Coach) {
+            if (null != this.getUser()) {
+                return this.getUser().equals(((Coach) obj).getUser());
+            }
         }
         return false;
     }

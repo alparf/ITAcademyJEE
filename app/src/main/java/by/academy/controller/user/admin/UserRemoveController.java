@@ -3,11 +3,10 @@ package by.academy.controller.user.admin;
 import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
 import by.academy.facade.UserFacade;
-import by.academy.model.bean.User;
-import by.academy.model.bean.UserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,12 +24,11 @@ public class UserRemoveController extends HttpServlet {
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
         session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
-        User user = (User) session.getAttribute(SessionConstant.USER);
-        if(null != user && user.getUserType() == UserType.ADMIN) {
-            String userName = req.getParameter(SessionConstant.USER_NAME_TO_REMOVE);
-            UserFacade.removeUser(userName);
+        String userName = req.getParameter(SessionConstant.USER_NAME_TO_REMOVE);
+        if(UserFacade.removeUser(userName)) {
             log.info("Remove user = {}", userName);
         }
-        res.sendRedirect(ServletConstant.HOME);
+        RequestDispatcher dispatcher = req.getRequestDispatcher(ServletConstant.HOME_CONTROLLER);
+        dispatcher.forward(req, res);
     }
 }
