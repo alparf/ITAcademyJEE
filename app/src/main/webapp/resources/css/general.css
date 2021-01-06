@@ -1,3 +1,9 @@
+:root {
+    --blue: #2e6aff;
+    --white: #f7f7f7;
+    --gray: #e8e8e8;
+}
+
 *,
 *:before,
 *:after {
@@ -8,10 +14,15 @@ body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
     font-size: 12pt;
-    background-color: #f7f7f7;
+    background-color: var(--white);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: 0px;
     padding: 0px;
 }
@@ -20,7 +31,7 @@ h1, h2, h3, h4, h5, h6 {
 =====================*/
 
 .header {
-    background-color: #2e6aff;
+    background-color: var(--blue);
 }
 
 /* Welcome
@@ -87,7 +98,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 300px;
     padding: 25px 50px;
     border-radius: 5px;
-    -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3); 
+    -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
     box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
     background-color: #ffffff;
 }
@@ -117,8 +128,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .home_nav {
-    flex-grow: 1;
     margin-top: 100px;
+    width: 150px;
 }
 
 .home_nav_inner {
@@ -137,8 +148,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .home_desktop {
-    flex-grow: 3;
-    max-width: 600px;
+    width: 100%;
+    max-width: 650px;
 }
 
 
@@ -148,11 +159,12 @@ h1, h2, h3, h4, h5, h6 {
 .add-user {
     padding-top: 25px;
     margin: 100px auto;
-    -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3); 
+    -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
     box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
     background-color: #ffffff;
     border-radius: 5px;
     padding: 25px 50px;
+    max-width: 300px;
 }
 
 .add-user_form {
@@ -167,7 +179,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .user-list {
     margin: 100px auto;
-    -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3); 
+    -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
     box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
     background-color: #ffffff;
     border-radius: 5px;
@@ -183,7 +195,7 @@ h1, h2, h3, h4, h5, h6 {
 .coach {
     padding-top: 25px;
     margin: 100px auto;
-    -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3); 
+    -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
     box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
     background-color: #ffffff;
     border-radius: 5px;
@@ -199,7 +211,7 @@ h1, h2, h3, h4, h5, h6 {
 .salary {
     padding-top: 25px;
     margin: 100px auto;
-    -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3); 
+    -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
     box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
     background-color: #ffffff;
     border-radius: 5px;
@@ -228,7 +240,7 @@ h1, h2, h3, h4, h5, h6 {
 .average {
     margin: 100px auto;
     width: 600px;
-    -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3); 
+    -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
     box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
     background-color: #ffffff;
     border-radius: 5px;
@@ -260,13 +272,13 @@ input {
     padding: 10px;
     margin: 0px 10px 10px 10px;
     border-radius: 5px;
-    border: 1px solid #e8e8e8;
+    border: 1px solid var(--gray);
 }
 
 input[type="submit"] {
     color: #ffffff;
     font-weight: bold;
-    background-color: #2e6aff;
+    background-color: var(--blue);
     border-radius: 5px;
     border: none;
     padding: 15px;
@@ -274,7 +286,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #1f5bf0;
+    background-color: var(--blue);
     cursor: pointer;
     transition: 0.1s;
 }
@@ -287,8 +299,8 @@ label {
 select {
     padding: 10px;
     margin: 0px 10px 10px 10px;
-    border: 1px solid gray;
-    border-radius: 2px;
+    border: 1px solid var(--gray);
+    border-radius: 5px;
 }
 
 .exception {
