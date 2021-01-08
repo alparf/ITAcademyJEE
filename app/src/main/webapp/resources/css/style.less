@@ -1,6 +1,7 @@
-// compress: true
+// compress: true, sourceMap: true
 
 @import "vars";
+@import "mixins";
 
 *,
 *:before,
@@ -53,7 +54,7 @@ h6 {
 
     &:hover {
         text-decoration: underline;
-        transition: .2s linear;
+        transition: .1s linear;
     }
 
     &:first-child {
@@ -94,22 +95,10 @@ input {
     margin: 0px 10px 10px 10px;
     border-radius: @border-radius;
     border: 1px solid @border-color;
+    transition: background 0.1s;
 
     &[type="submit"] {
-        color: #ffffff;
-        font-weight: bold;
-        background-color: @primary-color;
-        border-radius: @border-radius;
-        border: none;
-        padding: 15px;
-        text-transform: uppercase;
-        font-family: inherit;
-    }
-
-    &[type="submit"]:hover {
-        background-color: @primary-color;
-        cursor: pointer;
-        transition: 0.1s;
+        .btn(@primary-color);
     }
 }
 
