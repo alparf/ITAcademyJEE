@@ -12,7 +12,7 @@ import java.util.List;
 public class UserService implements IUserService {
     public User userLogin(String userName, String password) {
         IUserDAO userDAO = new UserInMemory();
-        User user = userDAO.getUser(userName);
+        User user = userDAO.getUserByName(userName);
         if((null != user) && (UserFactory.PASS_AUTH.authenticate(password.toCharArray(), user.getPassword()))) {
             return user;
         } else {
@@ -39,8 +39,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User getUser(String userName) {
+    public User getUserByName(String userName) {
         IUserDAO userDAO = new UserInMemory();
-        return userDAO.getUser(userName);
+        return userDAO.getUserByName(userName);
     }
 }

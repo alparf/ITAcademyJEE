@@ -5,6 +5,7 @@ import by.academy.model.constant.ExceptionConstant;
 import java.util.Objects;
 
 public class User {
+    private long id;
     private String fio;
     private int age;
     private String userName;
@@ -14,13 +15,22 @@ public class User {
     public User() {
     }
 
-    public User(String fio, int age, String userName, String password, UserType userType)
+    public User(long id, String fio, int age, String userName, String password, UserType userType)
             throws IllegalArgumentException {
+        this.id = id;
         this.fio = fio;
         this.setAge(age);
         this.userName = userName;
         this.password = password;
         this.userType = userType;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFio() {
@@ -76,10 +86,10 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "fio='" + fio + '\'' +
+                "id=" + id +
+                ", fio='" + fio + '\'' +
                 ", age=" + age +
                 ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
                 ", userType=" + userType +
                 '}';
     }

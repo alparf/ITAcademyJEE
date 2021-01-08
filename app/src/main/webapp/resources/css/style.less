@@ -1,0 +1,135 @@
+// compress: true
+
+@import "vars";
+
+*,
+*:before,
+*:after {
+    border-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12pt;
+    background-color: @body-color;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0px;
+    padding: 0px;
+}
+
+/* Header
+=====================*/
+
+.header {
+    background-color: @primary-color;
+}
+
+/* Welcome
+=====================*/
+
+@import "blocks/welcom";
+
+/* Nav
+=====================*/
+
+.nav {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.nav_link {
+    margin-left: 50px;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.nav_link:first-child {
+    margin-left: 0px;
+}
+
+.nav_link:hover {
+    text-decoration: underline;
+    transition: .2s linear;
+}
+
+/* Sign in
+======================*/
+
+@import "blocks/signin";
+
+/* Home
+======================*/
+
+@import "blocks/home";
+
+/* Admin
+======================*/
+
+@import "blocks/admin";
+
+/* Average
+==============================*/
+
+@import "blocks/average";
+
+/* General
+=======================*/
+
+.shadow {
+    -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
+}
+
+input {
+    padding: 10px;
+    margin: 0px 10px 10px 10px;
+    border-radius: @border-radius;
+    border: 1px solid @border-color;
+}
+
+input[type="submit"] {
+    color: #ffffff;
+    font-weight: bold;
+    background-color: @primary-color;
+    border-radius: @border-radius;
+    border: none;
+    padding: 15px;
+    text-transform: uppercase;
+    font-family: inherit;
+}
+
+input[type="submit"]:hover {
+    background-color: @primary-color;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+label {
+    font-size: 0.7rem;
+    padding: 10px 10px 0px 10px;
+}
+
+select {
+    padding: 10px;
+    margin: 0px 10px 10px 10px;
+    border: 1px solid @border-color;
+    border-radius: @border-radius;
+}
+
+.exception {
+    color: red;
+    text-align: center;
+}
+
+.item {
+    padding: 5px;
+}

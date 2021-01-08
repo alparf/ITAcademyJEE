@@ -20,6 +20,7 @@ public class CoachInMemory implements ICoachDAO {
                         coaches.get(coachName).addSalary(salary);
                     } else {
                         coach.addSalary(salary);
+                        coach.setId(0);
                         coaches.put(coachName, coach);
                     }
                 }

@@ -34,7 +34,7 @@ public class UserAddController extends HttpServlet {
         int age = Integer.parseInt(req.getParameter(SessionConstant.AGE));
         UserType userType = UserType.valueOf(req.getParameter(SessionConstant.USER_TYPE));
         try {
-            UserFacade.addUser(UserFactory.createUser(fio, age, userName, password, userType));
+            UserFacade.addUser(UserFactory.createUser(0, fio, age, userName, password, userType));
             log.info("New User = {}", userName);
         } catch (UserServiceException e) {
             log.error(e.getMessage(), e);

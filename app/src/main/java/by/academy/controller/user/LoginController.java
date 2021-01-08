@@ -51,7 +51,7 @@ public class LoginController extends HttpServlet {
         String adminName = getServletConfig().getInitParameter(ADMIN_NAME);
         String adminPassword = getServletConfig().getInitParameter(ADMIN_PASSWORD);
         User admin = UserFactory.createUser(
-                "FirstName LastName", 34, adminName, adminPassword, UserType.ADMIN);
+                0,"FirstName LastName", 34, adminName, adminPassword, UserType.ADMIN);
         UserFacade.addUser(admin);
     }
 }

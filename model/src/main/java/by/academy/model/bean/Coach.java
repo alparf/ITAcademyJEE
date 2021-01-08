@@ -5,15 +5,25 @@ import by.academy.model.constant.ExceptionConstant;
 import java.util.Deque;
 
 public class Coach {
+    private long id;
     private User user;
     private Deque<Integer> salaries;
 
     public Coach() {
     }
 
-    public Coach(User user, Deque<Integer> salaries) throws IllegalArgumentException {
+    public Coach(long id, User user, Deque<Integer> salaries) throws IllegalArgumentException {
+        this.id = id;
         this.setUser(user);
         this.salaries = salaries;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -61,6 +71,7 @@ public class Coach {
     @Override
     public String toString() {
         return "Coach{" +
+                "id=" + id +
                 "user=" + user +
                 ", salaries=" + salaries +
                 '}';

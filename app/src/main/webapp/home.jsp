@@ -28,7 +28,7 @@
                     </nav>
                 </div>
                 <div class="home_desktop">
-                    <div id="addUser" class="add-user">
+                    <div id="addUser" class="add-user shadow">
                         <div class="add-user_form_title"><h2>Add new user</h2></div>
                         <form class="add-user_form"
                             id="userAddForm" action="UserAddController" method="POST">
@@ -56,7 +56,7 @@
                             <p class="exception">${exceptionMessage}</p>
                         </form>
                     </div>
-                    <div id="userList" class="user-list" hidden><h3>User List</h3>
+                    <div id="userList" class="user-list shadow" hidden><h3>User List</h3>
                         <c:forEach var="entry" items="${userList}">
                             <form class="user-list_form"
                                 action="UserRemoveController" method="POST">
@@ -69,7 +69,7 @@
                             </form>
                         </c:forEach>
                     </div>
-                    <div id="coachList" class="coach" hidden><h3>Coach List</h3>
+                    <div id="coachList" class="coach shadow" hidden><h3>Coach List</h3>
                         <c:forEach var="entry" items="${userList}">
                             <c:if test="${entry.userType == UserType.COACH}">
                                 <form class="coach_form"
@@ -85,7 +85,7 @@
                             </c:if>
                         </c:forEach>
                     </div>
-                    <div id="salary" class="salary" hidden><h3>Salaries</h3>
+                    <div id="salary" class="salary shadow" hidden><h3>Salaries</h3>
                         <c:forEach var="entry" items="${coachList}">
                             <div class="salary_inner">
                                 <span class="item">${entry.user.fio}</span>

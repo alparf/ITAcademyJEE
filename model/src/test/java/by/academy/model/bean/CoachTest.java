@@ -16,11 +16,11 @@ public class CoachTest extends TestCase {
     public void testGetAverageSalary() {
         int monthCount = 2;
         int expected = 150;
-        User user = UserFactory.createUser("fio", 22, "user", "user", UserType.COACH);
+        User user = UserFactory.createUser(0,"fio", 22, "user", "user", UserType.COACH);
         Deque<Integer> salaries = new LinkedList<>();
         salaries.addFirst(100);
         salaries.addFirst(200);
-        Coach coach = CoachFactory.createCoach(user, salaries);
+        Coach coach = CoachFactory.createCoach(user.getId(), user, salaries);
             assertEquals(expected, coach.getAverageSalary(monthCount));
         try {
             monthCount = -1;

@@ -5,6 +5,7 @@ import by.academy.model.constant.ExceptionConstant;
 import java.util.List;
 
 public class Group {
+    private long id;
     private String name;
     private User coach;
     private List<String> themes;
@@ -13,11 +14,20 @@ public class Group {
     public Group() {
     }
 
-    public Group(String name, User coach, List<String> themes, List<User> students) {
+    public Group(long id, String name, User coach, List<String> themes, List<User> students) {
+        this.id = id;
         this.name = name;
         this.setCoach(coach);
         this.themes = themes;
         this.students = students;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -15,13 +15,13 @@ public class UserInMemory implements IUserDAO {
 
     static {
         users.put("student", UserFactory.createUser(
-                "Иванов Иван Иванович", 19, "student", "student", UserType.STUDENT));
+               0, "Иванов Иван Иванович", 19, "student", "student", UserType.STUDENT));
         users.put("coach", UserFactory.createUser(
-                "Петров Петр Петрович", 44, "coach", "coach", UserType.COACH));
+               0, "Петров Петр Петрович", 44, "coach", "coach", UserType.COACH));
     }
 
     @Override
-    public User getUser(String userName) {
+    public User getUserByName(String userName) {
         synchronized (UserInMemory.class) {
             return users.get(userName);
         }

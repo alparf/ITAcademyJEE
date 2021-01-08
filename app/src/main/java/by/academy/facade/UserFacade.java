@@ -17,7 +17,8 @@ public class UserFacade {
     public static boolean addSalary(String coachName, Integer salary) {
         ICoachService coachService = new CoachService();
         IUserService userService = new UserService();
-        return coachService.addSalary(CoachFactory.createCoach(userService.getUser(coachName)), salary);
+        User user = userService.getUserByName(coachName);
+        return coachService.addSalary(CoachFactory.createCoach(user.getId(), user), salary);
     }
 
     public static List<Coach> getAllCoaches() {

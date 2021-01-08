@@ -8,7 +8,7 @@
 </head>
 <body>
     <c:import url="/include/header.jsp" />
-    <div class=sign-in>
+    <div class="sign-in shadow">
         <div class="sign-in_title"><h2>Sign in and go!</h2></div>
         <form class="sign-in_form" action="LoginController" method="POST">
             <label>User</label>

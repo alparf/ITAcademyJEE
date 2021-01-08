@@ -16,7 +16,7 @@ public class UserInMemoryTest extends TestCase {
     @Test
     public void testAddUser() {
         User user = UserFactory.createUser(
-                "FIO", 18, "userName", "password", UserType.STUDENT);
+                0,"FIO", 18, "userName", "password", UserType.STUDENT);
         try {
             userDAO.addUser(user);
             userDAO.addUser(user);
@@ -27,7 +27,7 @@ public class UserInMemoryTest extends TestCase {
     }
 
     public void testGetUser() {
-        assertTrue(null == userDAO.getUser(""));
-        assertTrue(null != userDAO.getUser("userName"));
+        assertTrue(null == userDAO.getUserByName(""));
+        assertTrue(null != userDAO.getUserByName("userName"));
     }
 }
