@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 public class UserStrategy implements IUserStrategy {
 
-    HttpSession session;
+    private final HttpSession session;
 
     public static IUserStrategy create(HttpSession session) {
         return new UserStrategy(session);
