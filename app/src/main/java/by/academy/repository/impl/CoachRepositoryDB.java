@@ -7,6 +7,7 @@ import by.academy.specification.ICoachSpecification;
 import java.util.List;
 
 public class CoachRepositoryDB implements ICoachRepository {
+
     @Override
     public void addCoach(Coach coach) {
 

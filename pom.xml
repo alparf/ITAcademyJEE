@@ -55,9 +55,9 @@
         <version>1.2.3</version>
       </dependency>
       <dependency>
-        <groupId>by.academy</groupId>
-        <artifactId>model</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>42.2.18</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

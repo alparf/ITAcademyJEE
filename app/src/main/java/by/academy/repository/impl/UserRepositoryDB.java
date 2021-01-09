@@ -7,6 +7,7 @@ import by.academy.specification.IUserSpecification;
 import java.util.List;
 
 public class UserRepositoryDB implements IUserRepository {
+
     @Override
     public void addUser(User user) {
 
