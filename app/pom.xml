@@ -16,7 +16,6 @@
         <dependency>
             <groupId>by.academy</groupId>
             <artifactId>model</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>

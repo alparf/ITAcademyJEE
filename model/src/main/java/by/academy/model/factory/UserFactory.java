@@ -10,7 +10,7 @@ public class UserFactory {
 
     public static User createUser(long id, String fio, int age, String userName, String password, UserType userType) {
         String hashedPassword = null;
-        if(null != password) {
+        if (null != password) {
             hashedPassword = PASS_AUTH.hash(password.toCharArray());
         }
         return new User(id, fio, age, userName, hashedPassword, userType);

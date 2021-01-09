@@ -14,11 +14,11 @@ import java.util.Map;
 
 public class UserFacade {
 
-    public static boolean addSalary(String coachName, Integer salary) {
+    public static void addSalary(String coachName, Integer salary) {
         ICoachService coachService = new CoachService();
         IUserService userService = new UserService();
         User user = userService.getUserByName(coachName);
-        return coachService.addSalary(CoachFactory.createCoach(user.getId(), user), salary);
+        coachService.addSalary(CoachFactory.createCoach(user.getId(), user), salary);
     }
 
     public static List<Coach> getAllCoaches() {
@@ -37,9 +37,9 @@ public class UserFacade {
         return averageSalaries;
     }
 
-    public static User userLogin(String userName, String password) {
+    public static User login(String userName, String password) {
         IUserService service = new UserService();
-        return service.userLogin(userName, password);
+        return service.login(userName, password);
     }
 
     public static List<User> getAllUsers() {
@@ -47,13 +47,13 @@ public class UserFacade {
         return service.getAll();
     }
 
-    public static boolean addUser(User user) {
+    public static void addUser(User user) {
         IUserService service = new UserService();
-        return service.addUser(user);
+        service.addUser(user);
     }
 
-    public static boolean removeUser(String userName) {
+    public static void removeUser(String userName) {
         IUserService service = new UserService();
-        return service.removeUser(userName);
+        service.removeUser(userName);
     }
 }

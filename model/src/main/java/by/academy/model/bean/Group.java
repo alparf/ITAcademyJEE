@@ -43,7 +43,7 @@ public class Group {
     }
 
     public void setCoach(User coach) {
-        if((null != coach) && (coach.getUserType() == UserType.COACH)) {
+        if ((null != coach) && (coach.getUserType() == UserType.COACH)) {
             this.coach = coach;
         } else {
             throw new IllegalArgumentException(ExceptionConstant.USER_HAVE_TO_BE_COACH);

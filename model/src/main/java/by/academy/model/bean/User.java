@@ -52,7 +52,7 @@ public class User {
      */
 
     public void setAge(int age) throws IllegalArgumentException {
-        if(age < 0) {
+        if (age < 0) {
             throw new IllegalArgumentException(ExceptionConstant.INVALID_AGE_VALUE);
         } else {
             this.age = age;

@@ -3,7 +3,6 @@ package by.academy.controller.user;
 import by.academy.constant.ExceptionConstant;
 import by.academy.constant.ServletConstant;
 import by.academy.constant.SessionConstant;
-import by.academy.dao.impl.UserInMemory;
 import by.academy.facade.UserFacade;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
@@ -23,7 +22,7 @@ import java.io.IOException;
 
 public class LoginController extends HttpServlet {
 
-    private static final Logger log = LoggerFactory.getLogger(UserInMemory.class);
+    private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -31,7 +30,7 @@ public class LoginController extends HttpServlet {
         String password = req.getParameter(SessionConstant.PASSWORD);
         HttpSession session = req.getSession();
         session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
-        User user = UserFacade.userLogin(userName, password);
+        User user = UserFacade.login(userName, password);
         if((null != user) && (null == user.getUserName())) {
             log.info("User = {} not found!", userName);
             session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, ExceptionConstant.INVALID_USER_NAME_OR_PASSWORD);
