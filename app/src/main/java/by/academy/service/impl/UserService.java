@@ -1,5 +1,7 @@
 package by.academy.service.impl;
 
+import by.academy.constant.ExceptionConstant;
+import by.academy.exception.UserServiceException;
 import by.academy.model.bean.User;
 import by.academy.model.factory.UserFactory;
 import by.academy.repository.IUserRepository;
@@ -20,15 +22,20 @@ public class UserService implements IUserService {
         List<User> userList = repository.query(new UserSpecificationLogin(userName, password));
         if(!userList.isEmpty()) {
             return userList.get(USER);
-        } else {
-            return UserFactory.createUser();
         }
+        return null;
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User user) throws UserServiceException {
         IUserRepository repository = new UserRepositoryInMemory();
-        repository.addUser(user);
+        if (null != user) {
+            if (!isUserNameUsed(user.getUserName())) {
+                repository.addUser(user);
+            } else {
+                throw new UserServiceException(ExceptionConstant.USER_NAME_ALREADY_USED);
+            }
+        }
     }
 
     @Override
@@ -54,5 +61,11 @@ public class UserService implements IUserService {
             return userList.get(USER);
         }
         return UserFactory.createUser();
+    }
+
+    private boolean isUserNameUsed(String userName) {
+        IUserRepository repository = new UserRepositoryInMemory();
+        List<User> userList = repository.query(new UserSpecificationUserByUserName(userName));
+        return !userList.isEmpty();
     }
 }
