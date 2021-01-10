@@ -23,7 +23,7 @@ public class UserService implements IUserService {
         if(!userList.isEmpty()) {
             return userList.get(USER);
         }
-        return UserFactory.createUser();
+        return null;
     }
 
     @Override
@@ -50,16 +50,6 @@ public class UserService implements IUserService {
     public List<User> getAll() {
         IUserRepository repository = new UserRepositoryDB();
         return repository.query(new UserDBGetAll());
-    }
-
-    @Override
-    public User getUserByName(String userName) {
-        IUserRepository repository = new UserRepositoryDB();
-        List<User> userList = repository.query(new UserDBGetByUserName(userName));
-        if(!userList.isEmpty()) {
-            return userList.get(USER);
-        }
-        return UserFactory.createUser();
     }
 
     private boolean isUserNameUsed(String userName) {

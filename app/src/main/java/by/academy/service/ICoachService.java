@@ -1,7 +1,6 @@
 package by.academy.service;
 
 import by.academy.model.bean.Coach;
-import by.academy.model.bean.User;
 
 import java.util.List;
 

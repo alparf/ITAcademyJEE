@@ -20,7 +20,7 @@ public class CoachTest extends TestCase {
         Deque<Integer> salaries = new LinkedList<>();
         salaries.addFirst(100);
         salaries.addFirst(200);
-        Coach coach = CoachFactory.createCoach(user.getId(), user, salaries);
+        Coach coach = CoachFactory.createCoach(user, salaries);
             assertEquals(expected, coach.getAverageSalary(monthCount));
         try {
             monthCount = -1;

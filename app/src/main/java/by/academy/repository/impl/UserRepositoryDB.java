@@ -68,17 +68,17 @@ public class UserRepositoryDB implements IUserRepository {
     public List<User> query(IUserSpecification specification) {
         List<User> users = new LinkedList<>();
         if (specification instanceof ISqlSpecification) {
-            ISqlSpecification sql = (ISqlSpecification) specification;
             final int ID = 1;
             final int FIO = 2;
             final int AGE = 3;
             final int USER_NAME = 4;
             final int PASSWORD = 5;
             final int USER_TYPE = 6;
+            ISqlSpecification sql = (ISqlSpecification) specification;
             Connection connection = ConnectionManager.getPoll().get();
             try (PreparedStatement statement = sql.getPreparedStatement(connection);
                  ResultSet resultSet = statement.executeQuery()) {
-                User user = null;
+                User user;
                 while (resultSet.next()) {
                     user = UserFactory.createUser(
                             resultSet.getLong(ID),

@@ -78,7 +78,7 @@
                                     <input name="salary" type="text" placeholder="235.15"/>
                                     <span>BYN</span>
                                     <div class="container-inline content-end grow">
-                                        <input type="text" name="coachName" value="${entry.userName}" hidden/>
+                                        <input type="text" name="coachName" value="${entry.id}" hidden/>
                                         <input type="submit" value="Add Salary"/>
                                     </div>
                                 </form>

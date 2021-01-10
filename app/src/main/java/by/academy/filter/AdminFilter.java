@@ -20,9 +20,9 @@ public class AdminFilter implements Filter {
             throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) request).getSession();
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        if(null != session) {
-            User user = (User) session.getAttribute(SessionConstant.USER);
-            if((null != user) && (user.getUserType() == UserType.ADMIN)) {
+        User user = (User) session.getAttribute(SessionConstant.USER);
+        if((null != session) && (null != user)) {
+            if(user.getUserType() == UserType.ADMIN) {
                 chain.doFilter(request, response);
             } else {
                 httpServletResponse.sendRedirect(ServletConstant.HOME);
