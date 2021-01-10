@@ -33,8 +33,7 @@ public class UserRepositoryDB implements IUserRepository {
                 statement.setString(USER_NAME, user.getUserName());
                 statement.setString(PASSWORD, user.getPassword());
                 statement.setString(USER_TYPE, user.getUserType().getName());
-                int rows = statement.executeUpdate();
-                System.out.println(rows);
+                statement.executeUpdate();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,7 +44,18 @@ public class UserRepositoryDB implements IUserRepository {
 
     @Override
     public void removeUser(User user) {
-
+        final int ID = 1;
+        Connection connection = ConnectionManager.getPoll().get();
+        try (PreparedStatement statement = connection.prepareStatement(SqlConstant.DELETE_USER_BY_ID)) {
+            if (null != user) {
+                statement.setLong(ID, user.getId());
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionManager.getPoll().put(connection);
+        }
     }
 
     @Override

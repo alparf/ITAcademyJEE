@@ -8,7 +8,6 @@ import by.academy.service.IUserService;
 import by.academy.service.impl.CoachService;
 import by.academy.service.impl.UserService;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;

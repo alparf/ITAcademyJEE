@@ -10,6 +10,7 @@ import by.academy.service.IUserService;
 import by.academy.specification.impl.inmemory.UserInMemoryLogin;
 import by.academy.specification.impl.inmemory.UserInMemoryGetByUserName;
 import by.academy.specification.impl.jdbc.UserDBGetAll;
+import by.academy.specification.impl.jdbc.UserDBGetByUserName;
 import by.academy.specification.impl.jdbc.UserDBLogin;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class UserService implements IUserService {
     @Override
     public void removeUser(String userName) {
         IUserRepository repository = new UserRepositoryDB();
-        List<User> userList = repository.query(new UserInMemoryGetByUserName(userName));
+        List<User> userList = repository.query(new UserDBGetByUserName(userName));
         if(!userList.isEmpty()) {
             repository.removeUser(userList.get(USER));
         }
@@ -57,7 +58,7 @@ public class UserService implements IUserService {
     @Override
     public User getUserByName(String userName) {
         IUserRepository repository = new UserRepositoryDB();
-        List<User> userList = repository.query(new UserInMemoryGetByUserName(userName));
+        List<User> userList = repository.query(new UserDBGetByUserName(userName));
         if(!userList.isEmpty()) {
             return userList.get(USER);
         }
@@ -66,7 +67,7 @@ public class UserService implements IUserService {
 
     private boolean isUserNameUsed(String userName) {
         IUserRepository repository = new UserRepositoryDB();
-        List<User> userList = repository.query(new UserInMemoryGetByUserName(userName));
+        List<User> userList = repository.query(new UserDBGetByUserName(userName));
         return !userList.isEmpty();
     }
 }

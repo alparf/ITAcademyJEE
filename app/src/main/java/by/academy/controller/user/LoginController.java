@@ -7,6 +7,7 @@ import by.academy.facade.UserFacade;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
 import by.academy.model.factory.UserFactory;
+import by.academy.exception.UserServiceException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +52,10 @@ public class LoginController extends HttpServlet {
         String adminPassword = getServletConfig().getInitParameter(ADMIN_PASSWORD);
         User admin = UserFactory.createUser(
                 0,"Jon Snow", 34, adminName, adminPassword, UserType.ADMIN);
-        UserFacade.addUser(admin);
+        try {
+            UserFacade.addUser(admin);
+        } catch (UserServiceException e) {
+            e.printStackTrace();
+        }
     }
 }
