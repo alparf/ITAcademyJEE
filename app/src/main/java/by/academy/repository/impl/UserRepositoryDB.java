@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class UserRepositoryDB implements IUserRepository {
 
     @Override
     public List<User> query(IUserSpecification specification) {
-        List<User> resultSetResults = new LinkedList<>();
+        List<User> users = new LinkedList<>();
         if (specification instanceof ISqlSpecification) {
             ISqlSpecification sql = (ISqlSpecification) specification;
             final int ID = 1;
@@ -74,10 +75,10 @@ public class UserRepositoryDB implements IUserRepository {
             final int USER_NAME = 4;
             final int PASSWORD = 5;
             final int USER_TYPE = 6;
-            User user = null;
             Connection connection = ConnectionManager.getPoll().get();
             try (PreparedStatement statement = sql.getPreparedStatement(connection);
                  ResultSet resultSet = statement.executeQuery()) {
+                User user = null;
                 while (resultSet.next()) {
                     user = UserFactory.createUser(
                             resultSet.getLong(ID),
@@ -87,7 +88,7 @@ public class UserRepositoryDB implements IUserRepository {
                             resultSet.getString(PASSWORD),
                             UserType.valueOf(resultSet.getString(USER_TYPE))
                     );
-                    resultSetResults.add(user);
+                    users.add(user);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -95,12 +96,12 @@ public class UserRepositoryDB implements IUserRepository {
                 ConnectionManager.getPoll().put(connection);
             }
         }
-        List<User> userList = new LinkedList<>();
-        for(User user: resultSetResults) {
-            if (specification.specification(user)) {
-                userList.add(user);
+        Iterator<User> iterator = users.iterator();
+        while (iterator.hasNext()) {
+            if (!specification.specification(iterator.next())) {
+                iterator.remove();
             }
         }
-        return userList;
+        return users;
     }
 }

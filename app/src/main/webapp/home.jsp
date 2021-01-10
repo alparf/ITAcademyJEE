@@ -64,7 +64,7 @@
                                 <span class="item">${entry.age}</span>
                                 <span class="item">${entry.userName}</span>
                                 <span class="item">${entry.userType}</span>
-                                <input type="text" name="userNameToRemove" value="${entry.userName}" hidden/>
+                                <input type="text" name="userIdToRemove" value="${entry.id}" hidden/>
                                 <input type="submit" value="Remove" grow/>
                             </form>
                         </c:forEach>

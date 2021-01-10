@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ICoachService {
     List<Coach> getAll();
-    void addSalary(Coach coach, Integer salary);
+    void addSalary(long coachId, int salary);
 }

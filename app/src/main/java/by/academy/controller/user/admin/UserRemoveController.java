@@ -24,9 +24,9 @@ public class UserRemoveController extends HttpServlet {
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
         session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
-        String userName = req.getParameter(SessionConstant.USER_NAME_TO_REMOVE);
-        UserFacade.removeUser(userName);
-        log.info("Remove user = {}", userName);
+        long userId = Long.parseLong(req.getParameter(SessionConstant.USER_ID_TO_REMOVE));
+        UserFacade.removeUserById(userId);
+        log.info("Removed user, userId = {}", userId);
         RequestDispatcher dispatcher = req.getRequestDispatcher(ServletConstant.HOME_CONTROLLER);
         dispatcher.forward(req, res);
     }

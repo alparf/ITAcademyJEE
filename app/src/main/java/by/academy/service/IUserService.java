@@ -10,5 +10,5 @@ public interface IUserService {
     List<User> getAll();
     User getUserByName(String userName);
     void addUser(User user) throws UserServiceException;
-    void removeUser(String userName);
+    void removeUserById(long id);
 }

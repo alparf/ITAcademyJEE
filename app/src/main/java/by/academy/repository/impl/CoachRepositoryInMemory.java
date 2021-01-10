@@ -20,46 +20,8 @@ public class CoachRepositoryInMemory implements ICoachRepository {
     }
 
     @Override
-    public void addCoach(Coach coach) {
-        synchronized (CoachRepositoryInMemory.class) {
-            if (null != coach) {
-                coach.setId(nextId);
-                nextId++;
-                coaches.put(coach.getId(), coach);
-            }
-        }
-    }
-
-    @Override
-    public void removeCoach(Coach coach) {
-        synchronized (CoachRepositoryInMemory.class) {
-            if (null != coach) {
-                coaches.remove(coach.getId());
-            }
-        }
-    }
-
-    @Override
-    public void setCoach(Coach coach) {
-        synchronized (CoachRepositoryInMemory.class) {
-            if (null != coach) {
-                coaches.put(coach.getId(), coach);
-            }
-        }
-    }
-
-    @Override
     public void addSalary(Coach coach, int salary) {
-        synchronized (CoachRepositoryInMemory.class) {
-            if (null != coach) {
-                if(coaches.containsKey(coach.getId())) {
-                    coaches.get(coach.getId()).addSalary(salary);
-                } else {
-                    coach.addSalary(salary);
-                    coaches.put(coach.getId(), coach);
-                }
-            }
-        }
+
     }
 
     @Override

@@ -21,11 +21,11 @@ public class CoachAddSalaryController extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String coachName = req.getParameter(SessionConstant.COACH_NAME);
         try {
+            long coachId = Long.parseLong(req.getParameter(SessionConstant.COACH_ID));
             double salary = Double.parseDouble(req.getParameter(SessionConstant.SALARY));
-            UserFacade.addSalary(coachName, salaryFormat(salary));
-            log.info(coachName + " add salary = {}", salary);
+            UserFacade.addSalary(coachId, salaryFormat(salary));
+            log.info("Add salary = {} to Coach(" + coachId + ")", salary);
         } catch (NumberFormatException e) {
             log.error(e.getMessage(), e);
         }

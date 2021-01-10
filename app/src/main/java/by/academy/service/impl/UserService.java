@@ -7,8 +7,6 @@ import by.academy.model.factory.UserFactory;
 import by.academy.repository.IUserRepository;
 import by.academy.repository.impl.UserRepositoryDB;
 import by.academy.service.IUserService;
-import by.academy.specification.impl.inmemory.UserInMemoryLogin;
-import by.academy.specification.impl.inmemory.UserInMemoryGetByUserName;
 import by.academy.specification.impl.jdbc.UserDBGetAll;
 import by.academy.specification.impl.jdbc.UserDBGetByUserName;
 import by.academy.specification.impl.jdbc.UserDBLogin;
@@ -41,12 +39,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void removeUser(String userName) {
+    public void removeUserById(long id) {
         IUserRepository repository = new UserRepositoryDB();
-        List<User> userList = repository.query(new UserDBGetByUserName(userName));
-        if(!userList.isEmpty()) {
-            repository.removeUser(userList.get(USER));
-        }
+        User user = UserFactory.createUser();
+        user.setId(id);
+        repository.removeUser(user);
     }
 
     @Override
