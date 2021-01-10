@@ -1,30 +1,24 @@
 package by.academy.service.impl;
 
-import by.academy.dao.ICoachDAO;
-import by.academy.dao.impl.CoachInMemory;
 import by.academy.model.bean.Coach;
-import by.academy.model.bean.User;
+import by.academy.repository.ICoachRepository;
+import by.academy.repository.impl.CoachRepositoryInMemory;
 import by.academy.service.ICoachService;
+import by.academy.specification.impl.CoachSpecificationGetAll;
 
-import java.util.LinkedList;
 import java.util.List;
+
 
 public class CoachService implements ICoachService {
     @Override
-    public Coach getCoach(User user) {
-        ICoachDAO coachDAO = new CoachInMemory();
-        return coachDAO.getCoach(user);
-    }
-
-    @Override
     public List<Coach> getAll() {
-        ICoachDAO coachDAO = new CoachInMemory();
-        return new LinkedList<>(coachDAO.getCoachList().values());
+        ICoachRepository repository = new CoachRepositoryInMemory();
+        return repository.query(new CoachSpecificationGetAll());
     }
 
     @Override
-    public boolean addSalary(Coach coach, Integer salary) {
-        ICoachDAO coachDAO = new CoachInMemory();
-        return coachDAO.addSalary(coach, salary);
+    public void addSalary(Coach coach, Integer salary) {
+        ICoachRepository repository = new CoachRepositoryInMemory();
+        repository.addSalary(coach, salary);
     }
 }

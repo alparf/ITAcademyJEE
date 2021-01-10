@@ -24,13 +24,13 @@ public class HomeController extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(SessionConstant.USER);
         IUserStrategy strategy = null;
-        if(user.getUserType() == UserType.ADMIN) {
+        if (user.getUserType() == UserType.ADMIN) {
             strategy = AdminStrategy.create(session);
         }
-        if(user.getUserType() == UserType.STUDENT) {
+        if (user.getUserType() == UserType.STUDENT) {
             strategy = UserStrategy.create(session);
         }
-        if(null != strategy) {
+        if (null != strategy) {
             strategy.sessionInit();
         }
         res.sendRedirect(ServletConstant.HOME);

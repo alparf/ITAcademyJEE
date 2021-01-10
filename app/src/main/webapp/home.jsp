@@ -73,7 +73,7 @@
                         <c:forEach var="entry" items="${userList}">
                             <c:if test="${entry.userType == UserType.COACH}">
                                 <form class="coach_form"
-                                    action="CoachAddSalary" method="POST">
+                                    action="CoachAddSalaryController" method="POST">
                                     <span name="coachName" class="item">${entry.fio}</span>
                                     <input name="salary" type="text" placeholder="235.15"/>
                                     <span>BYN</span>

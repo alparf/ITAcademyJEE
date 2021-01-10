@@ -31,7 +31,7 @@ public class Coach {
     }
 
     public void setUser(User user) throws IllegalArgumentException {
-        if(null != user && user.getUserType() == UserType.COACH) {
+        if (null != user && user.getUserType() == UserType.COACH) {
             this.user = user;
         } else {
             throw new IllegalArgumentException(ExceptionConstant.USER_HAVE_TO_BE_COACH);
@@ -54,7 +54,7 @@ public class Coach {
      * @throws IllegalArgumentException if monthCount < 1
      */
     public int getAverageSalary(int monthCount) throws IllegalArgumentException {
-        if(monthCount < 1) {
+        if (monthCount < 1) {
             throw new IllegalArgumentException(ExceptionConstant.INVALID_MONTH_COUNT);
         }
         int sum = this.getSalaries().stream()
@@ -79,7 +79,7 @@ public class Coach {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Coach) {
+        if (obj instanceof Coach) {
             if (null != this.getUser()) {
                 return this.getUser().equals(((Coach) obj).getUser());
             }

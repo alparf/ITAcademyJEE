@@ -25,9 +25,8 @@ public class UserRemoveController extends HttpServlet {
         HttpSession session = req.getSession();
         session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
         String userName = req.getParameter(SessionConstant.USER_NAME_TO_REMOVE);
-        if(UserFacade.removeUser(userName)) {
-            log.info("Remove user = {}", userName);
-        }
+        UserFacade.removeUser(userName);
+        log.info("Remove user = {}", userName);
         RequestDispatcher dispatcher = req.getRequestDispatcher(ServletConstant.HOME_CONTROLLER);
         dispatcher.forward(req, res);
     }
