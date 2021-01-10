@@ -8,6 +8,8 @@ import by.academy.service.IUserService;
 import by.academy.service.impl.CoachService;
 import by.academy.service.impl.UserService;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +41,7 @@ public class UserFacade {
 
     public static User login(String userName, String password) {
         IUserService service = new UserService();
+        password = Base64.getEncoder().encodeToString(password.getBytes());
         return service.login(userName, password);
     }
 
@@ -49,6 +52,7 @@ public class UserFacade {
 
     public static void addUser(User user) {
         IUserService service = new UserService();
+        user.setPassword(Base64.getEncoder().encodeToString(user.getPassword().getBytes()));
         service.addUser(user);
     }
 

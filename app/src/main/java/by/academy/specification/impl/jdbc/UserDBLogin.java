@@ -2,9 +2,14 @@ package by.academy.specification.impl.jdbc;
 
 import by.academy.constant.SqlConstant;
 import by.academy.model.bean.User;
-import by.academy.model.factory.UserFactory;
 import by.academy.specification.ISqlSpecification;
 import by.academy.specification.IUserSpecification;
+
+import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Base64;
 
 public class UserDBLogin implements IUserSpecification, ISqlSpecification {
 
@@ -17,15 +22,18 @@ public class UserDBLogin implements IUserSpecification, ISqlSpecification {
     }
 
     @Override
-    public String toSqlCauses() {
-        return SqlConstant.SELECT_USER;
+    public PreparedStatement getPreparedStatement(Connection connection) throws SQLException {
+        final int USER_NAME = 1;
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.SELECT_USER);
+        preparedStatement.setString(USER_NAME, this.userName);
+        return preparedStatement;
     }
 
     @Override
     public boolean specification(User user) {
         if ((null != user) && (null != this.password)) {
             if ((user.getUserName().equals(this.userName))
-                    && (UserFactory.PASS_AUTH.authenticate(password.toCharArray(), user.getPassword()))) {
+                    && (this.password.equals(user.getPassword()))) {
                 return true;
             }
         }

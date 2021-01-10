@@ -1,7 +1,6 @@
 package by.academy.specification.impl.inmemory;
 
 import by.academy.model.bean.User;
-import by.academy.model.factory.UserFactory;
 import by.academy.specification.IUserSpecification;
 
 public class UserInMemoryLogin implements IUserSpecification {
@@ -18,7 +17,7 @@ public class UserInMemoryLogin implements IUserSpecification {
     public boolean specification(User user) {
         if ((null != user) && (null != this.password)) {
             if ((user.getUserName().equals(this.userName))
-                    && (UserFactory.PASS_AUTH.authenticate(password.toCharArray(), user.getPassword()))) {
+                    && (this.password.equals(user.getPassword()))) {
                 return true;
             }
         }

@@ -66,7 +66,7 @@ public class UserRepositoryDB implements IUserRepository {
             final int USER_TYPE = 6;
             User user = null;
             Connection connection = ConnectionManager.getPoll().get();
-            try (PreparedStatement statement = connection.prepareStatement(sql.toSqlCauses());
+            try (PreparedStatement statement = sql.getPreparedStatement(connection);
                  ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     user = UserFactory.createUser(
