@@ -1,17 +1,24 @@
-package by.academy.specification.impl;
+package by.academy.specification.impl.jdbc;
 
+import by.academy.constant.SqlConstant;
 import by.academy.model.bean.User;
 import by.academy.model.factory.UserFactory;
+import by.academy.specification.ISqlSpecification;
 import by.academy.specification.IUserSpecification;
 
-public class UserSpecificationLogin implements IUserSpecification {
+public class UserDBLogin implements IUserSpecification, ISqlSpecification {
 
-    private String userName;
-    private String password;
+    private final String userName;
+    private final String password;
 
-    public UserSpecificationLogin(String userName, String password) {
+    public UserDBLogin(String userName, String password) {
         this.userName = userName;
         this.password = password;
+    }
+
+    @Override
+    public String toSqlCauses() {
+        return SqlConstant.SELECT_USER;
     }
 
     @Override

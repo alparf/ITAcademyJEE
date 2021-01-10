@@ -1,9 +1,9 @@
-package by.academy.specification.impl;
+package by.academy.specification.impl.inmemory;
 
 import by.academy.model.bean.User;
 import by.academy.specification.IUserSpecification;
 
-public class UserSpecificationGetAll implements IUserSpecification {
+public class UserInMemoryGetAll implements IUserSpecification {
 
     @Override
     public boolean specification(User user) {

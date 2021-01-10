@@ -7,12 +7,12 @@ import java.util.Hashtable;
 import java.util.Map;
 
 public class ConnectionPool {
-    private long liveTime;
-    private Map<Connection, Long> lock;
-    private Map<Connection, Long> unLock;
-    private String url;
-    private String user;
-    private String password;
+    private final long liveTime;
+    private final Map<Connection, Long> lock;
+    private final Map<Connection, Long> unLock;
+    private final String url;
+    private final String user;
+    private final String password;
 
     public ConnectionPool(String url, String user, String password) {
         this.liveTime = 60_000;
@@ -24,26 +24,28 @@ public class ConnectionPool {
     }
 
     public Connection get() {
-        long currentTime = System.currentTimeMillis();
-        if (this.unLock.size() > 0) {
-            for (Connection connection: this.lock.keySet()) {
-                if (currentTime - this.unLock.get(connection) > this.liveTime) {
-                    this.unLock.remove(connection);
-                    close(connection);
-                } else {
-                    if (this.validate(connection)) {
-                        this.unLock.remove(connection);
-                        this.lock.put(connection, currentTime);
-                        return connection;
-                    } else {
+        synchronized (ConnectionPool.class) {
+            long currentTime = System.currentTimeMillis();
+            if (this.unLock.size() > 0) {
+                for (Connection connection : this.lock.keySet()) {
+                    if (currentTime - this.unLock.get(connection) > this.liveTime) {
                         this.unLock.remove(connection);
                         close(connection);
+                    } else {
+                        if (this.validate(connection)) {
+                            this.unLock.remove(connection);
+                            this.lock.put(connection, currentTime);
+                            return connection;
+                        } else {
+                            this.unLock.remove(connection);
+                            close(connection);
+                        }
                     }
                 }
             }
         }
         Connection newConnection = open();
-        this.lock.put(newConnection, currentTime);
+        this.lock.put(newConnection, System.currentTimeMillis());
         return newConnection;
     }
 
@@ -54,8 +56,11 @@ public class ConnectionPool {
 
     private Connection open() {
         try {
+            Class.forName("org.postgresql.Driver");
             return DriverManager.getConnection(this.url, this.user, this.password);
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
