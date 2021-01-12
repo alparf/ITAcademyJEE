@@ -15,9 +15,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class CoachRepositoryDB implements ICoachRepository {
 
@@ -49,14 +47,14 @@ public class CoachRepositoryDB implements ICoachRepository {
             final int USER_NAME = 4;
             final int PASSWORD = 5;
             final int USER_TYPE = 6;
+            final int COACH_ID = 1;
             ISqlSpecification sql = (ISqlSpecification) specification;
             Connection connection = ConnectionManager.getPoll().get();
-            try (PreparedStatement preparedStatement = sql.getPreparedStatement(connection);
-                 ResultSet resultSet = preparedStatement.executeQuery()) {
+            try (PreparedStatement userPreparedStatement = sql.getPreparedStatement(connection);
+                 ResultSet resultSet = userPreparedStatement.executeQuery()) {
                 User user;
                 while (resultSet.next()) {
                     user = UserFactory.createUser(
-
                             resultSet.getLong(ID),
                             resultSet.getString(FIO),
                             resultSet.getInt(AGE),
@@ -70,6 +68,9 @@ public class CoachRepositoryDB implements ICoachRepository {
             } finally {
                 ConnectionManager.getPoll().put(connection);
             }
+            for (Coach coach: coaches) {
+                coach.setSalaries(getSalaryList(coach.getUser().getId()));
+            }
         }
         Iterator<Coach> iterator = coaches.iterator();
         while (iterator.hasNext()) {
@@ -78,5 +79,37 @@ public class CoachRepositoryDB implements ICoachRepository {
             }
         }
         return coaches;
+    }
+
+    private Deque<Integer> getSalaryList(long userId) {
+        final int USER_ID = 1;
+        final int SALARY = 1;
+        Deque<Integer> salaries = new LinkedList<>();
+        Connection connection = ConnectionManager.getPoll().get();
+        ResultSet resultSet = null;
+        try (
+             PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.SELECT_SALARY)) {
+            preparedStatement.setLong(USER_ID, userId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                salaries.add(resultSet.getInt(SALARY));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionManager.getPoll().put(connection);
+            closeResultSet(resultSet);
+        }
+        return salaries;
+    }
+
+    private void closeResultSet(ResultSet resultSet) {
+        if (null != resultSet) {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

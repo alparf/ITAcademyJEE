@@ -15,4 +15,6 @@ public class SqlConstant {
 
     public static final String INSERT_SALARY = "INSERT INTO salaries (\"userId\", \"salary\") " +
                                                "VALUES (?, ?)";
+    public static final String SELECT_SALARY = "SELECT \"salary\" FROM salaries " +
+                                               "WHERE \"userId\" = ?;";
 }

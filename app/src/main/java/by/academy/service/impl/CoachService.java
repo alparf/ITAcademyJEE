@@ -8,6 +8,7 @@ import by.academy.model.factory.UserFactory;
 import by.academy.repository.ICoachRepository;
 import by.academy.repository.impl.CoachRepositoryDB;
 import by.academy.service.ICoachService;
+import by.academy.specification.impl.jdbc.CoachDBGetAll;
 
 import java.util.List;
 
@@ -16,7 +17,8 @@ public class CoachService implements ICoachService {
 
     @Override
     public List<Coach> getAll() {
-        return null;
+        ICoachRepository repository = new CoachRepositoryDB();
+        return repository.query(new CoachDBGetAll());
     }
 
     @Override
