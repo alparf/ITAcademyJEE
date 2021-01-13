@@ -33,11 +33,11 @@
                         <form class="add-user_form"
                             id="userAddForm" action="UserAddController" method="POST">
                             <label >FIO</label>
-                            <input type="text"/ name="fio" required>
+                            <input type="text"/ name="fio" placeholder="First name Last name" required>
                             <label>User name</label>
-                            <input type="text" name="userName" required/>
+                            <input type="text" name="userName" placeholder="User name to sign in" required/>
                             <label>Password</label>
-                            <input type="password" name="password" required/>
+                            <input type="password" name="password" placeholder="Password" required/>
                             <div class="add-user_form_container">
                                 <div class="add-user_form_container_inner">
                                     <label>Age</label>

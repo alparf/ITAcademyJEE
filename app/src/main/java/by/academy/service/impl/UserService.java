@@ -3,13 +3,10 @@ package by.academy.service.impl;
 import by.academy.constant.ExceptionConstant;
 import by.academy.exception.UserServiceException;
 import by.academy.model.bean.User;
-import by.academy.model.factory.UserFactory;
 import by.academy.repository.IUserRepository;
 import by.academy.repository.impl.UserRepositoryDB;
 import by.academy.service.IUserService;
-import by.academy.specification.impl.jdbc.UserDBGetAll;
-import by.academy.specification.impl.jdbc.UserDBGetByUserName;
-import by.academy.specification.impl.jdbc.UserDBLogin;
+import by.academy.specification.UserDBSpecifications;
 
 import java.util.List;
 
@@ -19,7 +16,7 @@ public class UserService implements IUserService {
 
     public User login(String userName, String password) {
         IUserRepository repository = new UserRepositoryDB();
-        List<User> userList = repository.query(new UserDBLogin(userName, password));
+        List<User> userList = repository.query(UserDBSpecifications.userLogin(userName, password));
         if(!userList.isEmpty()) {
             return userList.get(USER);
         }
@@ -41,20 +38,28 @@ public class UserService implements IUserService {
     @Override
     public void removeUserById(long id) {
         IUserRepository repository = new UserRepositoryDB();
-        User user = UserFactory.createUser();
-        user.setId(id);
-        repository.removeUser(user);
+        repository.removeUser(getUserByID(id));
     }
 
     @Override
     public List<User> getAll() {
         IUserRepository repository = new UserRepositoryDB();
-        return repository.query(new UserDBGetAll());
+        return repository.query(UserDBSpecifications.allUsers());
+    }
+
+    @Override
+    public User getUserByID(long id) {
+        IUserRepository repository = new UserRepositoryDB();
+        List<User> userList = repository.query(UserDBSpecifications.userById(id));
+        if(!userList.isEmpty()) {
+            return userList.get(USER);
+        }
+        return null;
     }
 
     private boolean isUserNameUsed(String userName) {
         IUserRepository repository = new UserRepositoryDB();
-        List<User> userList = repository.query(new UserDBGetByUserName(userName));
+        List<User> userList = repository.query(UserDBSpecifications.userByUserName(userName));
         return !userList.isEmpty();
     }
 }

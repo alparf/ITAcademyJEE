@@ -1,4 +1,4 @@
-package by.academy.specification.impl.jdbc;
+package by.academy.specification.impl.db;
 
 import by.academy.constant.SqlConstant;
 import by.academy.model.bean.Coach;
@@ -9,7 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class CoachDBAddSalary implements ICoachSpecification, ISqlSpecification {
+public class CoachDBGetAll implements ICoachSpecification, ISqlSpecification {
+
     @Override
     public boolean specification(Coach coach) {
         return true;
@@ -17,6 +18,7 @@ public class CoachDBAddSalary implements ICoachSpecification, ISqlSpecification 
 
     @Override
     public PreparedStatement getPreparedStatement(Connection connection) throws SQLException {
-        return connection.prepareStatement(SqlConstant.INSERT_SALARY);
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.SELECT_COACHES);
+        return preparedStatement;
     }
 }

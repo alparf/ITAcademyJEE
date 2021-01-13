@@ -2,13 +2,14 @@ package by.academy.service.impl;
 
 import by.academy.model.bean.Coach;
 import by.academy.model.bean.User;
-import by.academy.model.bean.UserType;
 import by.academy.model.factory.CoachFactory;
-import by.academy.model.factory.UserFactory;
 import by.academy.repository.ICoachRepository;
+import by.academy.repository.IUserRepository;
 import by.academy.repository.impl.CoachRepositoryDB;
+import by.academy.repository.impl.UserRepositoryDB;
 import by.academy.service.ICoachService;
-import by.academy.specification.impl.jdbc.CoachDBGetAll;
+import by.academy.specification.CoachDBSpecifications;
+import by.academy.specification.UserDBSpecifications;
 
 import java.util.List;
 
@@ -18,16 +19,19 @@ public class CoachService implements ICoachService {
     @Override
     public List<Coach> getAll() {
         ICoachRepository repository = new CoachRepositoryDB();
-        return repository.query(new CoachDBGetAll());
+        return repository.query(CoachDBSpecifications.allCoaches());
     }
 
     @Override
     public void addSalary(long coachId, int salary) {
+        final int USER = 0;
         ICoachRepository repository = new CoachRepositoryDB();
-        User user = UserFactory.createUser();
-        user.setId(coachId);
-        user.setUserType(UserType.COACH);
-        Coach coach = CoachFactory.createCoach(user, null);
-        repository.addSalary(coach, salary);
+        IUserRepository userRepository = new UserRepositoryDB();
+        List<User> userList = userRepository.query(UserDBSpecifications.userById(coachId));
+        User user = null;
+        if (!userList.isEmpty()) {
+            user = userList.get(USER);
+        }
+        repository.addSalary(CoachFactory.createCoach(user), salary);
     }
 }

@@ -1,4 +1,4 @@
-package by.academy.specification.impl.jdbc;
+package by.academy.specification.impl.db;
 
 import by.academy.constant.SqlConstant;
 import by.academy.model.bean.User;
@@ -9,14 +9,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UserDBLogin implements IUserSpecification, ISqlSpecification {
+public class UserDBGetByUserName implements IUserSpecification, ISqlSpecification {
 
     private final String userName;
-    private final String password;
 
-    public UserDBLogin(String userName, String password) {
+    public UserDBGetByUserName(String userName) {
         this.userName = userName;
-        this.password = password;
     }
 
     @Override
@@ -29,12 +27,6 @@ public class UserDBLogin implements IUserSpecification, ISqlSpecification {
 
     @Override
     public boolean specification(User user) {
-        if ((null != user) && (null != this.password)) {
-            if ((user.getUserName().equals(this.userName))
-                    && (this.password.equals(user.getPassword()))) {
-                return true;
-            }
-        }
-        return false;
+        return true;
     }
 }

@@ -1,4 +1,4 @@
-package by.academy.specification.impl.jdbc;
+package by.academy.specification.impl.db;
 
 import by.academy.constant.SqlConstant;
 import by.academy.model.bean.User;
