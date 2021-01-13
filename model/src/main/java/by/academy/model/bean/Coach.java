@@ -76,7 +76,7 @@ public class Coach {
             return false;
         }
         Coach coach = (Coach) o;
-        return Objects.equals(user, coach);
+        return Objects.equals(user, coach.getUser());
     }
 
     @Override

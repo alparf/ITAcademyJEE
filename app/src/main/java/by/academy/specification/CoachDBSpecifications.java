@@ -6,5 +6,4 @@ public class CoachDBSpecifications {
     public static ICoachSpecification allCoaches() {
         return new CoachDBGetAll();
     }
-
 }

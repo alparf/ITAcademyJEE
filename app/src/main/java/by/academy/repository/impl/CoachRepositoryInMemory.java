@@ -4,31 +4,40 @@ import by.academy.model.bean.Coach;
 import by.academy.repository.ICoachRepository;
 import by.academy.specification.ICoachSpecification;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class CoachRepositoryInMemory implements ICoachRepository {
 
-    private static final Map<Long, Coach> coaches;
-    private static volatile long nextId;
+    private static final List<Coach> coaches;
 
     static {
-        coaches = new HashMap<>();
-        nextId = 1;
+        coaches = new LinkedList<>();
     }
 
     @Override
     public void addSalary(Coach coach, int salary) {
-
+        synchronized (UserRepositoryInMemory.class) {
+            boolean isExist = false;
+            for (Coach entryCoach: coaches) {
+                if(entryCoach.equals(coach)) {
+                    entryCoach.addSalary(salary);
+                    isExist = true;
+                    break;
+                }
+            }
+            if (!isExist) {
+                coach.addSalary(salary);
+                coaches.add(coach);
+            }
+        }
     }
 
     @Override
     public List<Coach> query(ICoachSpecification specification) {
         List<Coach> coachList = new LinkedList<>();
         synchronized (UserRepositoryInMemory.class) {
-            for(Coach coach: coaches.values()) {
+            for(Coach coach: coaches) {
                 if(specification.specification(coach)) {
                     coachList.add(coach);
                 }

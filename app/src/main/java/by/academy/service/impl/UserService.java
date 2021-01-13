@@ -4,9 +4,9 @@ import by.academy.constant.ExceptionConstant;
 import by.academy.exception.UserServiceException;
 import by.academy.model.bean.User;
 import by.academy.repository.IUserRepository;
-import by.academy.repository.impl.UserRepositoryDB;
+import by.academy.repository.impl.UserRepositoryInMemory;
 import by.academy.service.IUserService;
-import by.academy.specification.UserDBSpecifications;
+import by.academy.specification.UserInMemorySpecifications;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ public class UserService implements IUserService {
     private static final int USER = 0;
 
     public User login(String userName, String password) {
-        IUserRepository repository = new UserRepositoryDB();
-        List<User> userList = repository.query(UserDBSpecifications.userLogin(userName, password));
+        IUserRepository repository = new UserRepositoryInMemory();
+        List<User> userList = repository.query(UserInMemorySpecifications.userLogin(userName, password));
         if(!userList.isEmpty()) {
             return userList.get(USER);
         }
@@ -25,7 +25,7 @@ public class UserService implements IUserService {
 
     @Override
     public void addUser(User user) throws UserServiceException {
-        IUserRepository repository = new UserRepositoryDB();
+        IUserRepository repository = new UserRepositoryInMemory();
         if (null != user) {
             if (!isUserNameUsed(user.getUserName())) {
                 repository.addUser(user);
@@ -37,20 +37,20 @@ public class UserService implements IUserService {
 
     @Override
     public void removeUserById(long id) {
-        IUserRepository repository = new UserRepositoryDB();
+        IUserRepository repository = new UserRepositoryInMemory();
         repository.removeUser(getUserByID(id));
     }
 
     @Override
     public List<User> getAll() {
-        IUserRepository repository = new UserRepositoryDB();
-        return repository.query(UserDBSpecifications.allUsers());
+        IUserRepository repository = new UserRepositoryInMemory();
+        return repository.query(UserInMemorySpecifications.allUsers());
     }
 
     @Override
     public User getUserByID(long id) {
-        IUserRepository repository = new UserRepositoryDB();
-        List<User> userList = repository.query(UserDBSpecifications.userById(id));
+        IUserRepository repository = new UserRepositoryInMemory();
+        List<User> userList = repository.query(UserInMemorySpecifications.userById(id));
         if(!userList.isEmpty()) {
             return userList.get(USER);
         }
@@ -58,8 +58,8 @@ public class UserService implements IUserService {
     }
 
     private boolean isUserNameUsed(String userName) {
-        IUserRepository repository = new UserRepositoryDB();
-        List<User> userList = repository.query(UserDBSpecifications.userByUserName(userName));
+        IUserRepository repository = new UserRepositoryInMemory();
+        List<User> userList = repository.query(UserInMemorySpecifications.userByUserName(userName));
         return !userList.isEmpty();
     }
 }
