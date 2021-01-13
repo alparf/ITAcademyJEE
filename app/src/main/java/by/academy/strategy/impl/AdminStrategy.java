@@ -1,26 +1,26 @@
 package by.academy.strategy.impl;
 
-import by.academy.constant.SessionConstant;
+import by.academy.constant.ServletConstant;
 import by.academy.facade.UserFacade;
 import by.academy.strategy.IUserStrategy;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 public class AdminStrategy implements IUserStrategy {
 
-    private final HttpSession session;
+    private final HttpServletRequest request;
 
-    public static IUserStrategy create(HttpSession session) {
-        return new AdminStrategy(session);
+    public static IUserStrategy create(HttpServletRequest request) {
+        return new AdminStrategy(request);
     }
 
     @Override
     public void sessionInit() {
-        session.setAttribute(SessionConstant.USER_LIST, UserFacade.getAllUsers());
-        session.setAttribute(SessionConstant.COACH_LIST, UserFacade.getAllCoaches());
+        request.setAttribute(ServletConstant.USER_LIST, UserFacade.getAllUsers());
+        request.setAttribute(ServletConstant.COACH_LIST, UserFacade.getAllCoaches());
     }
 
-    private AdminStrategy(HttpSession session) {
-        this.session = session;
+    private AdminStrategy(HttpServletRequest request) {
+        this.request = request;
     }
 }

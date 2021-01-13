@@ -1,7 +1,7 @@
 package by.academy.controller.user.admin;
 
+import by.academy.constant.PageConstant;
 import by.academy.constant.ServletConstant;
-import by.academy.constant.SessionConstant;
 import by.academy.facade.UserFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,14 +22,14 @@ public class CoachAddSalaryController extends HttpServlet {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         try {
-            long coachId = Long.parseLong(req.getParameter(SessionConstant.COACH_ID));
-            double salary = Double.parseDouble(req.getParameter(SessionConstant.SALARY));
+            long coachId = Long.parseLong(req.getParameter(ServletConstant.COACH_ID));
+            double salary = Double.parseDouble(req.getParameter(ServletConstant.SALARY));
             UserFacade.addSalary(coachId, salaryFormat(salary));
             log.info("Add salary = {} to Coach(" + coachId + ")", salary);
         } catch (NumberFormatException e) {
             log.error(e.getMessage(), e);
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher(ServletConstant.HOME_CONTROLLER);
+        RequestDispatcher dispatcher = req.getRequestDispatcher(PageConstant.HOME_CONTROLLER);
         dispatcher.forward(req, res);
     }
 

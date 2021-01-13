@@ -18,7 +18,6 @@ public class CoachDBGetAll implements ICoachSpecification, ISqlSpecification {
 
     @Override
     public PreparedStatement getPreparedStatement(Connection connection) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.SELECT_COACHES);
-        return preparedStatement;
+        return connection.prepareStatement(SqlConstant.SELECT_COACHES);
     }
 }

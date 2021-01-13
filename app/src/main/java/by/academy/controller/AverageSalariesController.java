@@ -1,7 +1,7 @@
 package by.academy.controller;
 
+import by.academy.constant.PageConstant;
 import by.academy.constant.ServletConstant;
-import by.academy.constant.SessionConstant;
 import by.academy.facade.UserFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,18 +21,17 @@ public class AverageSalariesController extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        String monthCountStr = req.getParameter(SessionConstant.MONTH_COUNT);
+        String monthCountStr = req.getParameter(ServletConstant.MONTH_COUNT);
         int monthCount = 1;
         if (null != monthCountStr) {
             monthCount = Integer.parseInt(monthCountStr);
         }
-        session.setAttribute(SessionConstant.MONTH_COUNT, monthCount);
+        req.setAttribute(ServletConstant.MONTH_COUNT, monthCount);
         try {
-            session.setAttribute(SessionConstant.AVERAGE_SALARIES, UserFacade.getAverageSalaries(monthCount));
+            req.setAttribute(ServletConstant.AVERAGE_SALARIES, UserFacade.getAverageSalaries(monthCount));
         } catch (IllegalArgumentException e) {
             log.error(e.getMessage(), e);
         }
-        res.sendRedirect(ServletConstant.AVERAGE);
+        req.getRequestDispatcher(PageConstant.AVERAGE).forward(req, res);
     }
 }

@@ -5,7 +5,7 @@ import by.academy.specification.IUserSpecification;
 
 public class UserInMemoryGetByUserName implements IUserSpecification {
 
-    private String userName;
+    private final String userName;
 
     public UserInMemoryGetByUserName(String userName) {
         this.userName = userName;
@@ -14,9 +14,7 @@ public class UserInMemoryGetByUserName implements IUserSpecification {
     @Override
     public boolean specification(User user) {
         if ((null != user) && (null != this.userName)) {
-            if (this.userName.equals(user.getUserName())) {
-                return true;
-            }
+            return this.userName.equals(user.getUserName());
         }
         return false;
     }

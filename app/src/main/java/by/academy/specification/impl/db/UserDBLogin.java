@@ -30,10 +30,7 @@ public class UserDBLogin implements IUserSpecification, ISqlSpecification {
     @Override
     public boolean specification(User user) {
         if ((null != user) && (null != this.password)) {
-            if ((user.getUserName().equals(this.userName))
-                    && (this.password.equals(user.getPassword()))) {
-                return true;
-            }
+            return (user.getUserName().equals(this.userName)) && (this.password.equals(user.getPassword()));
         }
         return false;
     }

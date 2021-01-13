@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="by.academy.constant.ServletConstant" %>
+<%@ page import="by.academy.constant.PageConstant" %>
 <%@ page import="by.academy.model.bean.UserType" %>
 
 <% pageContext.setAttribute("userTypes", UserType.values()); %>
@@ -14,7 +14,7 @@
 <body>
     <c:import url="/include/header.jsp" />
     <c:if test="${empty user}">
-        <% response.sendRedirect(ServletConstant.LOGIN); %>
+        <% response.sendRedirect(PageConstant.LOGIN); %>
     </c:if>
     <div class="home">
         <c:if test="${not empty user}">

@@ -1,8 +1,8 @@
 package by.academy.controller.user;
 
 import by.academy.constant.ExceptionConstant;
+import by.academy.constant.PageConstant;
 import by.academy.constant.ServletConstant;
-import by.academy.constant.SessionConstant;
 import by.academy.facade.UserFacade;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
@@ -27,20 +27,20 @@ public class LoginController extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String userName = req.getParameter(SessionConstant.USER_NAME);
-        String password = req.getParameter(SessionConstant.PASSWORD);
+        String userName = req.getParameter(ServletConstant.USER_NAME);
+        String password = req.getParameter(ServletConstant.PASSWORD);
         HttpSession session = req.getSession();
-        session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
+        session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, null);
         User user = UserFacade.login(userName, password);
-        if((null != user) && (null == user.getUserName())) {
+        if((null == user) || (null == user.getUserName())) {
             log.info("User = {} not found!", userName);
-            session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, ExceptionConstant.INVALID_USER_NAME_OR_PASSWORD);
-            session.setAttribute(SessionConstant.USER, null);
+            session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, ExceptionConstant.INVALID_USER_NAME_OR_PASSWORD);
+            session.setAttribute(ServletConstant.USER, null);
         } else {
             log.info("User = {} signed in", userName);
-            session.setAttribute(SessionConstant.USER, user);
+            session.setAttribute(ServletConstant.USER, user);
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher(File.separator + ServletConstant.HOME_CONTROLLER);
+        RequestDispatcher dispatcher = req.getRequestDispatcher(File.separator + PageConstant.HOME_CONTROLLER);
         dispatcher.forward(req, res);
     }
 

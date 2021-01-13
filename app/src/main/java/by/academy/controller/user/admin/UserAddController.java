@@ -1,8 +1,8 @@
 package by.academy.controller.user.admin;
 
 import by.academy.constant.ExceptionConstant;
+import by.academy.constant.PageConstant;
 import by.academy.constant.ServletConstant;
-import by.academy.constant.SessionConstant;
 import by.academy.exception.UserServiceException;
 import by.academy.facade.UserFacade;
 import by.academy.model.bean.UserType;
@@ -27,20 +27,20 @@ public class UserAddController extends HttpServlet {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
-        String fio = req.getParameter(SessionConstant.FIO);
-        String userName = req.getParameter(SessionConstant.USER_NAME);
-        String password = req.getParameter(SessionConstant.PASSWORD);
-        int age = Integer.parseInt(req.getParameter(SessionConstant.AGE));
-        UserType userType = UserType.valueOf(req.getParameter(SessionConstant.USER_TYPE));
+        session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, null);
+        String fio = req.getParameter(ServletConstant.FIO);
+        String userName = req.getParameter(ServletConstant.USER_NAME);
+        String password = req.getParameter(ServletConstant.PASSWORD);
+        int age = Integer.parseInt(req.getParameter(ServletConstant.AGE));
+        UserType userType = UserType.valueOf(req.getParameter(ServletConstant.USER_TYPE));
         try {
             UserFacade.addUser(UserFactory.createUser(0, fio, age, userName, password, userType));
             log.info("New User = {}", userName);
         } catch (UserServiceException e) {
             log.error(e.getMessage(), e);
-            session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NAME_ALREADY_USED);
+            session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NAME_ALREADY_USED);
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher(ServletConstant.HOME_CONTROLLER);
+        RequestDispatcher dispatcher = req.getRequestDispatcher(PageConstant.HOME_CONTROLLER);
         dispatcher.forward(req, res);
     }
 }

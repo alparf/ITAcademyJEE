@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="by.academy.constant.ServletConstant" %>
+<%@ page import="by.academy.constant.PageConstant" %>
 <%@ page import="javax.servlet.http.Cookie" %>
 <!DOCTYPE html>
 <html>
@@ -13,7 +13,7 @@
     <div class="average">
         <div class="average_title"><h2>Average salaries</h2></div>
         <form class="average_panel" method="POST" action="AverageSalariesController">
-            <div class="average_pannel_innner">
+            <div class="average_panel_inner">
                 <label>Last of months</label>
                 <c:if test="${not empty monthCount}">
                     <input type="number" class="average_panel_input" min="1" name="monthCount" value="${monthCount}"/>

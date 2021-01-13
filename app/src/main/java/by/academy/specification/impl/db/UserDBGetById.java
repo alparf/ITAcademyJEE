@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class UserDBGetById implements IUserSpecification, ISqlSpecification {
 
-    private long userId;
+    private final long userId;
 
     public UserDBGetById(long userId) {
         this.userId = userId;

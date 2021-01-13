@@ -1,7 +1,7 @@
 package by.academy.controller.user.admin;
 
+import by.academy.constant.PageConstant;
 import by.academy.constant.ServletConstant;
-import by.academy.constant.SessionConstant;
 import by.academy.facade.UserFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,11 +23,11 @@ public class UserRemoveController extends HttpServlet {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
-        long userId = Long.parseLong(req.getParameter(SessionConstant.USER_ID_TO_REMOVE));
+        session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, null);
+        long userId = Long.parseLong(req.getParameter(ServletConstant.USER_ID_TO_REMOVE));
         UserFacade.removeUserById(userId);
         log.info("Removed user, userId = {}", userId);
-        RequestDispatcher dispatcher = req.getRequestDispatcher(ServletConstant.HOME_CONTROLLER);
+        RequestDispatcher dispatcher = req.getRequestDispatcher(PageConstant.HOME_CONTROLLER);
         dispatcher.forward(req, res);
     }
 }
