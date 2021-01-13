@@ -33,15 +33,15 @@
                         <form class="add-user_form"
                             id="userAddForm" action="UserAddController" method="POST">
                             <label >FIO</label>
-                            <input type="text"/ name="fio" value="">
+                            <input type="text"/ name="fio" required>
                             <label>User name</label>
-                            <input type="text" name="userName" value=""/>
+                            <input type="text" name="userName" required/>
                             <label>Password</label>
-                            <input type="password" name="password" value=""/>
+                            <input type="password" name="password" required/>
                             <div class="add-user_form_container">
                                 <div class="add-user_form_container_inner">
                                     <label>Age</label>
-                                    <input type="number" min="0" max="100" name="age" value="30"/>
+                                    <input type="number" min="0" max="100" name="age" required/>
                                 </div>
                                 <div class="add-user_form_container_inner">
                                     <label>User type</label>
@@ -75,7 +75,7 @@
                                 <form class="coach_form"
                                     action="CoachAddSalaryController" method="POST">
                                     <span name="coachName" class="item">${entry.fio}</span>
-                                    <input name="salary" type="text" placeholder="235.15"/>
+                                    <input name="salary" type="text" placeholder="235.15" required/>
                                     <span>BYN</span>
                                     <div class="container-inline content-end grow">
                                         <input type="text" name="coachName" value="${entry.id}" hidden/>

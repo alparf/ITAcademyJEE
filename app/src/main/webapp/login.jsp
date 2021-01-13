@@ -12,9 +12,9 @@
         <div class="sign-in_title"><h2>Sign in and go!</h2></div>
         <form class="sign-in_form" action="LoginController" method="POST">
             <label>User</label>
-            <input type="text" name="userName" placeholder="User name"/>
+            <input type="text" name="userName" placeholder="User name" required/>
             <label>Password</label>
-            <input type="password" name="password" placeholder="Password"/>
+            <input type="password" name="password" placeholder="Password" required/>
             <input type="submit" value="Sign in" id="signIn"/>
             <p class="exception">${exceptionMessage}</p>
         </form>

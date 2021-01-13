@@ -3,6 +3,7 @@ package by.academy.model.bean;
 import by.academy.model.constant.ExceptionConstant;
 
 import java.util.Deque;
+import java.util.Objects;
 
 public class Coach {
     private User user;
@@ -67,12 +68,19 @@ public class Coach {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Coach) {
-            if (null != this.getUser()) {
-                return this.getUser().equals(((Coach) obj).getUser());
-            }
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
         }
-        return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Coach coach = (Coach) o;
+        return Objects.equals(user, coach);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user);
     }
 }

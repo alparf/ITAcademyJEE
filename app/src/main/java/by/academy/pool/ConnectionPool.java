@@ -27,7 +27,7 @@ public class ConnectionPool {
         synchronized (ConnectionPool.class) {
             long currentTime = System.currentTimeMillis();
             if (this.unLock.size() > 0) {
-                for (Connection connection : this.lock.keySet()) {
+                for (Connection connection : this.unLock.keySet()) {
                     if (currentTime - this.unLock.get(connection) > this.liveTime) {
                         this.unLock.remove(connection);
                         close(connection);

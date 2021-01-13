@@ -47,7 +47,6 @@ public class CoachRepositoryDB implements ICoachRepository {
             final int USER_NAME = 4;
             final int PASSWORD = 5;
             final int USER_TYPE = 6;
-            final int COACH_ID = 1;
             ISqlSpecification sql = (ISqlSpecification) specification;
             Connection connection = ConnectionManager.getPoll().get();
             try (PreparedStatement userPreparedStatement = sql.getPreparedStatement(connection);
@@ -92,7 +91,7 @@ public class CoachRepositoryDB implements ICoachRepository {
             preparedStatement.setLong(USER_ID, userId);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                salaries.add(resultSet.getInt(SALARY));
+                salaries.addFirst(resultSet.getInt(SALARY));
             }
         } catch (SQLException e) {
             e.printStackTrace();
