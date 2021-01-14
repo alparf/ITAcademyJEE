@@ -14,9 +14,9 @@ import java.util.Map;
 
 public class UserFacade {
 
-    public static void addSalary(long coachId, Integer salary) {
+    public static boolean addSalary(long coachId, Integer salary) {
         ICoachService coachService = new CoachService();
-        coachService.addSalary(coachId, salary);
+        return coachService.addSalary(coachId, salary);
     }
 
     public static List<Coach> getAllCoaches() {
@@ -46,14 +46,14 @@ public class UserFacade {
         return service.getAll();
     }
 
-    public static void addUser(User user) {
+    public static boolean addUser(User user) {
         IUserService service = new UserService();
         user.setPassword(Base64.getEncoder().encodeToString(user.getPassword().getBytes()));
-        service.addUser(user);
+        return service.addUser(user);
     }
 
-    public static void removeUserById(long id) {
+    public static boolean removeUserById(long id) {
         IUserService service = new UserService();
-        service.removeUserById(id);
+        return service.removeUserById(id);
     }
 }

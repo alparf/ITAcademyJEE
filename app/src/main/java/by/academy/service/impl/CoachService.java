@@ -23,7 +23,7 @@ public class CoachService implements ICoachService {
     }
 
     @Override
-    public void addSalary(long coachId, int salary) {
+    public boolean addSalary(long coachId, int salary) {
         final int USER = 0;
         ICoachRepository repository = new CoachRepositoryDB();
         IUserRepository userRepository = new UserRepositoryDB();
@@ -32,6 +32,6 @@ public class CoachService implements ICoachService {
         if (!userList.isEmpty()) {
             user = userList.get(USER);
         }
-        repository.addSalary(CoachFactory.createCoach(user), salary);
+        return repository.addSalary(CoachFactory.createCoach(user), salary);
     }
 }

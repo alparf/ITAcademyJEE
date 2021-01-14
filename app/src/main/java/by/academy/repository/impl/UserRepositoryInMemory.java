@@ -25,33 +25,39 @@ public class UserRepositoryInMemory implements IUserRepository {
     }
 
     @Override
-    public void addUser(User user) {
+    public boolean addUser(User user) {
         synchronized (UserRepositoryInMemory.class) {
             if (null != user) {
                 user.setId(nextId);
                 nextId++;
                 users.put(user.getId(), user);
+                return true;
             }
+            return false;
         }
     }
 
     @Override
-    public void removeUser(User user) {
+    public boolean removeUser(User user) {
         synchronized (UserRepositoryInMemory.class) {
             if (null != user) {
                 users.remove(user.getId());
+                return true;
             }
+            return false;
         }
     }
 
     @Override
-    public void setUser(User user) {
+    public boolean setUser(User user) {
         synchronized (UserRepositoryInMemory.class) {
             if (null != user) {
                 if(users.containsKey(user.getId())) {
                     users.put(user.getId(), user);
+                    return true;
                 }
             }
+            return false;
         }
     }
 

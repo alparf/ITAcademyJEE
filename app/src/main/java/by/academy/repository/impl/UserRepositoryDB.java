@@ -20,12 +20,13 @@ import java.util.List;
 public class UserRepositoryDB implements IUserRepository {
 
     @Override
-    public void addUser(User user) {
+    public boolean addUser(User user) {
         final int FIO = 1;
         final int AGE = 2;
         final int USER_NAME = 3;
         final int PASSWORD = 4;
         final int USER_TYPE = 5;
+        int update = 0;
         Connection connection = ConnectionManager.getPoll().get();
         try (PreparedStatement statement = connection.prepareStatement(SqlConstant.INSERT_USER)) {
             if (null != user) {
@@ -34,34 +35,37 @@ public class UserRepositoryDB implements IUserRepository {
                 statement.setString(USER_NAME, user.getUserName());
                 statement.setString(PASSWORD, user.getPassword());
                 statement.setString(USER_TYPE, user.getUserType().getName());
-                statement.executeUpdate();
+                update = statement.executeUpdate();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             ConnectionManager.getPoll().put(connection);
         }
+        return update > 0 ? true : false;
     }
 
     @Override
-    public void removeUser(User user) {
+    public boolean removeUser(User user) {
         final int ID = 1;
+        int update = 0;
         Connection connection = ConnectionManager.getPoll().get();
         try (PreparedStatement statement = connection.prepareStatement(SqlConstant.DELETE_USER_BY_ID)) {
             if (null != user) {
                 statement.setLong(ID, user.getId());
-                statement.executeUpdate();
+                update = statement.executeUpdate();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             ConnectionManager.getPoll().put(connection);
         }
+        return update > 0 ? true : false;
     }
 
     @Override
-    public void setUser(User user) {
-
+    public boolean setUser(User user) {
+        return false;
     }
 
     @Override

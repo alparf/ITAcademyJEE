@@ -24,21 +24,22 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void addUser(User user) throws UserServiceException {
+    public boolean addUser(User user) throws UserServiceException {
         IUserRepository repository = new UserRepositoryDB();
         if (null != user) {
             if (!isUserNameUsed(user.getUserName())) {
-                repository.addUser(user);
+                return repository.addUser(user);
             } else {
                 throw new UserServiceException(ExceptionConstant.USER_NAME_ALREADY_USED);
             }
         }
+        return false;
     }
 
     @Override
-    public void removeUserById(long id) {
+    public boolean removeUserById(long id) {
         IUserRepository repository = new UserRepositoryDB();
-        repository.removeUser(getUserByID(id));
+        return repository.removeUser(getUserByID(id));
     }
 
     @Override

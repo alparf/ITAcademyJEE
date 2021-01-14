@@ -34,8 +34,9 @@ public class UserAddController extends HttpServlet {
         int age = Integer.parseInt(req.getParameter(ServletConstant.AGE));
         UserType userType = UserType.valueOf(req.getParameter(ServletConstant.USER_TYPE));
         try {
-            UserFacade.addUser(UserFactory.createUser(0, fio, age, userName, password, userType));
-            log.info("New User = {}", userName);
+            if (UserFacade.addUser(UserFactory.createUser(0, fio, age, userName, password, userType))) {
+                log.info("New User = {}", userName);
+            }
         } catch (UserServiceException e) {
             log.error(e.getMessage(), e);
             session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NAME_ALREADY_USED);

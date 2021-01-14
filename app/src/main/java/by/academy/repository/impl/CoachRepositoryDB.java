@@ -20,21 +20,23 @@ import java.util.*;
 public class CoachRepositoryDB implements ICoachRepository {
 
     @Override
-    public void addSalary(Coach coach, int salary) {
+    public boolean addSalary(Coach coach, int salary) {
         final int USER_ID = 1;
         final int SALARY = 2;
+        int update = 0;
         Connection connection = ConnectionManager.getPoll().get();
         try (PreparedStatement statement = connection.prepareStatement(SqlConstant.INSERT_SALARY)) {
             if ((null != coach) && (null != coach.getUser())) {
                 statement.setLong(USER_ID, coach.getUser().getId());
                 statement.setInt(SALARY, salary);
-                statement.executeUpdate();
+                update = statement.executeUpdate();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             ConnectionManager.getPoll().put(connection);
         }
+        return update > 0 ? true : false;
     }
 
     @Override
