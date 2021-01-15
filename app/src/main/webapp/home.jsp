@@ -97,6 +97,6 @@
             </c:if>
         </div>
     </div>
-    <script type="text/javascript" src="resources/js/general.js"></script>
+    <script type="text/javascript" src="resources/js/home.js"></script>
 </body>
 </html>

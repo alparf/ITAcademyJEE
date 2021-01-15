@@ -6,7 +6,7 @@
         <div class="header_logo">IT-Academy</div>
         <nav class="nav">
             <a class="nav_link" href="<%= PageConstant.INDEX %>">Welcome</a>
-            <a class="nav_link" href="AverageSalariesController">Average</a>
+            <a class="nav_link" href="<%= PageConstant.AVERAGE %>">Average</a>
             <c:if test="${not empty user}">
                 <a class="nav_link" href="<%= PageConstant.HOME %>">${user.userName}</a>
                 <a class="nav_link" href="LogoutController">Sign out</a>
