@@ -1,8 +1,8 @@
 package by.academy.controller;
 
-import by.academy.constant.PageConstant;
 import by.academy.constant.ServletConstant;
 import by.academy.facade.UserFacade;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,8 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/AverageSalariesController")
 public class AverageSalariesController extends HttpServlet {
@@ -32,6 +32,10 @@ public class AverageSalariesController extends HttpServlet {
         } catch (IllegalArgumentException e) {
             log.error(e.getMessage(), e);
         }
-        req.getRequestDispatcher(PageConstant.AVERAGE).forward(req, res);
+        ObjectMapper mapper = new ObjectMapper();
+        PrintWriter printWriter = res.getWriter();
+        res.setCharacterEncoding("UTF-8");
+        res.setContentType("text/json");
+        printWriter.write(mapper.writeValueAsString(UserFacade.getAverageSalaries(monthCount)));
     }
 }
