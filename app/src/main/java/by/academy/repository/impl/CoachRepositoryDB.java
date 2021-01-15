@@ -2,10 +2,9 @@ package by.academy.repository.impl;
 
 import by.academy.constant.SqlConstant;
 import by.academy.model.bean.Coach;
-import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
+import by.academy.model.builder.impl.UserBuilder;
 import by.academy.model.factory.CoachFactory;
-import by.academy.model.factory.UserFactory;
 import by.academy.pool.ConnectionManager;
 import by.academy.repository.ICoachRepository;
 import by.academy.specification.ICoachSpecification;
@@ -36,7 +35,7 @@ public class CoachRepositoryDB implements ICoachRepository {
         } finally {
             ConnectionManager.getPoll().put(connection);
         }
-        return update > 0 ? true : false;
+        return update > 0;
     }
 
     @Override
@@ -53,16 +52,15 @@ public class CoachRepositoryDB implements ICoachRepository {
             Connection connection = ConnectionManager.getPoll().get();
             try (PreparedStatement userPreparedStatement = sql.getPreparedStatement(connection);
                  ResultSet resultSet = userPreparedStatement.executeQuery()) {
-                User user;
+                UserBuilder user = new UserBuilder();
                 while (resultSet.next()) {
-                    user = UserFactory.createUser(
-                            resultSet.getLong(ID),
-                            resultSet.getString(FIO),
-                            resultSet.getInt(AGE),
-                            resultSet.getString(USER_NAME),
-                            resultSet.getString(PASSWORD),
-                            UserType.valueOf(resultSet.getString(USER_TYPE)));
-                    coaches.add(CoachFactory.createCoach(user));
+                    user.withId(resultSet.getLong(ID))
+                            .withFio(resultSet.getString(FIO))
+                            .withAge(resultSet.getInt(AGE))
+                            .withUserName(resultSet.getString(USER_NAME))
+                            .withPassword(resultSet.getString(PASSWORD))
+                            .withUserType(UserType.valueOf(resultSet.getString(USER_TYPE)));
+                    coaches.add(CoachFactory.createCoach(user.build()));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -73,12 +71,7 @@ public class CoachRepositoryDB implements ICoachRepository {
                 coach.setSalaries(getSalaryList(coach.getUser().getId()));
             }
         }
-        Iterator<Coach> iterator = coaches.iterator();
-        while (iterator.hasNext()) {
-            if (!specification.specification(iterator.next())) {
-                iterator.remove();
-            }
-        }
+        coaches.removeIf(coach -> !specification.specification(coach));
         return coaches;
     }
 
@@ -88,8 +81,7 @@ public class CoachRepositoryDB implements ICoachRepository {
         Deque<Integer> salaries = new LinkedList<>();
         Connection connection = ConnectionManager.getPoll().get();
         ResultSet resultSet = null;
-        try (
-             PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.SELECT_SALARY)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.SELECT_SALARY)) {
             preparedStatement.setLong(USER_ID, userId);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

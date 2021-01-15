@@ -4,8 +4,7 @@ import by.academy.model.constant.ExceptionConstant;
 
 import java.util.Objects;
 
-public class User {
-    private long id;
+public class User extends AbstractEntity {
     private String fio;
     private int age;
     private String userName;
@@ -13,24 +12,17 @@ public class User {
     private UserType userType;
 
     public User() {
+        super();
     }
 
     public User(long id, String fio, int age, String userName, String password, UserType userType)
             throws IllegalArgumentException {
-        this.id = id;
+        super(id);
         this.fio = fio;
         this.setAge(age);
         this.userName = userName;
         this.password = password;
         this.userType = userType;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getFio() {
@@ -86,7 +78,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", fio='" + fio + '\'' +
                 ", age=" + age +
                 ", userName='" + userName + '\'' +
