@@ -3,7 +3,7 @@ package by.academy.repository.impl;
 import by.academy.constant.SqlConstant;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
-import by.academy.model.factory.UserFactory;
+import by.academy.model.builder.impl.UserBuilder;
 import by.academy.pool.ConnectionManager;
 import by.academy.repository.IUserRepository;
 import by.academy.specification.ISqlSpecification;
@@ -13,7 +13,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class UserRepositoryDB implements IUserRepository {
         } finally {
             ConnectionManager.getPoll().put(connection);
         }
-        return update > 0 ? true : false;
+        return update > 0;
     }
 
     @Override
@@ -60,7 +59,7 @@ public class UserRepositoryDB implements IUserRepository {
         } finally {
             ConnectionManager.getPoll().put(connection);
         }
-        return update > 0 ? true : false;
+        return update > 0;
     }
 
     @Override
@@ -82,17 +81,15 @@ public class UserRepositoryDB implements IUserRepository {
             Connection connection = ConnectionManager.getPoll().get();
             try (PreparedStatement statement = sql.getPreparedStatement(connection);
                  ResultSet resultSet = statement.executeQuery()) {
-                User user;
+                UserBuilder user = new UserBuilder();
                 while (resultSet.next()) {
-                    user = UserFactory.createUser(
-                            resultSet.getLong(ID),
-                            resultSet.getString(FIO),
-                            resultSet.getInt(AGE),
-                            resultSet.getString(USER_NAME),
-                            resultSet.getString(PASSWORD),
-                            UserType.valueOf(resultSet.getString(USER_TYPE))
-                    );
-                    users.add(user);
+                    user.withId(resultSet.getLong(ID))
+                            .withFio(resultSet.getString(FIO))
+                            .withAge(resultSet.getInt(AGE))
+                            .withUserName(resultSet.getString(USER_NAME))
+                            .withPassword(resultSet.getString(PASSWORD))
+                            .withUserType(UserType.valueOf(resultSet.getString(USER_TYPE)));
+                    users.add(user.build());
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -100,12 +97,7 @@ public class UserRepositoryDB implements IUserRepository {
                 ConnectionManager.getPoll().put(connection);
             }
         }
-        Iterator<User> iterator = users.iterator();
-        while (iterator.hasNext()) {
-            if (!specification.specification(iterator.next())) {
-                iterator.remove();
-            }
-        }
+        users.removeIf(user -> !specification.specification(user));
         return users;
     }
 }
