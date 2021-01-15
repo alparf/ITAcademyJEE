@@ -1,5 +1,7 @@
 package by.academy.model.bean;
 
+import by.academy.model.builder.IUserBuilder;
+import by.academy.model.builder.impl.UserBuilder;
 import by.academy.model.constant.ExceptionConstant;
 
 import java.util.Objects;
@@ -10,6 +12,10 @@ public class User extends AbstractEntity {
     private String userName;
     private String password;
     private UserType userType;
+
+    public static IUserBuilder newBuilder() {
+        return new UserBuilder();
+    }
 
     public User() {
         super();

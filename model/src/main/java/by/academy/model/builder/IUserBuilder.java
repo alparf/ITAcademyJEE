@@ -10,4 +10,5 @@ public interface IUserBuilder {
     IUserBuilder withUserName(String userName);
     IUserBuilder withPassword(String password);
     IUserBuilder withUserType(UserType userType);
+    User build();
 }

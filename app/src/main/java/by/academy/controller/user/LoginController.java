@@ -6,7 +6,6 @@ import by.academy.constant.ServletConstant;
 import by.academy.facade.UserFacade;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
-import by.academy.model.factory.UserFactory;
 import by.academy.exception.UserServiceException;
 
 import org.slf4j.Logger;
@@ -50,8 +49,13 @@ public class LoginController extends HttpServlet {
         final String ADMIN_PASSWORD = "adminPassword";
         String adminName = getServletConfig().getInitParameter(ADMIN_NAME);
         String adminPassword = getServletConfig().getInitParameter(ADMIN_PASSWORD);
-        User admin = UserFactory.createUser(
-                0,"Jon Snow", 34, adminName, adminPassword, UserType.ADMIN);
+        User admin = User.newBuilder()
+                .withFio("Jon Snow")
+                .withAge(34)
+                .withUserName(adminName)
+                .withPassword(adminPassword)
+                .withUserType(UserType.ADMIN)
+                .build();
         try {
             UserFacade.addUser(admin);
         } catch (UserServiceException e) {

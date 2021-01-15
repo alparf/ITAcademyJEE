@@ -9,7 +9,7 @@ public class UserTest extends TestCase {
 
     @Test
     public void testSetAge() throws IllegalArgumentException {
-        User user = new User();
+        User user = User.newBuilder().build();
         int age = -1;
         try {
             user.setAge(age);

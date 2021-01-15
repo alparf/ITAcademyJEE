@@ -5,8 +5,8 @@ import by.academy.constant.PageConstant;
 import by.academy.constant.ServletConstant;
 import by.academy.exception.UserServiceException;
 import by.academy.facade.UserFacade;
+import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
-import by.academy.model.factory.UserFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +34,13 @@ public class UserAddController extends HttpServlet {
         int age = Integer.parseInt(req.getParameter(ServletConstant.AGE));
         UserType userType = UserType.valueOf(req.getParameter(ServletConstant.USER_TYPE));
         try {
-            if (UserFacade.addUser(UserFactory.createUser(0, fio, age, userName, password, userType))) {
+            if (UserFacade.addUser(User.newBuilder()
+                            .withFio(fio)
+                            .withAge(age)
+                            .withUserName(userName)
+                            .withPassword(password)
+                            .withUserType(userType)
+                            .build())) {
                 log.info("New User = {}", userName);
             }
         } catch (UserServiceException e) {

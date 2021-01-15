@@ -37,5 +37,6 @@ public class AverageSalariesController extends HttpServlet {
         res.setCharacterEncoding("UTF-8");
         res.setContentType("text/json");
         printWriter.write(mapper.writeValueAsString(UserFacade.getAverageSalaries(monthCount)));
+        printWriter.flush();
     }
 }

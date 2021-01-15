@@ -2,7 +2,6 @@ package by.academy.model.bean;
 
 import by.academy.model.constant.ExceptionConstant;
 import by.academy.model.factory.CoachFactory;
-import by.academy.model.factory.UserFactory;
 import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,7 +15,13 @@ public class CoachTest extends TestCase {
     public void testGetAverageSalary() {
         int monthCount = 2;
         int expected = 150;
-        User user = UserFactory.createUser(0,"fio", 22, "user", "user", UserType.COACH);
+        User user = User.newBuilder()
+                .withFio("fio")
+                .withAge(22)
+                .withUserName("user")
+                .withPassword("user")
+                .withUserType(UserType.COACH)
+                .build();
         Deque<Integer> salaries = new LinkedList<>();
         salaries.addFirst(100);
         salaries.addFirst(200);

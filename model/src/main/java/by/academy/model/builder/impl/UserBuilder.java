@@ -12,6 +12,7 @@ public class UserBuilder implements IUserBuilder {
         this.user = new User();
     }
 
+    @Override
     public User build() {
         User builtUser = this.user;
         this.user = new User();

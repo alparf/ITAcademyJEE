@@ -2,7 +2,6 @@ package by.academy.repository.impl;
 
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
-import by.academy.model.factory.UserFactory;
 import by.academy.repository.IUserRepository;
 import by.academy.specification.IUserSpecification;
 
@@ -18,10 +17,20 @@ public class UserRepositoryInMemory implements IUserRepository {
         users = new HashMap<>();
 
         IUserRepository repository = new UserRepositoryInMemory();
-        repository.addUser(UserFactory.createUser(
-                0, "Иванов Иван Иванович", 19, "student", "student", UserType.STUDENT));
-        repository.addUser(UserFactory.createUser(
-                0, "Петров Петр Петрович", 44, "coach", "coach", UserType.COACH));
+        repository.addUser(User.newBuilder()
+                        .withFio("Иванов Иван Иванович")
+                        .withAge(19)
+                        .withUserName("student")
+                        .withPassword("student")
+                        .withUserType(UserType.STUDENT)
+                        .build());
+        repository.addUser(User.newBuilder()
+                        .withFio("Петров Петр Петрович")
+                        .withAge(44)
+                        .withUserName("coach")
+                        .withPassword("coach")
+                        .withUserType(UserType.COACH)
+                        .build());
     }
 
     @Override

@@ -3,7 +3,6 @@ package by.academy.repository.impl;
 import by.academy.constant.SqlConstant;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
-import by.academy.model.builder.impl.UserBuilder;
 import by.academy.pool.ConnectionManager;
 import by.academy.repository.IUserRepository;
 import by.academy.specification.ISqlSpecification;
@@ -81,15 +80,15 @@ public class UserRepositoryDB implements IUserRepository {
             Connection connection = ConnectionManager.getPoll().get();
             try (PreparedStatement statement = sql.getPreparedStatement(connection);
                  ResultSet resultSet = statement.executeQuery()) {
-                UserBuilder user = new UserBuilder();
                 while (resultSet.next()) {
-                    user.withId(resultSet.getLong(ID))
+                    users.add(User.newBuilder()
+                            .withId(resultSet.getLong(ID))
                             .withFio(resultSet.getString(FIO))
                             .withAge(resultSet.getInt(AGE))
                             .withUserName(resultSet.getString(USER_NAME))
                             .withPassword(resultSet.getString(PASSWORD))
-                            .withUserType(UserType.valueOf(resultSet.getString(USER_TYPE)));
-                    users.add(user.build());
+                            .withUserType(UserType.valueOf(resultSet.getString(USER_TYPE)))
+                            .build());
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
