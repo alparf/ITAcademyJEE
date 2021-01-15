@@ -23,7 +23,7 @@
                     <input id="month-count" type="number" class="average_panel_input" name="monthCount" min="1" value="1"/>
                 </c:if>
             </div>
-            <a id="average-btn" class="average_panel_btn" href="#">Show</a>
+            <a id="average-btn" class="btn" href="#">Show</a>
         </div>
         <div id="salaries-container"></div>
     </div>
