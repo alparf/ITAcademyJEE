@@ -6,7 +6,6 @@ import by.academy.service.ICoachService;
 import by.academy.service.IUserService;
 import by.academy.service.impl.CoachService;
 import by.academy.service.impl.UserService;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
 
 import java.util.Base64;
 import java.util.HashMap;
