@@ -25,12 +25,7 @@
             </div>
             <a id="average-btn" class="average_panel_btn" href="#">Show</a>
         </div>
-        <c:forEach var="entry" items="${averageSalaries.entrySet()}">
-            <div class="salary_inner">
-                <span class="item">${entry.getKey()}</span>
-                <span>${entry.getValue() / 100} BYN</span>
-            </div>
-        </c:forEach>
+        <div id="salaries-container"></div>
     </div>
     <script type="text/javascript" src="resources/js/average.js"></script>
 </body>
