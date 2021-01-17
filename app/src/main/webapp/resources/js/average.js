@@ -16,7 +16,6 @@ function showData(data) {
     var container = document.getElementById("salaries-container");
     removeAllChildNodes(container);
     for (const [key, value] of Object.entries(data)) {
-      console.log(`${key}: ${value}`);
       createContainer(key, value, container);
     }
 }
