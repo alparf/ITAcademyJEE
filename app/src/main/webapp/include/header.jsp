@@ -8,7 +8,7 @@
             <a class="nav_link" href="<%= PageConstant.INDEX %>">Welcome</a>
             <a class="nav_link" href="<%= PageConstant.AVERAGE %>">Average</a>
             <c:if test="${not empty user}">
-                <a class="nav_link" href="<%= PageConstant.HOME %>">${user.userName}</a>
+                <a class="nav_link" href="HomeController">${user.userName}</a>
                 <a class="nav_link" href="LogoutController">Sign out</a>
             </c:if>
             <c:if test="${empty user}">
