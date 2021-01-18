@@ -4,11 +4,12 @@ import by.academy.model.bean.User;
 import by.academy.exception.UserServiceException;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IUserService {
-    User login(String userName, String password);
+    Optional<User> login(String userName, String password);
     List<User> getAll();
-    User getUserByID(long id);
+    Optional<User> getUserByID(long id);
     boolean addUser(User user) throws UserServiceException;
     boolean removeUserById(long id);
 }

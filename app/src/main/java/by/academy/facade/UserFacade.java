@@ -7,10 +7,7 @@ import by.academy.service.IUserService;
 import by.academy.service.impl.CoachService;
 import by.academy.service.impl.UserService;
 
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UserFacade {
 
@@ -35,7 +32,7 @@ public class UserFacade {
         return averageSalaries;
     }
 
-    public static User login(String userName, String password) {
+    public static Optional<User> login(String userName, String password) {
         IUserService service = new UserService();
         password = Base64.getEncoder().encodeToString(password.getBytes());
         return service.login(userName, password);

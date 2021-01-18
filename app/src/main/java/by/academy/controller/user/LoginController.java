@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 public class LoginController extends HttpServlet {
 
@@ -30,14 +31,14 @@ public class LoginController extends HttpServlet {
         String password = req.getParameter(ServletConstant.PASSWORD);
         HttpSession session = req.getSession();
         session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, null);
-        User user = UserFacade.login(userName, password);
-        if((null == user) || (null == user.getUserName())) {
+        Optional<User> user = UserFacade.login(userName, password);
+        if(!user.isPresent()) {
             log.info("User = {} not found!", userName);
             session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, ExceptionConstant.INVALID_USER_NAME_OR_PASSWORD);
             session.setAttribute(ServletConstant.USER, null);
         } else {
             log.info("User = {} signed in", userName);
-            session.setAttribute(ServletConstant.USER, user);
+            session.setAttribute(ServletConstant.USER, user.get());
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher(File.separator + PageConstant.HOME_CONTROLLER);
         dispatcher.forward(req, res);

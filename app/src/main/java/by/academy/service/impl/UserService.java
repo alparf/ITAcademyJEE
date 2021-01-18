@@ -9,18 +9,15 @@ import by.academy.service.IUserService;
 import by.academy.specification.UserDBSpecifications;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserService implements IUserService {
 
-    private static final int USER = 0;
-
-    public User login(String userName, String password) {
+    @Override
+    public Optional<User> login(String userName, String password) {
         IUserRepository repository = new UserRepositoryDB();
         List<User> userList = repository.query(UserDBSpecifications.userLogin(userName, password));
-        if(!userList.isEmpty()) {
-            return userList.get(USER);
-        }
-        return null;
+        return userList.stream().findFirst();
     }
 
     @Override
@@ -39,7 +36,7 @@ public class UserService implements IUserService {
     @Override
     public boolean removeUserById(long id) {
         IUserRepository repository = new UserRepositoryDB();
-        return repository.removeUser(getUserByID(id));
+        return repository.removeUser(getUserByID(id).get());
     }
 
     @Override
@@ -49,13 +46,10 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User getUserByID(long id) {
+    public Optional<User> getUserByID(long id) {
         IUserRepository repository = new UserRepositoryDB();
         List<User> userList = repository.query(UserDBSpecifications.userById(id));
-        if(!userList.isEmpty()) {
-            return userList.get(USER);
-        }
-        return null;
+        return userList.stream().findFirst();
     }
 
     private boolean isUserNameUsed(String userName) {
