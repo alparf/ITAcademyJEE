@@ -25,12 +25,12 @@ public class CoachService implements ICoachService {
 
     @Override
     public boolean addSalary(long coachId, int salary) {
-        ICoachRepository repository = new CoachRepositoryDB();
+        ICoachRepository coachRepository = new CoachRepositoryDB();
         IUserRepository userRepository = new UserRepositoryDB();
         List<User> userList = userRepository.query(UserDBSpecifications.userById(coachId));
         Optional<User> user = userList.stream().findFirst();
         if(user.isPresent()) {
-            return repository.addSalary(CoachFactory.createCoach(user.get()), salary);
+            return coachRepository.addSalary(CoachFactory.createCoach(user.get()), salary);
         }
         return false;
     }
