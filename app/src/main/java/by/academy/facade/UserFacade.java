@@ -35,7 +35,7 @@ public class UserFacade {
     public static Optional<User> login(String userName, String password) {
         IUserService service = new UserService();
         password = Base64.getEncoder().encodeToString(password.getBytes());
-        return service.login(userName, password);
+        return service.getUserByUserNameAndPassword(userName, password);
     }
 
     public static List<User> getAllUsers() {

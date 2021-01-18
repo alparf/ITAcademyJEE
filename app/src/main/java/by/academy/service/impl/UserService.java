@@ -14,9 +14,9 @@ import java.util.Optional;
 public class UserService implements IUserService {
 
     @Override
-    public Optional<User> login(String userName, String password) {
+    public Optional<User> getUserByUserNameAndPassword(String userName, String password) {
         IUserRepository repository = new UserRepositoryDB();
-        List<User> userList = repository.query(UserDBSpecifications.userLogin(userName, password));
+        List<User> userList = repository.query(UserDBSpecifications.userByUserNameAndPassword(userName, password));
         return userList.stream().findFirst();
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IUserService {
-    Optional<User> login(String userName, String password);
+    Optional<User> getUserByUserNameAndPassword(String userName, String password);
     List<User> getAll();
     Optional<User> getUserByID(long id);
     boolean addUser(User user) throws UserServiceException;

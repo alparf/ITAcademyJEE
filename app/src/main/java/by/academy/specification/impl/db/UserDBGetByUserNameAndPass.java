@@ -9,12 +9,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UserDBLogin implements IUserSpecification, ISqlSpecification {
+public class UserDBGetByUserNameAndPass implements IUserSpecification, ISqlSpecification {
 
     private final String userName;
     private final String password;
 
-    public UserDBLogin(String userName, String password) {
+    public UserDBGetByUserNameAndPass(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }

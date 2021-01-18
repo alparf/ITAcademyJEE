@@ -3,12 +3,12 @@ package by.academy.specification.impl.inmemory;
 import by.academy.model.bean.User;
 import by.academy.specification.IUserSpecification;
 
-public class UserInMemoryLogin implements IUserSpecification {
+public class UserInMemoryGetByUserNameAndPass implements IUserSpecification {
 
     private final String userName;
     private final String password;
 
-    public UserInMemoryLogin(String userName, String password) {
+    public UserInMemoryGetByUserNameAndPass(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
