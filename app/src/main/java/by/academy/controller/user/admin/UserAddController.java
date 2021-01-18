@@ -33,19 +33,21 @@ public class UserAddController extends HttpServlet {
         String password = req.getParameter(ServletConstant.PASSWORD);
         int age = Integer.parseInt(req.getParameter(ServletConstant.AGE));
         UserType userType = UserType.valueOf(req.getParameter(ServletConstant.USER_TYPE));
-        try {
-            if (UserFacade.addUser(User.newBuilder()
-                            .withFio(fio)
-                            .withAge(age)
-                            .withUserName(userName)
-                            .withPassword(password)
-                            .withUserType(userType)
-                            .build())) {
-                log.info("New User = {}", userName);
+        synchronized (UserAddController.class) {
+            try {
+                if (UserFacade.addUser(User.newBuilder()
+                        .withFio(fio)
+                        .withAge(age)
+                        .withUserName(userName)
+                        .withPassword(password)
+                        .withUserType(userType)
+                        .build())) {
+                    log.info("New User = {}", userName);
+                }
+            } catch (UserServiceException e) {
+                log.error(e.getMessage(), e);
+                session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NAME_ALREADY_USED);
             }
-        } catch (UserServiceException e) {
-            log.error(e.getMessage(), e);
-            session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NAME_ALREADY_USED);
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher(PageConstant.HOME_CONTROLLER);
         dispatcher.forward(req, res);
