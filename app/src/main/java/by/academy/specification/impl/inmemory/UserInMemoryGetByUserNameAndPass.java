@@ -1,9 +1,9 @@
 package by.academy.specification.impl.inmemory;
 
 import by.academy.model.bean.User;
-import by.academy.specification.IUserSpecification;
+import by.academy.specification.ISpecification;
 
-public class UserInMemoryGetByUserNameAndPass implements IUserSpecification {
+public class UserInMemoryGetByUserNameAndPass implements ISpecification<User> {
 
     private final String userName;
     private final String password;

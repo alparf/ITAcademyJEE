@@ -2,12 +2,12 @@ package by.academy.repository.impl;
 
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
-import by.academy.repository.IUserRepository;
-import by.academy.specification.IUserSpecification;
+import by.academy.repository.IRepository;
+import by.academy.specification.ISpecification;
 
 import java.util.*;
 
-public class UserRepositoryInMemory implements IUserRepository {
+public class UserRepositoryInMemory implements IRepository<User> {
 
     private static final Map<Long, User> users;
     private static volatile long nextId;
@@ -16,7 +16,7 @@ public class UserRepositoryInMemory implements IUserRepository {
         nextId = 1;
         users = new HashMap<>();
 
-        IUserRepository repository = new UserRepositoryInMemory();
+        IRepository<User> repository = new UserRepositoryInMemory();
         repository.addUser(User.newBuilder()
                         .withFio("Иванов Иван Иванович")
                         .withAge(19)
@@ -71,7 +71,7 @@ public class UserRepositoryInMemory implements IUserRepository {
     }
 
     @Override
-    public List<User> query(IUserSpecification specification) {
+    public List<User> query(ISpecification<User> specification) {
         List<User> userList = new LinkedList<>();
         synchronized (UserRepositoryInMemory.class) {
             for (User user : users.values()) {

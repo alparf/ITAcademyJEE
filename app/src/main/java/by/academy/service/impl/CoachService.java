@@ -4,7 +4,7 @@ import by.academy.model.bean.Coach;
 import by.academy.model.bean.User;
 import by.academy.model.factory.CoachFactory;
 import by.academy.repository.ICoachRepository;
-import by.academy.repository.IUserRepository;
+import by.academy.repository.IRepository;
 import by.academy.repository.impl.CoachRepositoryDB;
 import by.academy.repository.impl.UserRepositoryDB;
 import by.academy.service.ICoachService;
@@ -26,7 +26,7 @@ public class CoachService implements ICoachService {
     @Override
     public boolean addSalary(long coachId, int salary) {
         ICoachRepository coachRepository = new CoachRepositoryDB();
-        IUserRepository userRepository = new UserRepositoryDB();
+        IRepository<User> userRepository = new UserRepositoryDB();
         List<User> userList = userRepository.query(UserDBSpecifications.userById(coachId));
         Optional<User> user = userList.stream().findFirst();
         if(user.isPresent()) {

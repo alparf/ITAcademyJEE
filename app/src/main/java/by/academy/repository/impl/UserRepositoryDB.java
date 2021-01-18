@@ -4,9 +4,9 @@ import by.academy.constant.SqlConstant;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
 import by.academy.pool.ConnectionManager;
-import by.academy.repository.IUserRepository;
+import by.academy.repository.IRepository;
+import by.academy.specification.ISpecification;
 import by.academy.specification.ISqlSpecification;
-import by.academy.specification.IUserSpecification;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class UserRepositoryDB implements IUserRepository {
+public class UserRepositoryDB implements IRepository<User> {
 
     @Override
     public boolean addUser(User user) {
@@ -67,7 +67,7 @@ public class UserRepositoryDB implements IUserRepository {
     }
 
     @Override
-    public List<User> query(IUserSpecification specification) {
+    public List<User> query(ISpecification<User> specification) {
         List<User> users = new LinkedList<>();
         if (specification instanceof ISqlSpecification) {
             final int ID = 1;
