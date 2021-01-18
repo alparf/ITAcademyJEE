@@ -27,7 +27,7 @@ public class HomeController extends HttpServlet {
             strategy = AdminStrategy.create(req);
         }
         if (null != strategy) {
-            strategy.sessionInit();
+            strategy.setRequest();
         }
         req.getRequestDispatcher(PageConstant.HOME).forward(req, res);
     }

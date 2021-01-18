@@ -15,7 +15,7 @@ public class AdminStrategy implements IUserStrategy {
     }
 
     @Override
-    public void sessionInit() {
+    public void setRequest() {
         request.setAttribute(ServletConstant.USER_LIST, UserFacade.getAllUsers());
         request.setAttribute(ServletConstant.COACH_LIST, UserFacade.getAllCoaches());
     }
