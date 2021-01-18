@@ -12,6 +12,7 @@ import by.academy.specification.CoachDBSpecifications;
 import by.academy.specification.UserDBSpecifications;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public class CoachService implements ICoachService {
@@ -24,14 +25,13 @@ public class CoachService implements ICoachService {
 
     @Override
     public boolean addSalary(long coachId, int salary) {
-        final int USER = 0;
         ICoachRepository repository = new CoachRepositoryDB();
         IUserRepository userRepository = new UserRepositoryDB();
         List<User> userList = userRepository.query(UserDBSpecifications.userById(coachId));
-        User user = null;
-        if (!userList.isEmpty()) {
-            user = userList.get(USER);
+        Optional<User> user = userList.stream().findFirst();
+        if(user.isPresent()) {
+            return repository.addSalary(CoachFactory.createCoach(user.get()), salary);
         }
-        return repository.addSalary(CoachFactory.createCoach(user), salary);
+        return false;
     }
 }
