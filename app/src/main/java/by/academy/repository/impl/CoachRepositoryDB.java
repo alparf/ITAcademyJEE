@@ -9,7 +9,6 @@ import by.academy.model.factory.CoachFactory;
 import by.academy.pool.ConnectionManager;
 import by.academy.repository.ICoachRepository;
 import by.academy.specification.ISpecification;
-import by.academy.specification.ISqlSpecification;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,35 +43,32 @@ public class CoachRepositoryDB implements ICoachRepository {
     @Override
     public List<Coach> query(ISpecification<Coach> specification) {
         List<Coach> coaches = new LinkedList<>();
-        if (specification instanceof ISqlSpecification) {
-            final int ID = 1;
-            final int FIO = 2;
-            final int AGE = 3;
-            final int USER_NAME = 4;
-            final int PASSWORD = 5;
-            final int USER_TYPE = 6;
-            ISqlSpecification sql = (ISqlSpecification) specification;
-            Connection connection = ConnectionManager.getPoll().get();
-            try (PreparedStatement userPreparedStatement = sql.getPreparedStatement(connection);
-                 ResultSet resultSet = userPreparedStatement.executeQuery()) {
-                UserBuilder user = new UserBuilder();
-                while (resultSet.next()) {
-                    user.withId(resultSet.getLong(ID))
-                            .withFio(resultSet.getString(FIO))
-                            .withAge(resultSet.getInt(AGE))
-                            .withUserName(resultSet.getString(USER_NAME))
-                            .withPassword(resultSet.getString(PASSWORD))
-                            .withUserType(UserType.valueOf(resultSet.getString(USER_TYPE)));
-                    coaches.add(CoachFactory.createCoach(user.build()));
-                }
-            } catch (SQLException e) {
-                throw new AppException(e.getMessage());
-            } finally {
-                ConnectionManager.getPoll().put(connection);
+        final int ID = 1;
+        final int FIO = 2;
+        final int AGE = 3;
+        final int USER_NAME = 4;
+        final int PASSWORD = 5;
+        final int USER_TYPE = 6;
+        Connection connection = ConnectionManager.getPoll().get();
+        try (PreparedStatement userPreparedStatement = specification.getPreparedStatement(connection);
+             ResultSet resultSet = userPreparedStatement.executeQuery()) {
+            UserBuilder user = new UserBuilder();
+            while (resultSet.next()) {
+                user.withId(resultSet.getLong(ID))
+                        .withFio(resultSet.getString(FIO))
+                        .withAge(resultSet.getInt(AGE))
+                        .withUserName(resultSet.getString(USER_NAME))
+                        .withPassword(resultSet.getString(PASSWORD))
+                        .withUserType(UserType.valueOf(resultSet.getString(USER_TYPE)));
+                coaches.add(CoachFactory.createCoach(user.build()));
             }
-            for (Coach coach: coaches) {
-                coach.setSalaries(getSalaryList(coach.getUser().getId()));
-            }
+        } catch (SQLException e) {
+            throw new AppException(e.getMessage());
+        } finally {
+            ConnectionManager.getPoll().put(connection);
+        }
+        for (Coach coach: coaches) {
+            coach.setSalaries(getSalaryList(coach.getUser().getId()));
         }
         coaches.removeIf(coach -> !specification.specification(coach));
         return coaches;

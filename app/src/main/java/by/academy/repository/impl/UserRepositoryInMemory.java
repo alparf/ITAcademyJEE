@@ -5,7 +5,10 @@ import by.academy.model.bean.UserType;
 import by.academy.repository.IRepository;
 import by.academy.specification.ISpecification;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class UserRepositoryInMemory implements IRepository<User> {
 

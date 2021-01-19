@@ -26,17 +26,10 @@ public class AverageSalariesController extends HttpServlet {
         if (null != monthCountStr) {
             monthCount = Integer.parseInt(monthCountStr);
         }
-        req.setAttribute(ServletConstant.MONTH_COUNT, monthCount);
-        try {
-            req.setAttribute(ServletConstant.AVERAGE_SALARIES, UserFacade.getAverageSalaries(monthCount));
-        } catch (IllegalArgumentException e) {
-            log.error(e.getMessage(), e);
-        }
         ObjectMapper mapper = new ObjectMapper();
         PrintWriter printWriter = res.getWriter();
-        res.setCharacterEncoding("UTF-8");
-        res.setContentType("text/json");
         printWriter.write(mapper.writeValueAsString(UserFacade.getAverageSalaries(monthCount)));
         printWriter.flush();
+        log.info("Response as json AverageSalaries");
     }
 }
