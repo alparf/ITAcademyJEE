@@ -3,21 +3,14 @@ package by.academy.pool;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Hashtable;
-import java.util.Map;
 
-public class ConnectionPool {
-    private final long liveTime;
-    private final Map<Connection, Long> lock;
-    private final Map<Connection, Long> unLock;
+public class ConnectionPool extends AbstractPoll<Connection> {
     private final String url;
     private final String user;
     private final String password;
 
     public ConnectionPool(String url, String user, String password) {
-        this.liveTime = 60_000;
-        this.lock = new Hashtable<>();
-        this.unLock = new Hashtable<>();
+        super();
         this.url = url;
         this.user = user;
         this.password = password;
@@ -54,7 +47,7 @@ public class ConnectionPool {
         this.unLock.put(connection, System.currentTimeMillis());
     }
 
-    private Connection open() {
+    protected Connection open() {
         try {
             Class.forName("org.postgresql.Driver");
             return DriverManager.getConnection(this.url, this.user, this.password);
@@ -66,7 +59,7 @@ public class ConnectionPool {
         return null;
     }
 
-    private void close(Connection connection) {
+    protected void close(Connection connection) {
         try {
             connection.close();
         } catch (SQLException e) {
@@ -74,7 +67,7 @@ public class ConnectionPool {
         }
     }
 
-    private boolean validate(Connection connection) {
+    protected boolean validate(Connection connection) {
         try {
             return !connection.isClosed();
         } catch (SQLException e) {

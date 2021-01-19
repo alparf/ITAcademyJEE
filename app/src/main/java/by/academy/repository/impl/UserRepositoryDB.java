@@ -1,6 +1,7 @@
 package by.academy.repository.impl;
 
 import by.academy.constant.SqlConstant;
+import by.academy.exception.AppException;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
 import by.academy.pool.ConnectionManager;
@@ -36,7 +37,7 @@ public class UserRepositoryDB implements IRepository<User> {
                 update = statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AppException(e.getMessage());
         } finally {
             ConnectionManager.getPoll().put(connection);
         }
@@ -54,7 +55,7 @@ public class UserRepositoryDB implements IRepository<User> {
                 update = statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AppException(e.getMessage());
         } finally {
             ConnectionManager.getPoll().put(connection);
         }
@@ -91,7 +92,7 @@ public class UserRepositoryDB implements IRepository<User> {
                             .build());
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new AppException(e.getMessage());
             } finally {
                 ConnectionManager.getPoll().put(connection);
             }
