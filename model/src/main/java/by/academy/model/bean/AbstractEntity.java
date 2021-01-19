@@ -1,27 +1,12 @@
 package by.academy.model.bean;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class AbstractEntity {
     private long id;
-
-    public AbstractEntity() {
-    }
-
-    public AbstractEntity(long id) {
-        this.id = id;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "AbstractEntity{" +
-                "id=" + id +
-                '}';
-    }
 }
