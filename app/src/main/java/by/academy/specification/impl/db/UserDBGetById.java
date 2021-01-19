@@ -20,7 +20,8 @@ public class UserDBGetById implements ISpecification<User>, ISqlSpecification {
     @Override
     public PreparedStatement getPreparedStatement(Connection connection) throws SQLException {
         final int USER_ID = 1;
-        PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.SELECT_USER_BY_ID);
+        PreparedStatement preparedStatement;
+        preparedStatement = connection.prepareStatement(SqlConstant.SELECT_USER_BY_ID);
         preparedStatement.setLong(USER_ID, this.userId);
         return preparedStatement;
     }

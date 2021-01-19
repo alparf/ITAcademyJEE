@@ -7,7 +7,7 @@ import by.academy.model.builder.impl.UserBuilder;
 import by.academy.model.factory.CoachFactory;
 import by.academy.pool.ConnectionManager;
 import by.academy.repository.ICoachRepository;
-import by.academy.specification.ICoachSpecification;
+import by.academy.specification.ISpecification;
 import by.academy.specification.ISqlSpecification;
 
 import java.sql.Connection;
@@ -41,7 +41,7 @@ public class CoachRepositoryDB implements ICoachRepository {
     }
 
     @Override
-    public List<Coach> query(ICoachSpecification specification) {
+    public List<Coach> query(ISpecification<Coach> specification) {
         List<Coach> coaches = new LinkedList<>();
         if (specification instanceof ISqlSpecification) {
             final int ID = 1;
