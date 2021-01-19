@@ -4,19 +4,14 @@ import by.academy.constant.DBConstant;
 
 public class ConnectionManager {
 
-    private static volatile ConnectionPool instance;
+    public static class ConnectionHolder {
+        public static final ConnectionPool CONNECTION_POOL = new ConnectionPool(
+                DBConstant.URL,
+                DBConstant.USER,
+                DBConstant.PASSWORD);
+    }
 
     public static ConnectionPool getPoll() {
-        ConnectionPool localInstance = instance;
-        if (localInstance == null) {
-            synchronized (ConnectionPool.class) {
-                localInstance = instance;
-                if (localInstance == null) {
-                    instance = localInstance = new ConnectionPool(
-                            DBConstant.URL, DBConstant.USER, DBConstant.PASSWORD);
-                }
-            }
-        }
-        return localInstance;
+        return ConnectionHolder.CONNECTION_POOL;
     }
 }

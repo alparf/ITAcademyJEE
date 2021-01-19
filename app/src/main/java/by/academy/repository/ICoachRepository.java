@@ -6,6 +6,6 @@ import by.academy.specification.ICoachSpecification;
 import java.util.List;
 
 public interface ICoachRepository {
-    boolean addSalary(Coach coach, int salary);
+    boolean addSalary(Coach coach, int salary); //DAO method
     List<Coach> query(ICoachSpecification specification);
 }

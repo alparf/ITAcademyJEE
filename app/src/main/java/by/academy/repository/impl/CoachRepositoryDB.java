@@ -1,6 +1,7 @@
 package by.academy.repository.impl;
 
 import by.academy.constant.SqlConstant;
+import by.academy.exception.AppException;
 import by.academy.model.bean.Coach;
 import by.academy.model.bean.UserType;
 import by.academy.model.builder.impl.UserBuilder;
@@ -33,7 +34,7 @@ public class CoachRepositoryDB implements ICoachRepository {
                 update = statement.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AppException(e.getMessage());
         } finally {
             ConnectionManager.getPoll().put(connection);
         }
@@ -65,7 +66,7 @@ public class CoachRepositoryDB implements ICoachRepository {
                     coaches.add(CoachFactory.createCoach(user.build()));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new AppException(e.getMessage());
             } finally {
                 ConnectionManager.getPoll().put(connection);
             }
@@ -90,7 +91,7 @@ public class CoachRepositoryDB implements ICoachRepository {
                 salaries.addFirst(resultSet.getInt(SALARY));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new AppException(e.getMessage());
         } finally {
             ConnectionManager.getPoll().put(connection);
             closeResultSet(resultSet);
