@@ -2,7 +2,7 @@ package by.academy.repository.impl;
 
 import by.academy.model.bean.Coach;
 import by.academy.repository.ICoachRepository;
-import by.academy.specification.ICoachSpecification;
+import by.academy.specification.ISpecification;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -37,7 +37,7 @@ public class CoachRepositoryInMemory implements ICoachRepository {
     }
 
     @Override
-    public List<Coach> query(ICoachSpecification specification) {
+    public List<Coach> query(ISpecification<Coach> specification) {
         List<Coach> coachList = new LinkedList<>();
         synchronized (UserRepositoryInMemory.class) {
             for(Coach coach: coaches.values()) {

@@ -19,8 +19,8 @@ public class UserService implements IUserService {
     @Override
     public Optional<User> getUserByUserNameAndPassword(String userName, String password) {
         List<User> userList = new LinkedList<>();
-        IRepository<User> repository = new UserRepositoryDB();
         try {
+            IRepository<User> repository = new UserRepositoryDB();
             userList = repository.query(UserDBSpecifications.userByUserNameAndPassword(userName, password));
         } catch (AppException e) {
             e.printStackTrace();
@@ -30,8 +30,8 @@ public class UserService implements IUserService {
 
     @Override
     public boolean addUser(User user) throws UserServiceException {
-        IRepository<User> repository = new UserRepositoryDB();
         try {
+            IRepository<User> repository = new UserRepositoryDB();
             if (null != user) {
                 if (!isUserNameUsed(user.getUserName())) {
                     return repository.addUser(user);
@@ -59,8 +59,8 @@ public class UserService implements IUserService {
     @Override
     public List<User> getAll() {
         List<User> userList = new LinkedList<>();
-        IRepository<User> repository = new UserRepositoryDB();
         try {
+            IRepository<User> repository = new UserRepositoryDB();
             userList = repository.query(UserDBSpecifications.allUsers());
         } catch (AppException e) {
             e.printStackTrace();
@@ -71,8 +71,8 @@ public class UserService implements IUserService {
     @Override
     public Optional<User> getUserByID(long id) {
         List<User> userList = new LinkedList<>();
-        IRepository<User> repository = new UserRepositoryDB();
         try {
+            IRepository<User> repository = new UserRepositoryDB();
             userList = repository.query(UserDBSpecifications.userById(id));
         } catch (AppException e) {
             e.printStackTrace();
@@ -81,9 +81,9 @@ public class UserService implements IUserService {
     }
 
     private boolean isUserNameUsed(String userName) {
-        IRepository<User> repository = new UserRepositoryDB();
         List<User> userList = new ArrayList<>();
         try {
+            IRepository<User> repository = new UserRepositoryDB();
             userList = repository.query(UserDBSpecifications.userByUserName(userName));
         } catch (AppException e) {
             e.printStackTrace();
