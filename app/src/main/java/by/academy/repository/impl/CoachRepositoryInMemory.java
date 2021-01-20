@@ -21,18 +21,18 @@ public class CoachRepositoryInMemory implements ICoachRepository {
 
     @Override
     public boolean addSalary(Coach coach, int salary) {
+        boolean success = false;
         synchronized (CoachRepositoryInMemory.class) {
             if (null != coach) {
                 if (coaches.containsKey(coach.getUser().getId())) {
                     coaches.get(coach.getUser().getId()).addSalary(salary);
-                    return true;
                 } else {
                     coach.addSalary(salary);
                     coaches.put(coach.getUser().getId(), coach);
-                    return true;
                 }
+                success = true;
             }
-            return false;
+            return success;
         }
     }
 

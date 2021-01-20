@@ -7,29 +7,28 @@ window.onload = function() {
                 return response.json();
             })
             .then((data) => {
-                showData(data);
+                build(data);
             });
     });
 }
 
-function showData(data) {
+function build(data) {
     var container = document.getElementById("salaries-container");
+    var averageSalaryList = "";
     removeAllChildNodes(container);
     for (const [key, value] of Object.entries(data)) {
-      createContainer(key, value, container);
+        averageSalaryList += getSalaryInner(key, value);
     }
+    container.innerHTML = averageSalaryList;
 }
 
-function createContainer(name, salary, container) {
-    var inner = document.createElement("div");
-    var name_span = document.createElement("span");
-    name_span.innerHTML = name;
-    var salary_span = document.createElement("span");
-    salary_span.innerHTML = (salary / 100.0) + " BYN";
-    inner.classList.add("salary_inner");
-    inner.appendChild(name_span);
-    inner.appendChild(salary_span);
-    container.appendChild(inner);
+function getSalaryInner(name, salary) {
+    return `
+        <div class="salary_inner">
+            <span>${name}</span>
+            <span>${salary / 100.0} BYN</span>
+        </div>
+    `
 }
 
 function removeAllChildNodes(parent) {

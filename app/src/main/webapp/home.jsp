@@ -41,7 +41,7 @@
                             <div class="add-user_form_container">
                                 <div class="add-user_form_container_inner">
                                     <label>Age</label>
-                                    <input type="number" min="0" max="100" name="age" required placeholder="User age"/>
+                                    <input type="number" min="0" max="100" name="age" required placeholder="Age"/>
                                 </div>
                                 <div class="add-user_form_container_inner">
                                     <label>User type</label>

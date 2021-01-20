@@ -38,38 +38,41 @@ public class UserRepositoryInMemory implements IRepository<User> {
 
     @Override
     public boolean addUser(User user) {
+        boolean success = false;
         synchronized (UserRepositoryInMemory.class) {
             if (null != user) {
                 user.setId(nextId);
                 nextId++;
                 users.put(user.getId(), user);
-                return true;
+                success = true;
             }
-            return false;
+            return success;
         }
     }
 
     @Override
     public boolean removeUser(User user) {
+        boolean success = false;
         synchronized (UserRepositoryInMemory.class) {
             if (null != user) {
                 users.remove(user.getId());
-                return true;
+                success = true;
             }
-            return false;
+            return success;
         }
     }
 
     @Override
     public boolean setUser(User user) {
+        boolean success = false;
         synchronized (UserRepositoryInMemory.class) {
             if (null != user) {
                 if(users.containsKey(user.getId())) {
                     users.put(user.getId(), user);
-                    return true;
+                    success = true;
                 }
             }
-            return false;
+            return success;
         }
     }
 
