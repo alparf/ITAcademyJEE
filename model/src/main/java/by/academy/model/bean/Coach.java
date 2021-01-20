@@ -1,16 +1,17 @@
 package by.academy.model.bean;
 
 import by.academy.model.constant.ExceptionConstant;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Deque;
-import java.util.Objects;
 
+
+@NoArgsConstructor
+@Data
 public class Coach {
     private User user;
     private Deque<Integer> salaries;
-
-    public Coach() {
-    }
 
     public Coach(User user, Deque<Integer> salaries) throws IllegalArgumentException {
         this.setUser(user);
@@ -27,14 +28,6 @@ public class Coach {
         } else {
             throw new IllegalArgumentException(ExceptionConstant.USER_HAVE_TO_BE_COACH);
         }
-    }
-
-    public Deque<Integer> getSalaries() {
-        return salaries;
-    }
-
-    public void setSalaries(Deque<Integer> salaries) {
-        this.salaries = salaries;
     }
 
     /**
@@ -57,30 +50,5 @@ public class Coach {
 
     public void addSalary(int salary) {
         this.getSalaries().addFirst(salary);
-    }
-
-    @Override
-    public String toString() {
-        return "Coach{" +
-                "user=" + user +
-                ", salaries=" + salaries +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Coach coach = (Coach) o;
-        return Objects.equals(user, coach);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(user);
     }
 }

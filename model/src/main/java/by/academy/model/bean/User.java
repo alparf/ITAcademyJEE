@@ -3,9 +3,13 @@ package by.academy.model.bean;
 import by.academy.model.builder.IUserBuilder;
 import by.academy.model.builder.impl.UserBuilder;
 import by.academy.model.constant.ExceptionConstant;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-import java.util.Objects;
-
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class User extends AbstractEntity {
     private String fio;
     private int age;
@@ -17,10 +21,6 @@ public class User extends AbstractEntity {
         return new UserBuilder();
     }
 
-    public User() {
-        super();
-    }
-
     public User(long id, String fio, int age, String userName, String password, UserType userType)
             throws IllegalArgumentException {
         super(id);
@@ -29,18 +29,6 @@ public class User extends AbstractEntity {
         this.userName = userName;
         this.password = password;
         this.userType = userType;
-    }
-
-    public String getFio() {
-        return fio;
-    }
-
-    public void setFio(String fio) {
-        this.fio = fio;
-    }
-
-    public int getAge() {
-        return age;
     }
 
     /**
@@ -55,57 +43,5 @@ public class User extends AbstractEntity {
         } else {
             this.age = age;
         }
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public UserType getUserType() {
-        return userType;
-    }
-
-    public void setUserType(UserType userType) {
-        this.userType = userType;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + getId() +
-                ", fio='" + fio + '\'' +
-                ", age=" + age +
-                ", userName='" + userName + '\'' +
-                ", userType=" + userType +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (null == o || this.getClass() != o.getClass()) {
-            return false;
-        }
-        User user = (User) o;
-        return Objects.equals(this.userName, user.userName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.userName);
     }
 }
