@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter("/AverageSalariesController")
+@WebFilter(urlPatterns = {"/AverageSalariesController", "/UserListController", "/CoachListController"})
 public class JsonFilter implements Filter {
 
     @Override

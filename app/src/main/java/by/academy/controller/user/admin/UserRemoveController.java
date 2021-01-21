@@ -28,7 +28,6 @@ public class UserRemoveController extends HttpServlet {
         if (UserFacade.removeUserById(userId)) {
             log.info("Removed user, userId = {}", userId);
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher(PageConstant.HOME_CONTROLLER);
-        dispatcher.forward(req, res);
+        res.sendRedirect(PageConstant.HOME);
     }
 }

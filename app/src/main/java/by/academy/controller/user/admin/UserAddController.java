@@ -49,7 +49,6 @@ public class UserAddController extends HttpServlet {
                 session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, ExceptionConstant.USER_NAME_ALREADY_USED);
             }
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher(PageConstant.HOME_CONTROLLER);
-        dispatcher.forward(req, res);
+        res.sendRedirect(PageConstant.HOME);
     }
 }

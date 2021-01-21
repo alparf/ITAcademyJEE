@@ -56,34 +56,11 @@
                             <p class="exception">${exceptionMessage}</p>
                         </form>
                     </div>
-                    <div id="userList" class="user-list shadow" hidden><h3>User List</h3>
-                        <c:forEach var="entry" items="${userList}">
-                            <form class="user-list_form"
-                                action="UserRemoveController" method="POST">
-                                <span class="item" >${entry.fio}</span>
-                                <span class="item">${entry.age}</span>
-                                <span class="item">${entry.userName}</span>
-                                <span class="item">${entry.userType}</span>
-                                <input type="text" name="userIdToRemove" value="${entry.id}" hidden/>
-                                <input type="submit" value="Remove" grow/>
-                            </form>
-                        </c:forEach>
+                    <div id="userList" class="user-list shadow" hidden>
+                        <h3>User List</h3>
                     </div>
-                    <div id="coachList" class="coach shadow" hidden><h3>Coach List</h3>
-                        <c:forEach var="entry" items="${userList}">
-                            <c:if test="${entry.userType == UserType.COACH}">
-                                <form class="coach_form"
-                                    action="CoachAddSalaryController" method="POST">
-                                    <span name="coachName" class="item">${entry.fio}</span>
-                                    <input name="salary" type="text" placeholder="235.15" required/>
-                                    <span>BYN</span>
-                                    <div class="container-inline content-end grow">
-                                        <input type="text" name="coachName" value="${entry.id}" hidden/>
-                                        <input type="submit" value="Add Salary"/>
-                                    </div>
-                                </form>
-                            </c:if>
-                        </c:forEach>
+                    <div id="coachList" class="coach shadow" hidden>
+                        <h3>Coach List</h3>
                     </div>
                     <div id="salary" class="salary shadow" hidden><h3>Salaries</h3>
                         <c:forEach var="entry" items="${coachList}">

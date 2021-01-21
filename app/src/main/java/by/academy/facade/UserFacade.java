@@ -2,6 +2,7 @@ package by.academy.facade;
 
 import by.academy.model.bean.Coach;
 import by.academy.model.bean.User;
+import by.academy.model.bean.UserType;
 import by.academy.service.ICoachService;
 import by.academy.service.IUserService;
 import by.academy.service.impl.CoachService;
@@ -41,6 +42,11 @@ public class UserFacade {
     public static List<User> getAllUsers() {
         IUserService service = new UserService();
         return service.getAll();
+    }
+
+    public static List<User> getAllUsers(UserType userType) {
+        IUserService service = new UserService();
+        return service.getAll(userType);
     }
 
     public static boolean addUser(User user) {

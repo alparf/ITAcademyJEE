@@ -34,7 +34,7 @@ public class User extends AbstractEntity {
     /**
      * Set age if age >= 0 or throw IllegalArgumentException if age < 0
      * @param age - age of user
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if age < 0
      */
 
     public void setAge(int age) throws IllegalArgumentException {

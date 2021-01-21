@@ -29,8 +29,7 @@ public class CoachAddSalaryController extends HttpServlet {
         } catch (NumberFormatException e) {
             log.error(e.getMessage(), e);
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher(PageConstant.HOME_CONTROLLER);
-        dispatcher.forward(req, res);
+        res.sendRedirect(PageConstant.HOME);
     }
 
     private int salaryFormat(Double salary) {

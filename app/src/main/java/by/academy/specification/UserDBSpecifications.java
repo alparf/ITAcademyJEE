@@ -1,10 +1,8 @@
 package by.academy.specification;
 
 import by.academy.model.bean.User;
-import by.academy.specification.impl.db.UserDBGetAll;
-import by.academy.specification.impl.db.UserDBGetById;
-import by.academy.specification.impl.db.UserDBGetByUserName;
-import by.academy.specification.impl.db.UserDBGetByUserNameAndPass;
+import by.academy.model.bean.UserType;
+import by.academy.specification.impl.db.*;
 
 public class UserDBSpecifications {
     public static ISpecification<User> userById(long id) {
@@ -21,5 +19,9 @@ public class UserDBSpecifications {
 
     public static ISpecification<User>  allUsers() {
         return new UserDBGetAll();
+    }
+
+    public static ISpecification<User>  allUsers(UserType userType) {
+        return new UserDBGetAllByType(userType);
     }
 }

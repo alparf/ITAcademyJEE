@@ -40,8 +40,7 @@ public class LoginController extends HttpServlet {
             log.info("User = {} signed in", userName);
             session.setAttribute(ServletConstant.USER, user.get());
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher(File.separator + PageConstant.HOME_CONTROLLER);
-        dispatcher.forward(req, res);
+        res.sendRedirect(PageConstant.HOME);
     }
 
     @Override

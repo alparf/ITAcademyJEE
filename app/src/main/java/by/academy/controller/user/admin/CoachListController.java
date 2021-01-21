@@ -1,10 +1,8 @@
-package by.academy.controller;
+package by.academy.controller.user.admin;
 
-import by.academy.constant.ServletConstant;
 import by.academy.facade.UserFacade;
+import by.academy.model.bean.UserType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,19 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/AverageSalariesController")
-public class AverageSalariesController extends HttpServlet {
+@WebServlet("/CoachListController")
+public class CoachListController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String monthCountStr = req.getParameter(ServletConstant.MONTH_COUNT);
-        int monthCount = 1;
-        if (null != monthCountStr) {
-            monthCount = Integer.parseInt(monthCountStr);
-        }
         ObjectMapper mapper = new ObjectMapper();
         PrintWriter printWriter = resp.getWriter();
-        printWriter.write(mapper.writeValueAsString(UserFacade.getAverageSalaries(monthCount)));
+        printWriter.write(mapper.writeValueAsString(UserFacade.getAllUsers(UserType.COACH)));
         printWriter.flush();
     }
 }
