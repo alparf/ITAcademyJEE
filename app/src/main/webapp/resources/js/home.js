@@ -72,7 +72,17 @@ function removeUser(id) {
 
 function addSalary(id) {
     let salary = document.getElementById("coach" + id).value;
-    fetch("CoachAddSalaryController?coachId=" + id + "&salary=" + salary).
+    let data = {
+        coachId : "" + id,
+        salary : salary
+    }
+    fetch("CoachAddSalaryController", {
+        headers: {
+            'Content-Type': 'charset=utf-8'
+        },
+        method : "POST",
+        body : JSON.stringify(data)
+    }).
     then((response) => {
         getItemList("CoachListController", buildCoachList);
     })
