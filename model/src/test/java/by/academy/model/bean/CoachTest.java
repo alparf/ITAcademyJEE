@@ -1,7 +1,7 @@
 package by.academy.model.bean;
 
-import by.academy.model.constant.ExceptionConstant;
-import by.academy.model.factory.CoachFactory;
+import by.academy.model.constant.ModelExceptions;
+import by.academy.model.factory.*;
 import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,7 +32,7 @@ public class CoachTest extends TestCase {
             coach.getAverageSalary(monthCount);
             Assert.fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException exception) {
-            assertEquals(exception.getMessage(), ExceptionConstant.INVALID_MONTH_COUNT);
+            assertEquals(exception.getMessage(), ModelExceptions.INVALID_MONTH_COUNT);
         }
     }
 }

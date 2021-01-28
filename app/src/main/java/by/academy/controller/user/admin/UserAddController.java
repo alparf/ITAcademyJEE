@@ -10,8 +10,6 @@ import by.academy.model.bean.UserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +23,7 @@ public class UserAddController extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(UserAddController.class);
 
     @Override
-    public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         HttpSession session = req.getSession();
         session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, null);
         String fio = req.getParameter(ServletConstant.FIO);

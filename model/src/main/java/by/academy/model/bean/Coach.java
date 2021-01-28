@@ -1,14 +1,15 @@
 package by.academy.model.bean;
 
-import by.academy.model.constant.ExceptionConstant;
+import by.academy.model.constant.ModelExceptions;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.Deque;
 
-
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class Coach {
     private User user;
     private Deque<Integer> salaries;
@@ -26,7 +27,7 @@ public class Coach {
         if (null != user && user.getUserType() == UserType.COACH) {
             this.user = user;
         } else {
-            throw new IllegalArgumentException(ExceptionConstant.USER_HAVE_TO_BE_COACH);
+            throw new IllegalArgumentException(ModelExceptions.USER_HAVE_TO_BE_COACH);
         }
     }
 
@@ -39,7 +40,7 @@ public class Coach {
      */
     public int getAverageSalary(int monthCount) throws IllegalArgumentException {
         if (monthCount < 1) {
-            throw new IllegalArgumentException(ExceptionConstant.INVALID_MONTH_COUNT);
+            throw new IllegalArgumentException(ModelExceptions.INVALID_MONTH_COUNT);
         }
         int sum = this.getSalaries().stream()
                 .limit(monthCount)

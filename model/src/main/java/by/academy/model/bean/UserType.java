@@ -5,7 +5,7 @@ public enum UserType {
     COACH("COACH"),
     ADMIN("ADMIN");
 
-    private String name;
+    private final String name;
 
     UserType(String name) {
         this.name = name;

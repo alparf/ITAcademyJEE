@@ -1,6 +1,6 @@
 package by.academy.model.bean;
 
-import by.academy.model.constant.ExceptionConstant;
+import by.academy.model.constant.ModelExceptions;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -28,7 +28,7 @@ public class Group extends AbstractEntity {
         if ((null != coach) && (coach.getUserType() == UserType.COACH)) {
             this.coach = coach;
         } else {
-            throw new IllegalArgumentException(ExceptionConstant.USER_HAVE_TO_BE_COACH);
+            throw new IllegalArgumentException(ModelExceptions.USER_HAVE_TO_BE_COACH);
         }
     }
 }
