@@ -1,8 +1,7 @@
 package by.academy.controller.user;
 
-import by.academy.constant.ServletConstant;
+import by.academy.constant.PageConstant;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +13,9 @@ import java.io.IOException;
 public class LogoutController extends HttpServlet {
 
     @Override
-    public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void service(HttpServletRequest req, HttpServletResponse res) throws IOException {
         HttpSession session = req.getSession();
         session.invalidate();
-        res.sendRedirect(ServletConstant.LOGIN);
+        res.sendRedirect(PageConstant.LOGIN);
     }
 }

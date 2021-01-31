@@ -2,23 +2,19 @@ package by.academy.facade;
 
 import by.academy.model.bean.Coach;
 import by.academy.model.bean.User;
-import by.academy.model.factory.CoachFactory;
+import by.academy.model.bean.UserType;
 import by.academy.service.ICoachService;
 import by.academy.service.IUserService;
 import by.academy.service.impl.CoachService;
 import by.academy.service.impl.UserService;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UserFacade {
 
-    public static void addSalary(String coachName, Integer salary) {
+    public static boolean addSalary(long coachId, Integer salary) {
         ICoachService coachService = new CoachService();
-        IUserService userService = new UserService();
-        User user = userService.getUserByName(coachName);
-        coachService.addSalary(CoachFactory.createCoach(user.getId(), user), salary);
+        return coachService.addSalary(coachId, salary);
     }
 
     public static List<Coach> getAllCoaches() {
@@ -37,9 +33,10 @@ public class UserFacade {
         return averageSalaries;
     }
 
-    public static User login(String userName, String password) {
+    public static Optional<User> login(String userName, String password) {
         IUserService service = new UserService();
-        return service.login(userName, password);
+        password = Base64.getEncoder().encodeToString(password.getBytes());
+        return service.getUserByUserNameAndPassword(userName, password);
     }
 
     public static List<User> getAllUsers() {
@@ -47,13 +44,19 @@ public class UserFacade {
         return service.getAll();
     }
 
-    public static void addUser(User user) {
+    public static List<User> getAllUsers(UserType userType) {
         IUserService service = new UserService();
-        service.addUser(user);
+        return service.getAll(userType);
     }
 
-    public static void removeUser(String userName) {
+    public static boolean addUser(User user) {
         IUserService service = new UserService();
-        service.removeUser(userName);
+        user.setPassword(Base64.getEncoder().encodeToString(user.getPassword().getBytes()));
+        return service.addUser(user);
+    }
+
+    public static boolean removeUserById(long id) {
+        IUserService service = new UserService();
+        return service.removeUserById(id);
     }
 }

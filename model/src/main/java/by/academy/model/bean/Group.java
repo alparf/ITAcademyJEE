@@ -1,68 +1,34 @@
 package by.academy.model.bean;
 
-import by.academy.model.constant.ExceptionConstant;
+import by.academy.model.constant.ModelExceptions;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-public class Group {
-    private long id;
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class Group extends AbstractEntity {
     private String name;
     private User coach;
     private List<String> themes;
     private List<User> students;
 
-    public Group() {
-    }
-
     public Group(long id, String name, User coach, List<String> themes, List<User> students) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.setCoach(coach);
         this.themes = themes;
         this.students = students;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public User getCoach() {
-        return coach;
-    }
-
     public void setCoach(User coach) {
         if ((null != coach) && (coach.getUserType() == UserType.COACH)) {
             this.coach = coach;
         } else {
-            throw new IllegalArgumentException(ExceptionConstant.USER_HAVE_TO_BE_COACH);
+            throw new IllegalArgumentException(ModelExceptions.USER_HAVE_TO_BE_COACH);
         }
-    }
-
-    public List<String> getThemes() {
-        return themes;
-    }
-
-    public void setThemes(List<String> themes) {
-        this.themes = themes;
-    }
-
-    public List<User> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<User> students) {
-        this.students = students;
     }
 }

@@ -1,29 +1,22 @@
 package by.academy.model.bean;
 
-import by.academy.model.constant.ExceptionConstant;
+import by.academy.model.constant.ModelExceptions;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.Deque;
 
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class Coach {
-    private long id;
     private User user;
     private Deque<Integer> salaries;
 
-    public Coach() {
-    }
-
-    public Coach(long id, User user, Deque<Integer> salaries) throws IllegalArgumentException {
-        this.id = id;
+    public Coach(User user, Deque<Integer> salaries) throws IllegalArgumentException {
         this.setUser(user);
         this.salaries = salaries;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public User getUser() {
@@ -34,16 +27,8 @@ public class Coach {
         if (null != user && user.getUserType() == UserType.COACH) {
             this.user = user;
         } else {
-            throw new IllegalArgumentException(ExceptionConstant.USER_HAVE_TO_BE_COACH);
+            throw new IllegalArgumentException(ModelExceptions.USER_HAVE_TO_BE_COACH);
         }
-    }
-
-    public Deque<Integer> getSalaries() {
-        return salaries;
-    }
-
-    public void setSalaries(Deque<Integer> salaries) {
-        this.salaries = salaries;
     }
 
     /**
@@ -55,7 +40,7 @@ public class Coach {
      */
     public int getAverageSalary(int monthCount) throws IllegalArgumentException {
         if (monthCount < 1) {
-            throw new IllegalArgumentException(ExceptionConstant.INVALID_MONTH_COUNT);
+            throw new IllegalArgumentException(ModelExceptions.INVALID_MONTH_COUNT);
         }
         int sum = this.getSalaries().stream()
                 .limit(monthCount)
@@ -66,24 +51,5 @@ public class Coach {
 
     public void addSalary(int salary) {
         this.getSalaries().addFirst(salary);
-    }
-
-    @Override
-    public String toString() {
-        return "Coach{" +
-                "id=" + id +
-                "user=" + user +
-                ", salaries=" + salaries +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Coach) {
-            if (null != this.getUser()) {
-                return this.getUser().equals(((Coach) obj).getUser());
-            }
-        }
-        return false;
     }
 }

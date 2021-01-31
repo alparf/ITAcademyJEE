@@ -1,13 +1,11 @@
 package by.academy.controller.user.admin;
 
+import by.academy.constant.PageConstant;
 import by.academy.constant.ServletConstant;
-import by.academy.constant.SessionConstant;
 import by.academy.facade.UserFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,13 +19,13 @@ public class UserRemoveController extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(UserRemoveController.class);
 
     @Override
-    public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
         HttpSession session = req.getSession();
-        session.setAttribute(SessionConstant.EXCEPTION_MESSAGE, null);
-        String userName = req.getParameter(SessionConstant.USER_NAME_TO_REMOVE);
-        UserFacade.removeUser(userName);
-        log.info("Remove user = {}", userName);
-        RequestDispatcher dispatcher = req.getRequestDispatcher(ServletConstant.HOME_CONTROLLER);
-        dispatcher.forward(req, res);
+        session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, null);
+        long userId = Long.parseLong(req.getParameter(ServletConstant.USER_ID_TO_REMOVE));
+        if (UserFacade.removeUserById(userId)) {
+            log.info("Removed user, userId = {}", userId);
+        }
+        res.sendRedirect(PageConstant.HOME);
     }
 }

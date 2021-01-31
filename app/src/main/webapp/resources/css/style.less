@@ -92,13 +92,34 @@ h6 {
 
 input {
     padding: 10px;
-    margin: 0px 10px 10px 10px;
+    margin: 10px;
     border-radius: @border-radius;
     border: 1px solid @border-color;
     transition: background 0.1s;
 
     &[type="submit"] {
         .btn(@primary-color);
+    }
+}
+
+.btn {
+    color: #ffffff;
+    font-weight: bold;
+    background-color: @primary-color;
+    border: none;
+    border-radius: @border-radius;
+    padding: 15px;
+    text-transform: uppercase;
+    font-family: inherit;
+    text-decoration: none;
+    transition: background 0.1s;
+    font-size: 0.8rem;
+    margin: 10px;
+    flex-shrink: 0;
+
+    &:hover {
+        background-color: darken(@primary-color, 5%);
+        cursor: pointer;
     }
 }
 

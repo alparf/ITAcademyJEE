@@ -2,13 +2,15 @@ package by.academy.repository.impl;
 
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
-import by.academy.model.factory.UserFactory;
-import by.academy.repository.IUserRepository;
-import by.academy.specification.IUserSpecification;
+import by.academy.repository.IRepository;
+import by.academy.specification.ISpecification;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-public class UserRepositoryInMemory implements IUserRepository {
+public class UserRepositoryInMemory implements IRepository<User> {
 
     private static final Map<Long, User> users;
     private static volatile long nextId;
@@ -17,46 +19,65 @@ public class UserRepositoryInMemory implements IUserRepository {
         nextId = 1;
         users = new HashMap<>();
 
-        IUserRepository repository = new UserRepositoryInMemory();
-        repository.addUser(UserFactory.createUser(
-                0, "Иванов Иван Иванович", 19, "student", "student", UserType.STUDENT));
-        repository.addUser(UserFactory.createUser(
-                0, "Петров Петр Петрович", 44, "coach", "coach", UserType.COACH));
+        IRepository<User> repository = new UserRepositoryInMemory();
+        repository.addUser(User.newBuilder()
+                        .withFio("Иванов Иван Иванович")
+                        .withAge(19)
+                        .withUserName("student")
+                        .withPassword("student")
+                        .withUserType(UserType.STUDENT)
+                        .build());
+        repository.addUser(User.newBuilder()
+                        .withFio("Петров Петр Петрович")
+                        .withAge(44)
+                        .withUserName("coach")
+                        .withPassword("coach")
+                        .withUserType(UserType.COACH)
+                        .build());
     }
 
     @Override
-    public void addUser(User user) {
+    public boolean addUser(User user) {
+        boolean success = false;
         synchronized (UserRepositoryInMemory.class) {
             if (null != user) {
                 user.setId(nextId);
                 nextId++;
                 users.put(user.getId(), user);
+                success = true;
             }
+            return success;
         }
     }
 
     @Override
-    public void removeUser(User user) {
+    public boolean removeUser(User user) {
+        boolean success = false;
         synchronized (UserRepositoryInMemory.class) {
             if (null != user) {
                 users.remove(user.getId());
+                success = true;
             }
+            return success;
         }
     }
 
     @Override
-    public void setUser(User user) {
+    public boolean setUser(User user) {
+        boolean success = false;
         synchronized (UserRepositoryInMemory.class) {
             if (null != user) {
                 if(users.containsKey(user.getId())) {
                     users.put(user.getId(), user);
+                    success = true;
                 }
             }
+            return success;
         }
     }
 
     @Override
-    public List<User> query(IUserSpecification specification) {
+    public List<User> query(ISpecification<User> specification) {
         List<User> userList = new LinkedList<>();
         synchronized (UserRepositoryInMemory.class) {
             for (User user : users.values()) {
