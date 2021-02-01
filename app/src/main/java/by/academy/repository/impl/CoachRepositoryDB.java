@@ -3,8 +3,8 @@ package by.academy.repository.impl;
 import by.academy.constant.SqlConstant;
 import by.academy.exception.AppException;
 import by.academy.model.bean.Coach;
+import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
-import by.academy.model.builder.impl.UserBuilder;
 import by.academy.model.factory.CoachFactory;
 import by.academy.pool.ConnectionManager;
 import by.academy.repository.ICoachRepository;
@@ -52,15 +52,17 @@ public class CoachRepositoryDB implements ICoachRepository {
         Connection connection = ConnectionManager.getPoll().get();
         try (PreparedStatement userPreparedStatement = specification.getPreparedStatement(connection);
              ResultSet resultSet = userPreparedStatement.executeQuery()) {
-            UserBuilder user = new UserBuilder();
+            User user;
             while (resultSet.next()) {
-                user.withId(resultSet.getLong(ID))
+                user = User.newBuilder()
+                        .withId(resultSet.getLong(ID))
                         .withFio(resultSet.getString(FIO))
                         .withAge(resultSet.getInt(AGE))
                         .withUserName(resultSet.getString(USER_NAME))
                         .withPassword(resultSet.getString(PASSWORD))
-                        .withUserType(UserType.valueOf(resultSet.getString(USER_TYPE)));
-                coaches.add(CoachFactory.createCoach(user.build()));
+                        .withUserType(UserType.valueOf(resultSet.getString(USER_TYPE)))
+                        .build();
+                coaches.add(CoachFactory.createCoach(user));
             }
         } catch (SQLException e) {
             throw new AppException(e.getMessage());
