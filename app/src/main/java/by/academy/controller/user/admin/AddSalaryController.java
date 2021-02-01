@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet("/CoachAddSalaryController")
-public class CoachAddSalaryController extends JsonController {
+@WebServlet("/AddSalaryController")
+public class AddSalaryController extends JsonController {
 
-    private static final Logger log = LoggerFactory.getLogger(CoachAddSalaryController.class);
+    private static final Logger log = LoggerFactory.getLogger(AddSalaryController.class);
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {

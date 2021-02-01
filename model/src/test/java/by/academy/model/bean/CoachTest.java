@@ -21,9 +21,13 @@ public class CoachTest extends TestCase {
                 .withPassword("user")
                 .withUserType(UserType.COACH)
                 .build();
-        Deque<Integer> salaries = new LinkedList<>();
-        salaries.addFirst(100);
-        salaries.addFirst(200);
+        Deque<Salary> salaries = new LinkedList<>();
+        salaries.addFirst(Salary.newBuilder()
+                .withValue(100)
+                .build());
+        salaries.addFirst(Salary.newBuilder()
+                .withValue(200)
+                .build());
         Coach coach = Coach.newBuilder()
                 .withUser(user)
                 .withSalaries(salaries)

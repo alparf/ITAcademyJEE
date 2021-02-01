@@ -8,5 +8,5 @@ public interface ISpecification<T> {
     default PreparedStatement getPreparedStatement(Connection connection) throws SQLException {
         return null;
     }
-    boolean specification(T t);
+    boolean specificity(T t);
 }

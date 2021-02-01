@@ -26,7 +26,7 @@ public class UserDBGetById implements ISpecification<User> {
     }
 
     @Override
-    public boolean specification(User user) {
-        return true;
+    public boolean specificity(User user) {
+        return false;
     }
 }

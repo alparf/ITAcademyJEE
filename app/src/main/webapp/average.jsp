@@ -22,8 +22,8 @@
                 <c:if test="${empty monthCount}">
                     <input id="month-count" type="number" class="average_panel_input" name="monthCount" min="1" value="1"/>
                 </c:if>
+                <a id="average-btn" class="btn" href="#">Show</a>
             </div>
-            <a id="average-btn" class="btn" href="#">Show</a>
         </div>
         <div id="salaries-container"></div>
     </div>

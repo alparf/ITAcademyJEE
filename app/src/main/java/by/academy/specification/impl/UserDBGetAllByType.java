@@ -12,11 +12,11 @@ public class UserDBGetAllByType extends UserDBGetAll {
     }
 
     @Override
-    public boolean specification(User user) {
-        boolean isCoach = false;
+    public boolean specificity(User user) {
+        boolean isCoach = true;
         if (null != user) {
             if(user.getUserType() == userType) {
-                isCoach = true;
+                isCoach = false;
             }
         }
         return isCoach;

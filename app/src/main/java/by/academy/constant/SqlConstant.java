@@ -12,10 +12,8 @@ public class SqlConstant {
 
     public static final String SELECT_USERS = "SELECT * FROM users;";
 
-    public static final String SELECT_COACHES = "SELECT * FROM users " +
-                                                "WHERE \"userType\" = 'COACH';";
     public static final String INSERT_SALARY = "INSERT INTO salaries (\"userId\", \"salary\") " +
                                                "VALUES (?, ?)";
-    public static final String SELECT_SALARY = "SELECT \"salary\" FROM salaries " +
+    public static final String SELECT_SALARY = "SELECT \"id\", \"salary\" FROM salaries " +
                                                "WHERE \"userId\" = ?;";
 }

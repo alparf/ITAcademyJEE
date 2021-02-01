@@ -12,9 +12,9 @@ import java.util.Deque;
 @EqualsAndHashCode(callSuper = false)
 public class Coach {
     private User user;
-    private Deque<Integer> salaries;
+    private Deque<Salary> salaries;
 
-    public Coach(User user, Deque<Integer> salaries) throws IllegalArgumentException {
+    public Coach(User user, Deque<Salary> salaries) throws IllegalArgumentException {
         this.setUser(user);
         this.salaries = salaries;
     }
@@ -44,12 +44,12 @@ public class Coach {
         }
         int sum = this.getSalaries().stream()
                 .limit(monthCount)
-                .mapToInt(salary -> salary)
+                .mapToInt(salary -> salary.getValue())
                 .sum();
         return sum / monthCount;
     }
 
-    public void addSalary(int salary) {
+    public void addSalary(Salary salary) {
         this.getSalaries().addFirst(salary);
     }
 
@@ -64,7 +64,7 @@ public class Coach {
             return this;
         }
 
-        public Builder withSalaries(Deque<Integer> salaries) {
+        public Builder withSalaries(Deque<Salary> salaries) {
             Coach.this.setSalaries(salaries);
             return this;
         }

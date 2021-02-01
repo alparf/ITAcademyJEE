@@ -1,25 +1,38 @@
 package by.academy.facade;
 
 import by.academy.model.bean.Coach;
+import by.academy.model.bean.Salary;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
-import by.academy.service.ICoachService;
+import by.academy.service.ISalaryService;
 import by.academy.service.IUserService;
-import by.academy.service.impl.CoachService;
+import by.academy.service.impl.SalaryService;
 import by.academy.service.impl.UserService;
 
 import java.util.*;
 
 public class UserFacade {
 
-    public static boolean addSalary(long coachId, Integer salary) {
-        ICoachService coachService = new CoachService();
-        return coachService.addSalary(coachId, salary);
+    public static boolean addSalary(long coachId, Integer salaryValue) {
+        ISalaryService salaryService = new SalaryService();
+        IUserService userService = new UserService();
+        User user = userService.getUserByID(coachId).get();
+        Salary salary = Salary.newBuilder()
+                .withValue(salaryValue)
+                .withCoach(user)
+                .build();
+        return salaryService.addSalary(salary);
     }
 
     public static List<Coach> getAllCoaches() {
-        ICoachService service = new CoachService();
-        return service.getAll();
+        IUserService userService = new UserService();
+        List<Coach> coaches = new LinkedList<>();
+        userService.getAll(UserType.COACH).stream().forEach(user -> {
+            coaches.add(Coach.newBuilder()
+                    .withUser(user)
+                    .build());
+        });
+        return coaches;
     }
 
     public static Map<String, Integer> getAverageSalaries(int monthCount) {

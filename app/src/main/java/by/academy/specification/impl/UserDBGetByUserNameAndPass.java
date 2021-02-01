@@ -27,10 +27,10 @@ public class UserDBGetByUserNameAndPass implements ISpecification<User> {
     }
 
     @Override
-    public boolean specification(User user) {
+    public boolean specificity(User user) {
         if ((null != user) && (null != this.password)) {
-            return (user.getUserName().equals(this.userName)) && (this.password.equals(user.getPassword()));
+            return !((user.getUserName().equals(this.userName)) && (this.password.equals(user.getPassword())));
         }
-        return false;
+        return true;
     }
 }

@@ -93,7 +93,7 @@ public class UserRepositoryDB implements IRepository<User> {
         } finally {
             ConnectionManager.getPoll().put(connection);
         }
-        users.removeIf(user -> !specification.specification(user));
+        users.removeIf(specification::specificity);
         return users;
     }
 }

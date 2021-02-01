@@ -77,7 +77,7 @@ function addSalary(id) {
         coachId : coachId,
         salary : salary
     }
-    fetch("CoachAddSalaryController", {
+    fetch("AddSalaryController", {
         method : "POST",
         body : JSON.stringify(data),
         headers: {
