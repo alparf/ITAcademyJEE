@@ -8,17 +8,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionPool extends AbstractPoll<Connection> {
-    private final String url;
-    private final String user;
-    private final String password;
+    private final String URL;
+    private final String USER;
+    private final String PASSWORD;
+    private final String DRIVER;
 
     private static final Logger log = LoggerFactory.getLogger(ConnectionPool.class);
 
-    protected ConnectionPool(String url, String user, String password, long liveTime) {
+    protected ConnectionPool(String driver, String url, String user, String password, long liveTime) {
         super(liveTime);
-        this.url = url;
-        this.user = user;
-        this.password = password;
+        this.URL = url;
+        this.USER = user;
+        this.PASSWORD = password;
+        this.DRIVER = driver;
     }
 
     public Connection get() {
@@ -54,8 +56,8 @@ public class ConnectionPool extends AbstractPoll<Connection> {
 
     protected Connection open() {
         try {
-            Class.forName("org.postgresql.Driver");
-            return DriverManager.getConnection(this.url, this.user, this.password);
+            Class.forName(this.DRIVER);
+            return DriverManager.getConnection(this.URL, this.USER, this.PASSWORD);
         } catch (SQLException e) {
             log.error(e.getMessage());
         } catch (ClassNotFoundException e) {
