@@ -3,7 +3,6 @@ package by.academy.service.impl;
 import by.academy.exception.AppException;
 import by.academy.model.bean.Coach;
 import by.academy.model.bean.User;
-import by.academy.model.factory.CoachFactory;
 import by.academy.repository.ICoachRepository;
 import by.academy.repository.IRepository;
 import by.academy.repository.impl.CoachRepositoryDB;
@@ -11,6 +10,8 @@ import by.academy.repository.impl.UserRepositoryDB;
 import by.academy.service.ICoachService;
 import by.academy.specification.CoachDBSpecifications;
 import by.academy.specification.UserDBSpecifications;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +20,8 @@ import java.util.Optional;
 
 public class CoachService implements ICoachService {
 
+    private static final Logger log = LoggerFactory.getLogger(CoachService.class);
+
     @Override
     public List<Coach> getAll() {
         List<Coach> coachList = new LinkedList<>();
@@ -26,7 +29,7 @@ public class CoachService implements ICoachService {
             ICoachRepository repository = new CoachRepositoryDB();
             coachList = repository.query(CoachDBSpecifications.allCoaches());
         } catch (AppException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return coachList;
     }
@@ -40,10 +43,12 @@ public class CoachService implements ICoachService {
             List<User> userList = userRepository.query(UserDBSpecifications.userById(coachId));
             user = userList.stream().findFirst();
         } catch (AppException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         if(user.isPresent()) {
-            return coachRepository.addSalary(CoachFactory.createCoach(user.get()), salary);
+            return coachRepository.addSalary(Coach.newBuilder()
+                    .withUser(user.get())
+                    .build(), salary);
         }
         return false;
     }

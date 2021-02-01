@@ -1,7 +1,6 @@
 package by.academy.model.bean;
 
 import by.academy.model.constant.ModelExceptions;
-import by.academy.model.factory.*;
 import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,7 +24,10 @@ public class CoachTest extends TestCase {
         Deque<Integer> salaries = new LinkedList<>();
         salaries.addFirst(100);
         salaries.addFirst(200);
-        Coach coach = CoachFactory.createCoach(user, salaries);
+        Coach coach = Coach.newBuilder()
+                .withUser(user)
+                .withSalaries(salaries)
+                .build();
             assertEquals(expected, coach.getAverageSalary(monthCount));
         try {
             monthCount = -1;

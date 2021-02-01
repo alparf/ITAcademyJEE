@@ -3,7 +3,6 @@ package by.academy.specification;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
 import by.academy.specification.impl.*;
-import by.academy.specification.impl.db.*;
 
 public class UserDBSpecifications {
     public static ISpecification<User> userById(long id) {

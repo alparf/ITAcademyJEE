@@ -52,4 +52,25 @@ public class Coach {
     public void addSalary(int salary) {
         this.getSalaries().addFirst(salary);
     }
+
+    public static Builder newBuilder() {
+        return new Coach().new Builder();
+    }
+
+    public class Builder {
+
+        public Builder withUser(User user) {
+            Coach.this.setUser(user);
+            return this;
+        }
+
+        public Builder withSalaries(Deque<Integer> salaries) {
+            Coach.this.setSalaries(salaries);
+            return this;
+        }
+
+        public Coach build() {
+            return Coach.this;
+        }
+    }
 }

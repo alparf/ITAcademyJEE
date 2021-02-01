@@ -5,7 +5,6 @@ import by.academy.exception.AppException;
 import by.academy.model.bean.Coach;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
-import by.academy.model.factory.CoachFactory;
 import by.academy.pool.ConnectionManager;
 import by.academy.repository.ICoachRepository;
 import by.academy.specification.ISpecification;
@@ -62,7 +61,9 @@ public class CoachRepositoryDB implements ICoachRepository {
                         .withPassword(resultSet.getString(PASSWORD))
                         .withUserType(UserType.valueOf(resultSet.getString(USER_TYPE)))
                         .build();
-                coaches.add(CoachFactory.createCoach(user));
+                coaches.add(Coach.newBuilder()
+                        .withUser(user)
+                        .build());
             }
         } catch (SQLException e) {
             throw new AppException(e.getMessage());
@@ -102,7 +103,7 @@ public class CoachRepositoryDB implements ICoachRepository {
             try {
                 resultSet.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new AppException(e.getMessage());
             }
         }
     }
