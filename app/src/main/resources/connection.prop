@@ -1,0 +1,4 @@
+URL=jdbc:postgresql://127.0.0.1:5432/itacademydb
+USER=postgres
+PASSWORD=postgres
+LIVE_TIME=60000

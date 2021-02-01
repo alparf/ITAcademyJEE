@@ -9,8 +9,8 @@ public class ConnectionPool extends AbstractPoll<Connection> {
     private final String user;
     private final String password;
 
-    public ConnectionPool(String url, String user, String password) {
-        super();
+    protected ConnectionPool(String url, String user, String password, long liveTime) {
+        super(liveTime);
         this.url = url;
         this.user = user;
         this.password = password;
