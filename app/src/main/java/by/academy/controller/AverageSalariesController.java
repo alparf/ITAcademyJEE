@@ -3,8 +3,6 @@ package by.academy.controller;
 import by.academy.constant.ServletConstant;
 import by.academy.facade.UserFacade;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

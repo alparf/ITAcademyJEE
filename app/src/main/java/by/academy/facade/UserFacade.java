@@ -24,23 +24,14 @@ public class UserFacade {
         return salaryService.addSalary(salary);
     }
 
-    public static List<Coach> getAllCoaches() {
-        IUserService userService = new UserService();
-        List<Coach> coaches = new LinkedList<>();
-        userService.getAll(UserType.COACH).stream().forEach(user -> {
-            coaches.add(Coach.newBuilder()
-                    .withUser(user)
-                    .build());
-        });
-        return coaches;
-    }
-
     public static Map<String, Integer> getAverageSalaries(int monthCount) {
         Map<String, Integer> averageSalaries = new HashMap<>();
         List<Coach> coaches = getAllCoaches();
         for(Coach coach: coaches) {
             if((null != coach) && (null != coach.getUser())) {
-                averageSalaries.put(coach.getUser().getFio(), coach.getAverageSalary(monthCount));
+                averageSalaries.put(
+                        coach.getUser().getFio(),
+                        coach.getAverageSalary(monthCount));
             }
         }
         return averageSalaries;
@@ -71,5 +62,20 @@ public class UserFacade {
     public static boolean removeUserById(long id) {
         IUserService service = new UserService();
         return service.removeUserById(id);
+    }
+
+    private static List<Coach> getAllCoaches() {
+        IUserService userService = new UserService();
+        ISalaryService salaryService = new SalaryService();
+        List<Coach> coaches = new LinkedList<>();
+        userService.getAll(UserType.COACH).forEach(user -> coaches.add(
+                Coach.newBuilder()
+                        .withUser(user)
+                        .withSalaries(new LinkedList<>())
+                        .build()));
+        coaches.forEach(coach -> salaryService.getAllByCoachId(
+                coach.getUser().getId()).forEach(coach::addSalary)
+        );
+        return coaches;
     }
 }
