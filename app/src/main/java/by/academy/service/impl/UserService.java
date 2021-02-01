@@ -35,7 +35,7 @@ public class UserService implements IUserService {
             IRepository<User> repository = new UserRepositoryDB();
             if (null != user) {
                 if (!isUserNameUsed(user.getUserName())) {
-                    return repository.addUser(user);
+                    return repository.add(user);
                 } else {
                     throw new UserServiceException(ExceptionConstant.USER_NAME_ALREADY_USED);
                 }
@@ -53,7 +53,7 @@ public class UserService implements IUserService {
             IRepository<User> repository = new UserRepositoryDB();
             Optional<User> user = getUserByID(id);
             if(user.isPresent()) {
-                success = repository.removeUser(user.get());
+                success = repository.remove(user.get());
             }
         } catch (AppException e) {
             e.printStackTrace();

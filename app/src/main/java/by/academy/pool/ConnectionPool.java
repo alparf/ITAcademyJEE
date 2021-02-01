@@ -1,5 +1,8 @@
 package by.academy.pool;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,6 +11,8 @@ public class ConnectionPool extends AbstractPoll<Connection> {
     private final String url;
     private final String user;
     private final String password;
+
+    private static final Logger log = LoggerFactory.getLogger(ConnectionPool.class);
 
     protected ConnectionPool(String url, String user, String password, long liveTime) {
         super(liveTime);
@@ -52,9 +57,9 @@ public class ConnectionPool extends AbstractPoll<Connection> {
             Class.forName("org.postgresql.Driver");
             return DriverManager.getConnection(this.url, this.user, this.password);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return null;
     }
@@ -63,7 +68,7 @@ public class ConnectionPool extends AbstractPoll<Connection> {
         try {
             connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -71,7 +76,7 @@ public class ConnectionPool extends AbstractPoll<Connection> {
         try {
             return !connection.isClosed();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return false;
     }

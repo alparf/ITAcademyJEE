@@ -18,7 +18,7 @@ import java.util.List;
 public class UserRepositoryDB implements IRepository<User> {
 
     @Override
-    public boolean addUser(User user) {
+    public boolean add(User user) {
         final int FIO = 1;
         final int AGE = 2;
         final int USER_NAME = 3;
@@ -44,7 +44,7 @@ public class UserRepositoryDB implements IRepository<User> {
     }
 
     @Override
-    public boolean removeUser(User user) {
+    public boolean remove(User user) {
         final int ID = 1;
         int update = 0;
         Connection connection = ConnectionManager.getPoll().get();
@@ -62,7 +62,7 @@ public class UserRepositoryDB implements IRepository<User> {
     }
 
     @Override
-    public boolean setUser(User user) {
+    public boolean set(User user) {
         return false;
     }
 

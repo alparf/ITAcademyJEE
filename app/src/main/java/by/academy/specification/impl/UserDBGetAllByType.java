@@ -1,4 +1,4 @@
-package by.academy.specification.impl.db;
+package by.academy.specification.impl;
 
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;

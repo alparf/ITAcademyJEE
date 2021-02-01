@@ -1,10 +1,15 @@
 package by.academy.pool;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.Properties;
 
 public class ConnectionManager {
+
+    private static final Logger log = LoggerFactory.getLogger(ConnectionManager.class);
 
     public static class ConnectionHolder {
         public static final ConnectionPool CONNECTION_POOL;
@@ -15,7 +20,7 @@ public class ConnectionManager {
                         .getContextClassLoader()
                         .getResourceAsStream("connection.prop"));
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
             CONNECTION_POOL = new ConnectionPool(
                     properties.getProperty("URL"),

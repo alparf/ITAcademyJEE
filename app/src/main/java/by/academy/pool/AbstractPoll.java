@@ -1,6 +1,5 @@
 package by.academy.pool;
 
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -11,8 +10,8 @@ public abstract class AbstractPoll<T> {
 
     public AbstractPoll(long liveTime) {
         this.liveTime = liveTime;
-        this.lock = new HashMap<>();
-        this.unLock = new HashMap<>();
+        this.lock = new Hashtable<>();
+        this.unLock = new Hashtable<>();
     }
 
     public T get() {
