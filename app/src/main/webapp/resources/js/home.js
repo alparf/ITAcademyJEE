@@ -11,7 +11,7 @@ window.onload=function() {
         document.getElementById("userList").hidden = false;
         document.getElementById("coachList").hidden = true;
         document.getElementById("salary").hidden = true;
-        getItemList("UserListController", buildUserList);
+        getItemList("UserList", buildUserList);
     }, false);
 
     document.getElementById("coachList-btn").addEventListener("click", function() {
@@ -19,7 +19,7 @@ window.onload=function() {
         document.getElementById("userList").hidden = true;
         document.getElementById("coachList").hidden = false;
         document.getElementById("salary").hidden = true;
-        getItemList("CoachListController", buildCoachList);
+        getItemList("CoachList", buildCoachList);
     }, false);
 
     document.getElementById("salary-btn").addEventListener("click", function() {
@@ -64,9 +64,9 @@ function getItemList(url, builder) {
 }
 
 function removeUser(id) {
-    fetch("UserRemoveController?userIdToRemove=" + id).
+    fetch("RemoveUser?userIdToRemove=" + id).
         then((response) => {
-            getItemList("UserListController", buildUserList);
+            getItemList("UserList", buildUserList);
         })
 }
 
@@ -77,7 +77,7 @@ function addSalary(id) {
         coachId : coachId,
         salary : salary
     }
-    fetch("AddSalaryController", {
+    fetch("AddSalary", {
         method : "POST",
         body : JSON.stringify(data),
         headers: {
@@ -85,7 +85,7 @@ function addSalary(id) {
         }
     }).
     then((response) => {
-        getItemList("CoachListController", buildCoachList);
+        getItemList("CoachList", buildCoachList);
     })
 }
 

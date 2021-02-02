@@ -1,6 +1,6 @@
 package by.academy.model.bean;
 
-import by.academy.model.constant.ModelExceptions;
+import by.academy.model.constant.ExceptionMessage;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -27,7 +27,7 @@ public class Coach {
         if (null != user && user.getUserType() == UserType.COACH) {
             this.user = user;
         } else {
-            throw new IllegalArgumentException(ModelExceptions.USER_HAVE_TO_BE_COACH);
+            throw new IllegalArgumentException(ExceptionMessage.USER_HAVE_TO_BE_COACH);
         }
     }
 
@@ -40,7 +40,7 @@ public class Coach {
      */
     public int getAverageSalary(int monthCount) throws IllegalArgumentException {
         if (monthCount < 1) {
-            throw new IllegalArgumentException(ModelExceptions.INVALID_MONTH_COUNT);
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_MONTH_COUNT);
         }
         int sum = this.getSalaries().stream()
                 .limit(monthCount)

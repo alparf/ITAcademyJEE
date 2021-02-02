@@ -1,6 +1,6 @@
 package by.academy.specification.impl;
 
-import by.academy.constant.SqlConstant;
+import by.academy.constant.SqlQuery;
 import by.academy.model.bean.User;
 import by.academy.specification.ISpecification;
 
@@ -20,7 +20,7 @@ public class UserDBGetById implements ISpecification<User> {
     public PreparedStatement getPreparedStatement(Connection connection) throws SQLException {
         final int USER_ID = 1;
         PreparedStatement preparedStatement;
-        preparedStatement = connection.prepareStatement(SqlConstant.SELECT_USER_BY_ID);
+        preparedStatement = connection.prepareStatement(SqlQuery.SELECT_USER_BY_ID);
         preparedStatement.setLong(USER_ID, this.userId);
         return preparedStatement;
     }

@@ -1,6 +1,6 @@
 package by.academy.model.bean;
 
-import by.academy.model.constant.ModelExceptions;
+import by.academy.model.constant.ExceptionMessage;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -37,7 +37,7 @@ public class User extends AbstractEntity {
 
     public void setAge(int age) throws IllegalArgumentException {
         if (age < 0) {
-            throw new IllegalArgumentException(ModelExceptions.INVALID_AGE_VALUE);
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_AGE_VALUE);
         } else {
             this.age = age;
         }

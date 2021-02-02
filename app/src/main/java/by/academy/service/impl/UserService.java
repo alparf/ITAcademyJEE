@@ -1,6 +1,6 @@
 package by.academy.service.impl;
 
-import by.academy.constant.ExceptionConstant;
+import by.academy.constant.ExceptionMessage;
 import by.academy.exception.AppException;
 import by.academy.exception.UserServiceException;
 import by.academy.model.bean.User;
@@ -41,7 +41,7 @@ public class UserService implements IUserService {
                 if (!isUserNameUsed(user.getUserName())) {
                     return repository.add(user);
                 } else {
-                    throw new UserServiceException(ExceptionConstant.USER_NAME_ALREADY_USED);
+                    throw new UserServiceException(ExceptionMessage.USER_NAME_ALREADY_USED);
                 }
             }
         } catch (AppException e) {

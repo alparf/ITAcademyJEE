@@ -6,8 +6,8 @@
          version="4.0">
 
     <servlet>
-        <servlet-name>LoginController</servlet-name>
-        <servlet-class>by.academy.controller.user.LoginController</servlet-class>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>by.academy.controller.user.Login</servlet-class>
         <init-param>
             <param-name>adminName</param-name>
             <param-value>admin</param-value>
@@ -19,8 +19,8 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>LoginController</servlet-name>
-        <url-pattern>/LoginController</url-pattern>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>

@@ -1,6 +1,6 @@
 package by.academy.constant;
 
-public class SqlConstant {
+public class SqlQuery {
     public static final String INSERT_USER = "INSERT INTO users (\"fio\", \"age\", \"userName\", \"password\", \"userType\") " +
                                              "VALUES (?, ?, ?, ?, ?);";
     public static final String SELECT_USER_BY_USER_NAME = "SELECT * FROM users " +

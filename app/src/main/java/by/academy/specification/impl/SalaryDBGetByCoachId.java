@@ -1,6 +1,6 @@
 package by.academy.specification.impl;
 
-import by.academy.constant.SqlConstant;
+import by.academy.constant.SqlQuery;
 import by.academy.model.bean.Salary;
 import by.academy.specification.ISpecification;
 
@@ -19,7 +19,7 @@ public class SalaryDBGetByCoachId implements ISpecification<Salary> {
     @Override
     public PreparedStatement getPreparedStatement(Connection connection) throws SQLException {
         final int COACH_ID = 1;
-        PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.SELECT_SALARY);
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlQuery.SELECT_SALARY);
         preparedStatement.setLong(COACH_ID, coachId);
         return preparedStatement;
     }

@@ -1,5 +1,4 @@
-DB_DRIVER=org.postgresql.Driver
-URL=jdbc:postgresql://127.0.0.1:5432/itacademydb
-USER=postgres
-PASSWORD=postgres
-LIVE_TIME=60000
+url=jdbc:postgresql://127.0.0.1:5432/itacademydb
+user=postgres
+password=postgres
+connection.time.out=60000

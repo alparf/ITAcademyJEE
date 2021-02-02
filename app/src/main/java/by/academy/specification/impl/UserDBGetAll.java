@@ -1,6 +1,6 @@
 package by.academy.specification.impl;
 
-import by.academy.constant.SqlConstant;
+import by.academy.constant.SqlQuery;
 import by.academy.model.bean.User;
 import by.academy.specification.ISpecification;
 
@@ -12,7 +12,7 @@ public class UserDBGetAll implements ISpecification<User> {
 
     @Override
     public PreparedStatement getPreparedStatement(Connection connection) throws SQLException {
-        return connection.prepareStatement(SqlConstant.SELECT_USERS);
+        return connection.prepareStatement(SqlQuery.SELECT_USERS);
     }
 
     @Override

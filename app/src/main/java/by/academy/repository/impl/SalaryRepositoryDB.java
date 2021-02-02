@@ -1,9 +1,9 @@
 package by.academy.repository.impl;
 
-import by.academy.constant.SqlConstant;
+import by.academy.constant.SqlQuery;
 import by.academy.exception.AppException;
 import by.academy.model.bean.Salary;
-import by.academy.pool.ConnectionManager;
+import by.academy.connection.ConnectionManager;
 import by.academy.repository.IRepository;
 import by.academy.specification.ISpecification;
 
@@ -21,8 +21,8 @@ public class SalaryRepositoryDB implements IRepository<Salary> {
         int update = 0;
         final int COACH = 1;
         final int VALUE = 2;
-        Connection connection = ConnectionManager.getPoll().get();
-        try (PreparedStatement statement = connection.prepareStatement(SqlConstant.INSERT_SALARY)) {
+        try (Connection connection = ConnectionManager.getConnectionPool().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_SALARY)) {
             if ((null != salary) && (null != salary.getCoach())) {
                 statement.setLong(COACH, salary.getCoach().getId());
                 statement.setInt(VALUE, salary.getValue());
@@ -30,8 +30,6 @@ public class SalaryRepositoryDB implements IRepository<Salary> {
             }
         } catch (SQLException e) {
             throw new AppException(e.getMessage());
-        } finally {
-            ConnectionManager.getPoll().put(connection);
         }
         return update > 0;
     }
@@ -51,8 +49,8 @@ public class SalaryRepositoryDB implements IRepository<Salary> {
         final int ID = 1;
         final int VALUE = 2;
         List<Salary> salaries = new LinkedList<>();
-        Connection connection = ConnectionManager.getPoll().get();
-        try (PreparedStatement statement = specification.getPreparedStatement(connection);
+        try (Connection connection = ConnectionManager.getConnectionPool().getConnection();
+             PreparedStatement statement = specification.getPreparedStatement(connection);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 salaries.add(Salary.newBuilder()
@@ -62,8 +60,6 @@ public class SalaryRepositoryDB implements IRepository<Salary> {
             }
         } catch (SQLException e) {
             throw new AppException(e.getMessage());
-        } finally {
-            ConnectionManager.getPoll().put(connection);
         }
         salaries.removeIf(specification::specificity);
         return salaries;

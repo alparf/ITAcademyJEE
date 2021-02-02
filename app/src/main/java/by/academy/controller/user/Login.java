@@ -1,8 +1,9 @@
 package by.academy.controller.user;
 
-import by.academy.constant.ExceptionConstant;
-import by.academy.constant.PageConstant;
-import by.academy.constant.ServletConstant;
+import by.academy.constant.ExceptionMessage;
+import by.academy.constant.PageName;
+import by.academy.constant.ServletProperties;
+import by.academy.controller.AbstractController;
 import by.academy.facade.UserFacade;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
@@ -11,33 +12,32 @@ import by.academy.exception.UserServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
-public class LoginController extends HttpServlet {
+public class Login extends AbstractController {
 
-    private static final Logger log = LoggerFactory.getLogger(LoginController.class);
+    private static final Logger log = LoggerFactory.getLogger(Login.class);
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        String userName = req.getParameter(ServletConstant.USER_NAME);
-        String password = req.getParameter(ServletConstant.PASSWORD);
+        String userName = req.getParameter(ServletProperties.USER_NAME);
+        String password = req.getParameter(ServletProperties.PASSWORD);
         HttpSession session = req.getSession();
-        session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, null);
         Optional<User> user = UserFacade.login(userName, password);
-        if(!user.isPresent()) {
-            log.info("User = {} not found!", userName);
-            session.setAttribute(ServletConstant.EXCEPTION_MESSAGE, ExceptionConstant.INVALID_USER_NAME_OR_PASSWORD);
-            session.setAttribute(ServletConstant.USER, null);
-        } else {
+        if (user.isPresent()) {
+            session.setAttribute(ServletProperties.USER, user.get());
             log.info("User = {} signed in", userName);
-            session.setAttribute(ServletConstant.USER, user.get());
+        } else {
+            log.info("User = {} not found!", userName);
+            session.setAttribute(
+                    ServletProperties.EXCEPTION_MESSAGE,
+                    ExceptionMessage.INVALID_USER_NAME_OR_PASSWORD);
         }
-        res.sendRedirect(PageConstant.HOME);
+        res.sendRedirect(PageName.HOME);
     }
 
     @Override

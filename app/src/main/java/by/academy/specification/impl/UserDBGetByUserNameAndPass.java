@@ -1,6 +1,6 @@
 package by.academy.specification.impl;
 
-import by.academy.constant.SqlConstant;
+import by.academy.constant.SqlQuery;
 import by.academy.model.bean.User;
 import by.academy.specification.ISpecification;
 
@@ -21,7 +21,7 @@ public class UserDBGetByUserNameAndPass implements ISpecification<User> {
     @Override
     public PreparedStatement getPreparedStatement(Connection connection) throws SQLException {
         final int USER_NAME = 1;
-        PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.SELECT_USER_BY_USER_NAME);
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlQuery.SELECT_USER_BY_USER_NAME);
         preparedStatement.setString(USER_NAME, this.userName);
         return preparedStatement;
     }
