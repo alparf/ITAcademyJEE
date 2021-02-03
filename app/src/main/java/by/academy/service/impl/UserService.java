@@ -1,6 +1,6 @@
 package by.academy.service.impl;
 
-import by.academy.constant.ExceptionConstant;
+import by.academy.constant.ExceptionMessage;
 import by.academy.exception.AppException;
 import by.academy.exception.UserServiceException;
 import by.academy.model.bean.User;
@@ -8,7 +8,9 @@ import by.academy.model.bean.UserType;
 import by.academy.repository.IRepository;
 import by.academy.repository.impl.UserRepositoryDB;
 import by.academy.service.IUserService;
-import by.academy.specification.UserDBSpecifications;
+import by.academy.specification.impl.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -17,14 +19,16 @@ import java.util.Optional;
 
 public class UserService implements IUserService {
 
+    private final Logger log = LoggerFactory.getLogger(UserService.class);
+
     @Override
     public Optional<User> getUserByUserNameAndPassword(String userName, String password) {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryDB();
-            userList = repository.query(UserDBSpecifications.userByUserNameAndPassword(userName, password));
+            userList = repository.query(new UserLoginSpecification(userName, password));
         } catch (AppException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return userList.stream().findFirst();
     }
@@ -35,13 +39,13 @@ public class UserService implements IUserService {
             IRepository<User> repository = new UserRepositoryDB();
             if (null != user) {
                 if (!isUserNameUsed(user.getUserName())) {
-                    return repository.addUser(user);
+                    return repository.add(user);
                 } else {
-                    throw new UserServiceException(ExceptionConstant.USER_NAME_ALREADY_USED);
+                    throw new UserServiceException(ExceptionMessage.USER_NAME_ALREADY_USED);
                 }
             }
         } catch (AppException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return false;
     }
@@ -53,10 +57,10 @@ public class UserService implements IUserService {
             IRepository<User> repository = new UserRepositoryDB();
             Optional<User> user = getUserByID(id);
             if(user.isPresent()) {
-                success = repository.removeUser(user.get());
+                success = repository.remove(user.get());
             }
         } catch (AppException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return success;
     }
@@ -66,9 +70,9 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryDB();
-            userList = repository.query(UserDBSpecifications.allUsers());
+            userList = repository.query(new UsersSpecification());
         } catch (AppException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return userList;
     }
@@ -78,9 +82,9 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryDB();
-            userList = repository.query(UserDBSpecifications.allUsers(userType));
+            userList = repository.query(new UsersByUserTypeSpecification(userType));
         } catch (AppException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return userList;
     }
@@ -90,9 +94,9 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryDB();
-            userList = repository.query(UserDBSpecifications.userById(id));
+            userList = repository.query(new UserByIdSpecification(id));
         } catch (AppException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return userList.stream().findFirst();
     }
@@ -101,9 +105,9 @@ public class UserService implements IUserService {
         List<User> userList = new ArrayList<>();
         try {
             IRepository<User> repository = new UserRepositoryDB();
-            userList = repository.query(UserDBSpecifications.userByUserName(userName));
+            userList = repository.query(new UserByUserNameSpecification(userName));
         } catch (AppException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return !userList.isEmpty();
     }

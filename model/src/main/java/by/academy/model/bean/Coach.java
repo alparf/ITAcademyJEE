@@ -1,6 +1,6 @@
 package by.academy.model.bean;
 
-import by.academy.model.constant.ModelExceptions;
+import by.academy.model.constant.ExceptionMessage;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -12,9 +12,9 @@ import java.util.Deque;
 @EqualsAndHashCode(callSuper = false)
 public class Coach {
     private User user;
-    private Deque<Integer> salaries;
+    private Deque<Salary> salaries;
 
-    public Coach(User user, Deque<Integer> salaries) throws IllegalArgumentException {
+    public Coach(User user, Deque<Salary> salaries) throws IllegalArgumentException {
         this.setUser(user);
         this.salaries = salaries;
     }
@@ -27,7 +27,7 @@ public class Coach {
         if (null != user && user.getUserType() == UserType.COACH) {
             this.user = user;
         } else {
-            throw new IllegalArgumentException(ModelExceptions.USER_HAVE_TO_BE_COACH);
+            throw new IllegalArgumentException(ExceptionMessage.USER_HAVE_TO_BE_COACH);
         }
     }
 
@@ -40,16 +40,37 @@ public class Coach {
      */
     public int getAverageSalary(int monthCount) throws IllegalArgumentException {
         if (monthCount < 1) {
-            throw new IllegalArgumentException(ModelExceptions.INVALID_MONTH_COUNT);
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_MONTH_COUNT);
         }
         int sum = this.getSalaries().stream()
                 .limit(monthCount)
-                .mapToInt(salary -> salary)
+                .mapToInt(salary -> salary.getValue())
                 .sum();
         return sum / monthCount;
     }
 
-    public void addSalary(int salary) {
+    public void addSalary(Salary salary) {
         this.getSalaries().addFirst(salary);
+    }
+
+    public static Builder newBuilder() {
+        return new Coach().new Builder();
+    }
+
+    public class Builder {
+
+        public Builder withUser(User user) {
+            Coach.this.setUser(user);
+            return this;
+        }
+
+        public Builder withSalaries(Deque<Salary> salaries) {
+            Coach.this.setSalaries(salaries);
+            return this;
+        }
+
+        public Coach build() {
+            return Coach.this;
+        }
     }
 }

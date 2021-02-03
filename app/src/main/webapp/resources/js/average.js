@@ -1,7 +1,7 @@
 window.onload = function() {
     document.getElementById("average-btn").addEventListener("click", function() {
         console.log(document.getElementById('month-count').value)
-        let url = "AverageSalariesController?monthCount=" + document.getElementById('month-count').value;
+        let url = "AverageSalaries?monthCount=" + document.getElementById('month-count').value;
         fetch(url)
             .then((response) => {
                 return response.json();

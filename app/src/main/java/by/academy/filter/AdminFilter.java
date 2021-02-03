@@ -1,7 +1,7 @@
 package by.academy.filter;
 
-import by.academy.constant.PageConstant;
-import by.academy.constant.ServletConstant;
+import by.academy.constant.PageName;
+import by.academy.constant.ServletProperties;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
 
@@ -13,8 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
 
-@WebFilter(urlPatterns = {"/UserAddController", "/UserRemoveController", "/CoachAddSalary" , "/UserListController",
-        "/UserListController", "/CoachListController"})
+@WebFilter(urlPatterns = {"/UserController", "/AddSalary" , "/UserList", "/CoachList"})
 public class AdminFilter implements Filter {
 
     @Override
@@ -23,14 +22,14 @@ public class AdminFilter implements Filter {
         HttpSession session = ((HttpServletRequest) request).getSession();
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         User user;
-        if ((null != session) && (Objects.nonNull(user = (User) session.getAttribute(ServletConstant.USER)))) {
+        if ((null != session) && (Objects.nonNull(user = (User) session.getAttribute(ServletProperties.USER)))) {
             if (user.getUserType() == UserType.ADMIN) {
                 chain.doFilter(request, response);
             } else {
-                httpServletResponse.sendRedirect(PageConstant.HOME);
+                httpServletResponse.sendRedirect(PageName.HOME);
             }
         } else {
-            httpServletResponse.sendRedirect(PageConstant.LOGIN);
+            httpServletResponse.sendRedirect(PageName.LOGIN);
         }
     }
 }

@@ -11,7 +11,7 @@ window.onload=function() {
         document.getElementById("userList").hidden = false;
         document.getElementById("coachList").hidden = true;
         document.getElementById("salary").hidden = true;
-        getItemList("UserListController", buildUserList);
+        getItemList("UserList", buildUserList);
     }, false);
 
     document.getElementById("coachList-btn").addEventListener("click", function() {
@@ -19,7 +19,7 @@ window.onload=function() {
         document.getElementById("userList").hidden = true;
         document.getElementById("coachList").hidden = false;
         document.getElementById("salary").hidden = true;
-        getItemList("CoachListController", buildCoachList);
+        getItemList("CoachList", buildCoachList);
     }, false);
 
     document.getElementById("salary-btn").addEventListener("click", function() {
@@ -64,10 +64,20 @@ function getItemList(url, builder) {
 }
 
 function removeUser(id) {
-    fetch("UserRemoveController?userIdToRemove=" + id).
-        then((response) => {
-            getItemList("UserListController", buildUserList);
-        })
+    let coachId = "" + id;
+    let data = {
+        userIdToRemove : coachId
+    }
+    fetch("UserController", {
+        method : "DELETE",
+        body : JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json; charset=UTF-8'
+        }
+    }).
+    then((response) => {
+        getItemList("UserList", buildUserList);
+    })
 }
 
 function addSalary(id) {
@@ -77,15 +87,15 @@ function addSalary(id) {
         coachId : coachId,
         salary : salary
     }
-    fetch("CoachAddSalaryController", {
+    fetch("AddSalary", {
         method : "POST",
         body : JSON.stringify(data),
         headers: {
-            'Content-type': 'application/json; charset=UTF-8'
+            'Content-Type': 'application/json; charset=UTF-8'
         }
     }).
     then((response) => {
-        getItemList("CoachListController", buildCoachList);
+        getItemList("CoachList", buildCoachList);
     })
 }
 

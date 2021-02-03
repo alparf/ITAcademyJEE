@@ -20,6 +20,14 @@
     <module>app</module>
   </modules>
 
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -69,6 +77,12 @@
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
         <version>2.12.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>2.12.1</version>
+        <scope>compile</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
