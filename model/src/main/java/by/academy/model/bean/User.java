@@ -1,6 +1,7 @@
 package by.academy.model.bean;
 
 import by.academy.model.constant.ExceptionMessage;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ public class User extends AbstractEntity {
     private String fio;
     private int age;
     private String userName;
-    private String password;
+    private @JsonIgnore String password;
     private UserType userType;
 
     public static Builder newBuilder() {
