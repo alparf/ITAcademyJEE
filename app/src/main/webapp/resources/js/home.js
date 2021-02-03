@@ -64,10 +64,20 @@ function getItemList(url, builder) {
 }
 
 function removeUser(id) {
-    fetch("RemoveUser?userIdToRemove=" + id).
-        then((response) => {
-            getItemList("UserList", buildUserList);
-        })
+    let coachId = "" + id;
+    let data = {
+        userIdToRemove : coachId
+    }
+    fetch("UserController", {
+        method : "DELETE",
+        body : JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json; charset=UTF-8'
+        }
+    }).
+    then((response) => {
+        getItemList("UserList", buildUserList);
+    })
 }
 
 function addSalary(id) {

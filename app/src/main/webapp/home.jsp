@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isErrorPage="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.academy.constant.PageName" %>
 <%@ page import="by.academy.model.bean.UserType" %>
@@ -31,7 +31,7 @@
                     <div id="addUser" class="add-user shadow">
                         <div class="add-user_form_title"><h2>Add new user</h2></div>
                         <form class="add-user_form"
-                            id="userAddForm" action="AddUser" method="POST">
+                            id="userAddForm" action="UserController" method="POST">
                             <label >FIO</label>
                             <input type="text"/ name="fio" placeholder="First name Last name" required>
                             <label>User name</label>
