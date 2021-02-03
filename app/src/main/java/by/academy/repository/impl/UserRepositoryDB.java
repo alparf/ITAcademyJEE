@@ -7,6 +7,7 @@ import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
 import by.academy.repository.IRepository;
 import by.academy.specification.ISpecification;
+import by.academy.specification.SqlSpecification;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -71,23 +72,26 @@ public class UserRepositoryDB implements IRepository<User> {
         final int USER_NAME = 4;
         final int PASSWORD = 5;
         final int USER_TYPE = 6;
-        try (Connection connection = ConnectionManager.getConnectionPool().getConnection();
-             PreparedStatement statement = specification.getPreparedStatement(connection);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                users.add(User.newBuilder()
-                        .withId(resultSet.getLong(ID))
-                        .withFio(resultSet.getString(FIO))
-                        .withAge(resultSet.getInt(AGE))
-                        .withUserName(resultSet.getString(USER_NAME))
-                        .withPassword(resultSet.getString(PASSWORD))
-                        .withUserType(UserType.valueOf(resultSet.getString(USER_TYPE)))
-                        .build());
+        if (specification instanceof SqlSpecification) {
+            SqlSpecification sqlSpecification = (SqlSpecification) specification;
+            try (Connection connection = ConnectionManager.getConnectionPool().getConnection();
+                 PreparedStatement statement = sqlSpecification.getPreparedStatement(connection);
+                 ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    users.add(User.newBuilder()
+                            .withId(resultSet.getLong(ID))
+                            .withFio(resultSet.getString(FIO))
+                            .withAge(resultSet.getInt(AGE))
+                            .withUserName(resultSet.getString(USER_NAME))
+                            .withPassword(resultSet.getString(PASSWORD))
+                            .withUserType(UserType.valueOf(resultSet.getString(USER_TYPE)))
+                            .build());
+                }
+            } catch (SQLException e) {
+                throw new AppException(e);
             }
-        } catch (SQLException e) {
-            throw new AppException(e);
         }
-        users.removeIf(specification::specificity);
+        users.removeIf(specification::isSpecific);
         return users;
     }
 }

@@ -3,12 +3,13 @@ package by.academy.specification.impl;
 import by.academy.constant.SqlQuery;
 import by.academy.model.bean.User;
 import by.academy.specification.ISpecification;
+import by.academy.specification.SqlSpecification;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UsersSpecification implements ISpecification<User> {
+public class UsersSpecification implements ISpecification<User>, SqlSpecification {
 
     @Override
     public PreparedStatement getPreparedStatement(Connection connection) throws SQLException {
@@ -16,7 +17,7 @@ public class UsersSpecification implements ISpecification<User> {
     }
 
     @Override
-    public boolean specificity(User user) {
+    public boolean isSpecific(User user) {
         return false;
     }
 }

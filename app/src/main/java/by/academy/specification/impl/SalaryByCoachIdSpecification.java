@@ -3,12 +3,13 @@ package by.academy.specification.impl;
 import by.academy.constant.SqlQuery;
 import by.academy.model.bean.Salary;
 import by.academy.specification.ISpecification;
+import by.academy.specification.SqlSpecification;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class SalaryByCoachIdSpecification implements ISpecification<Salary> {
+public class SalaryByCoachIdSpecification implements ISpecification<Salary>, SqlSpecification {
 
     private final long coachId;
 
@@ -25,7 +26,7 @@ public class SalaryByCoachIdSpecification implements ISpecification<Salary> {
     }
 
     @Override
-    public boolean specificity(Salary salary) {
+    public boolean isSpecific(Salary salary) {
         return false;
     }
 }

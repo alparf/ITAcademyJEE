@@ -12,7 +12,7 @@ public class UsersByUserTypeSpecification extends UsersSpecification {
     }
 
     @Override
-    public boolean specificity(User user) {
+    public boolean isSpecific(User user) {
         boolean isCoach = true;
         if (null != user) {
             if(user.getUserType() == userType) {

@@ -6,6 +6,7 @@ import by.academy.model.bean.Salary;
 import by.academy.connection.ConnectionManager;
 import by.academy.repository.IRepository;
 import by.academy.specification.ISpecification;
+import by.academy.specification.SqlSpecification;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,19 +50,22 @@ public class SalaryRepositoryDB implements IRepository<Salary> {
         final int ID = 1;
         final int VALUE = 2;
         List<Salary> salaries = new LinkedList<>();
-        try (Connection connection = ConnectionManager.getConnectionPool().getConnection();
-             PreparedStatement statement = specification.getPreparedStatement(connection);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                salaries.add(Salary.newBuilder()
-                        .withId(resultSet.getLong(ID))
-                        .withValue(resultSet.getInt(VALUE))
-                        .build());
+        if (specification instanceof SqlSpecification) {
+            SqlSpecification sqlSpecification = (SqlSpecification) specification;
+            try (Connection connection = ConnectionManager.getConnectionPool().getConnection();
+                 PreparedStatement statement = sqlSpecification.getPreparedStatement(connection);
+                 ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    salaries.add(Salary.newBuilder()
+                            .withId(resultSet.getLong(ID))
+                            .withValue(resultSet.getInt(VALUE))
+                            .build());
+                }
+            } catch (SQLException e) {
+                throw new AppException(e);
             }
-        } catch (SQLException e) {
-            throw new AppException(e);
         }
-        salaries.removeIf(specification::specificity);
+        salaries.removeIf(specification::isSpecific);
         return salaries;
     }
 }
