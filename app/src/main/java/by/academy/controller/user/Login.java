@@ -3,7 +3,6 @@ package by.academy.controller.user;
 import by.academy.constant.ExceptionMessage;
 import by.academy.constant.PageName;
 import by.academy.constant.ServletProperties;
-import by.academy.controller.AbstractController;
 import by.academy.facade.UserFacade;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
@@ -12,13 +11,14 @@ import by.academy.exception.UserServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
-public class Login extends AbstractController {
+public class Login extends HttpServlet {
 
     private static final Logger log = LoggerFactory.getLogger(Login.class);
 
@@ -27,6 +27,7 @@ public class Login extends AbstractController {
         String userName = req.getParameter(ServletProperties.USER_NAME);
         String password = req.getParameter(ServletProperties.PASSWORD);
         HttpSession session = req.getSession();
+        session.setAttribute(ServletProperties.EXCEPTION_MESSAGE, null);
         Optional<User> user = UserFacade.login(userName, password);
         if (user.isPresent()) {
             session.setAttribute(ServletProperties.USER, user.get());

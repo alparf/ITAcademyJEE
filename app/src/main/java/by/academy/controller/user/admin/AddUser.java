@@ -3,7 +3,6 @@ package by.academy.controller.user.admin;
 import by.academy.constant.ExceptionMessage;
 import by.academy.constant.PageName;
 import by.academy.constant.ServletProperties;
-import by.academy.controller.AbstractController;
 import by.academy.exception.UserServiceException;
 import by.academy.facade.UserFacade;
 import by.academy.model.bean.User;
@@ -12,13 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/AddUser")
-public class AddUser extends AbstractController {
+public class AddUser extends HttpServlet {
 
     private static final Logger log = LoggerFactory.getLogger(AddUser.class);
 

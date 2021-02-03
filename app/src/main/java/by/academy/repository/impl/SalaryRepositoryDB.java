@@ -29,7 +29,7 @@ public class SalaryRepositoryDB implements IRepository<Salary> {
                 update = statement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new AppException(e.getMessage());
+            throw new AppException(e);
         }
         return update > 0;
     }
@@ -59,7 +59,7 @@ public class SalaryRepositoryDB implements IRepository<Salary> {
                         .build());
             }
         } catch (SQLException e) {
-            throw new AppException(e.getMessage());
+            throw new AppException(e);
         }
         salaries.removeIf(specification::specificity);
         return salaries;

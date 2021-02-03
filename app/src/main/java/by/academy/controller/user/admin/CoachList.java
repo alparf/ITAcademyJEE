@@ -1,6 +1,5 @@
 package by.academy.controller.user.admin;
 
-import by.academy.controller.AbstractController;
 import by.academy.controller.JsonController;
 import by.academy.facade.UserFacade;
 import by.academy.model.bean.UserType;

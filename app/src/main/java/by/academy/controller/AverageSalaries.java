@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/AverageSalariesController")
+@WebServlet("/AverageSalaries")
 public class AverageSalaries extends JsonController {
 
     @Override

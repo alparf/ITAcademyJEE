@@ -36,7 +36,7 @@ public class UserRepositoryDB implements IRepository<User> {
                 update = statement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new AppException(e.getMessage());
+            throw new AppException(e);
         }
         return update > 0;
     }
@@ -52,7 +52,7 @@ public class UserRepositoryDB implements IRepository<User> {
                 update = statement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new AppException(e.getMessage());
+            throw new AppException(e);
         }
         return update > 0;
     }
@@ -85,7 +85,7 @@ public class UserRepositoryDB implements IRepository<User> {
                         .build());
             }
         } catch (SQLException e) {
-            throw new AppException(e.getMessage());
+            throw new AppException(e);
         }
         users.removeIf(specification::specificity);
         return users;
