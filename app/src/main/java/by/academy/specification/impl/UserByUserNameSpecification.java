@@ -8,14 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UserDBGetByUserNameAndPass implements ISpecification<User> {
+public class UserByUserNameSpecification implements ISpecification<User> {
 
     private final String userName;
-    private final String password;
 
-    public UserDBGetByUserNameAndPass(String userName, String password) {
+    public UserByUserNameSpecification(String userName) {
         this.userName = userName;
-        this.password = password;
     }
 
     @Override
@@ -28,9 +26,6 @@ public class UserDBGetByUserNameAndPass implements ISpecification<User> {
 
     @Override
     public boolean specificity(User user) {
-        if ((null != user) && (null != this.password)) {
-            return !((user.getUserName().equals(this.userName)) && (this.password.equals(user.getPassword())));
-        }
-        return true;
+        return false;
     }
 }

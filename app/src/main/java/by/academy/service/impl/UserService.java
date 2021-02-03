@@ -8,7 +8,7 @@ import by.academy.model.bean.UserType;
 import by.academy.repository.IRepository;
 import by.academy.repository.impl.UserRepositoryDB;
 import by.academy.service.IUserService;
-import by.academy.specification.UserDBSpecifications;
+import by.academy.specification.impl.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +26,7 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryDB();
-            userList = repository.query(UserDBSpecifications.userByUserNameAndPassword(userName, password));
+            userList = repository.query(new UserLoginSpecification(userName, password));
         } catch (AppException e) {
             log.error(e.getMessage());
         }
@@ -70,7 +70,7 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryDB();
-            userList = repository.query(UserDBSpecifications.allUsers());
+            userList = repository.query(new UsersSpecification());
         } catch (AppException e) {
             log.error(e.getMessage());
         }
@@ -82,7 +82,7 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryDB();
-            userList = repository.query(UserDBSpecifications.allUsers(userType));
+            userList = repository.query(new UsersByUserTypeSpecification(userType));
         } catch (AppException e) {
             log.error(e.getMessage());
         }
@@ -94,7 +94,7 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryDB();
-            userList = repository.query(UserDBSpecifications.userById(id));
+            userList = repository.query(new UserByIdSpecification(id));
         } catch (AppException e) {
             log.error(e.getMessage());
         }
@@ -105,7 +105,7 @@ public class UserService implements IUserService {
         List<User> userList = new ArrayList<>();
         try {
             IRepository<User> repository = new UserRepositoryDB();
-            userList = repository.query(UserDBSpecifications.userByUserName(userName));
+            userList = repository.query(new UserByUserNameSpecification(userName));
         } catch (AppException e) {
             log.error(e.getMessage());
         }

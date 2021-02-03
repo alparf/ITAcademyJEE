@@ -8,21 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UserDBGetById implements ISpecification<User> {
-
-    private final long userId;
-
-    public UserDBGetById(long userId) {
-        this.userId = userId;
-    }
+public class UsersSpecification implements ISpecification<User> {
 
     @Override
     public PreparedStatement getPreparedStatement(Connection connection) throws SQLException {
-        final int USER_ID = 1;
-        PreparedStatement preparedStatement;
-        preparedStatement = connection.prepareStatement(SqlQuery.SELECT_USER_BY_ID);
-        preparedStatement.setLong(USER_ID, this.userId);
-        return preparedStatement;
+        return connection.prepareStatement(SqlQuery.SELECT_USERS);
     }
 
     @Override

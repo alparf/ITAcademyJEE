@@ -8,11 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class SalaryDBGetByCoachId implements ISpecification<Salary> {
+public class SalaryByCoachIdSpecification implements ISpecification<Salary> {
 
     private final long coachId;
 
-    public SalaryDBGetByCoachId(long coachId) {
+    public SalaryByCoachIdSpecification(long coachId) {
         this.coachId = coachId;
     }
 
