@@ -1,6 +1,6 @@
 package by.academy.constant;
 
-public class ServletProperties {
+public final class ServletProperties {
     public static final String USER = "user";
     public static final String USER_NAME = "userName";
     public static final String PASSWORD = "password";
@@ -12,4 +12,8 @@ public class ServletProperties {
     public static final String COACH_ID = "coachId";
     public static final String SALARY = "salary";
     public static final String MONTH_COUNT = "monthCount";
+
+    private ServletProperties() {
+
+    }
 }
