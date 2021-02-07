@@ -10,42 +10,49 @@ import java.util.Properties;
 
 public final class ConnectionManager {
 
+    private static final int DEFAULT_TIME_OUT = 60_000;
+    private static final String URL = "url";
+    private static final String USER = "user";
+    private static final String PASSWORD = "password";
+    private static final String CONNECTION_TIME_OUT = "connection.time.out";
+    private static final String PROPERTIES_FILE_NAME = "connection.prop";
+
+    private static volatile PooledConnection pooledConnection;
+
     public static PooledConnection getConnectionPool() {
-        return PoolHolder.pooledConnection;
-    }
-
-    public static class PoolHolder {
-        private static final int DEFAULT_TIME_OUT = 60_000;
-
-        public static final PooledConnection pooledConnection;
-
-        static {
-            Properties properties = new Properties();
-            loadProps(properties);
-            PGConnectionPoolDataSource dataSource = new PGConnectionPoolDataSource();
-            dataSource.setURL(properties.getProperty("url"));
-            dataSource.setUser(properties.getProperty("user"));
-            dataSource.setPassword(properties.getProperty("password"));
-            System.out.println("url: " + properties.getProperty("url"));
-            try {
-                dataSource.setConnectTimeout(
-                        Integer.parseInt(properties.getProperty("connection.time.out")));
-            } catch (NumberFormatException e) {
-                dataSource.setConnectTimeout(DEFAULT_TIME_OUT);
-            }
-            try {
-                pooledConnection = dataSource.getPooledConnection();
-            } catch (SQLException e) {
-                throw new AppException(e.getMessage());
+        PooledConnection connection = pooledConnection;
+        if (null == connection) {
+            synchronized (ConnectionManager.class) {
+                connection = pooledConnection;
+                if (null == connection) {
+                    Properties properties = loadProps(PROPERTIES_FILE_NAME);
+                    PGConnectionPoolDataSource dataSource = new PGConnectionPoolDataSource();
+                    dataSource.setURL(properties.getProperty(URL));
+                    dataSource.setUser(properties.getProperty(USER));
+                    dataSource.setPassword(properties.getProperty(PASSWORD));
+                    try {
+                        dataSource.setConnectTimeout(
+                                Integer.parseInt(properties.getProperty(CONNECTION_TIME_OUT)));
+                    } catch (NumberFormatException e) {
+                        dataSource.setConnectTimeout(DEFAULT_TIME_OUT);
+                    }
+                    try {
+                        pooledConnection = dataSource.getPooledConnection();
+                    } catch (SQLException e) {
+                        throw new AppException(e.getMessage());
+                    }
+                }
             }
         }
+        return pooledConnection;
     }
 
-    private static Properties loadProps(Properties properties) {
+    private static Properties loadProps(String fileName) {
+        Properties properties = new Properties();
         try {
             properties.load(Thread.currentThread()
                     .getContextClassLoader()
-                    .getResourceAsStream("connection.prop"));
+                    .getResourceAsStream(fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
