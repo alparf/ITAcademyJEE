@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class ConnectionManager {
+public final class ConnectionManager {
 
     public static PooledConnection getConnectionPool() {
         return PoolHolder.pooledConnection;
@@ -50,5 +50,9 @@ public class ConnectionManager {
             e.printStackTrace();
         }
         return properties;
+    }
+
+    private ConnectionManager () {
+        
     }
 }
