@@ -6,14 +6,25 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = false)
+@Entity
+@Table(name = "users")
 public class User extends AbstractEntity {
+    @Column(name = "fio")
     private String fio;
+    @Column(name = "age")
     private int age;
+    @Column(name = "user_name")
     private String userName;
+    @Column(name = "password")
     private @JsonIgnore String password;
+    @Column(name = "user_type")
+    @Enumerated(EnumType.ORDINAL)
     private UserType userType;
 
     public static Builder newBuilder() {
