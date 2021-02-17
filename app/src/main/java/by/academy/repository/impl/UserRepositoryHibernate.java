@@ -7,7 +7,6 @@ import by.academy.specification.ISpecification;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class UserRepositoryHibernate implements IRepository<User> {
@@ -25,18 +24,42 @@ public class UserRepositoryHibernate implements IRepository<User> {
             added = false;
         } finally {
             session.close();
-            return added;
         }
+        return added;
     }
 
     @Override
     public boolean remove(User user) {
-        return false;
+        boolean deleted = true;
+        Session session = HibernateUtil.getEMFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.delete(user);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            deleted = false;
+        } finally {
+            session.close();
+        }
+        return deleted;
     }
 
     @Override
     public boolean set(User user) {
-        return false;
+        boolean updated = true;
+        Session session = HibernateUtil.getEMFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(user);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            updated = false;
+        } finally {
+            session.close();
+        }
+        return updated;
     }
 
     @Override

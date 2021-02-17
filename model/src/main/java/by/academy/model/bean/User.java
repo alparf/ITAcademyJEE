@@ -18,7 +18,7 @@ public class User extends AbstractEntity {
     private String fio;
     @Column(name = "age", nullable = false)
     private int age;
-    @Column(name = "user_name", nullable = false)
+    @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
     @Column(name = "password", nullable = false)
     private @JsonIgnore String password;

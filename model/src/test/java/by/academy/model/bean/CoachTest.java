@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 
 public class CoachTest extends TestCase {
 
@@ -21,11 +22,11 @@ public class CoachTest extends TestCase {
                 .withPassword("user")
                 .withUserType(UserType.COACH)
                 .build();
-        Deque<Salary> salaries = new LinkedList<>();
-        salaries.addFirst(Salary.newBuilder()
+        List<Salary> salaries = new LinkedList<>();
+        salaries.add(Salary.newBuilder()
                 .withValue(100)
                 .build());
-        salaries.addFirst(Salary.newBuilder()
+        salaries.add(Salary.newBuilder()
                 .withValue(200)
                 .build());
         Coach coach = Coach.newBuilder()

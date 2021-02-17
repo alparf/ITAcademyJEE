@@ -5,16 +5,19 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
+@Entity
+@Table(name = "salaries")
 public class Salary extends AbstractEntity {
+    @Column(name = "value", nullable = false)
     private int value;
-
+    @ManyToOne
+    @JoinColumn(name = "coach_id", referencedColumnName = "id", nullable = false)
     private User coach;
 
     public static Builder newBuilder() {
