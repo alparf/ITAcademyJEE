@@ -5,12 +5,16 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Salary extends AbstractEntity {
     private int value;
+
     private User coach;
 
     public static Builder newBuilder() {

@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @NoArgsConstructor
 @Data
@@ -15,15 +14,15 @@ import java.io.Serializable;
 @Entity
 @Table(name = "users")
 public class User extends AbstractEntity {
-    @Column(name = "fio")
+    @Column(name = "fio", nullable = false)
     private String fio;
-    @Column(name = "age")
+    @Column(name = "age", nullable = false)
     private int age;
-    @Column(name = "user_name")
+    @Column(name = "user_name", nullable = false)
     private String userName;
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private @JsonIgnore String password;
-    @Column(name = "user_type")
+    @Column(name = "user_type", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private UserType userType;
 

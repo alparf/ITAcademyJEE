@@ -10,16 +10,20 @@ public class Runner {
     public static void main(String[] args) {
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        User user = User.newBuilder()
-                .withFio("fio")
-                .withUserName("name")
-                .withAge(13)
-                .withUserType(UserType.COACH)
-                .withPassword("password")
-                .build();
-        user = session.find(User.class, user);
-        System.out.println(user);
-        transaction.commit();
-        session.close();
+        try {
+            User user = User.newBuilder()
+                    .withFio("fio")
+                    .withUserName("name")
+                    .withAge(13)
+                    .withUserType(UserType.COACH)
+                    .withPassword("password")
+                    .build();
+            session.save(user);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+        } finally {
+            session.close();
+        }
     }
 }

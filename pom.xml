@@ -80,9 +80,24 @@
         <scope>compile</scope>
       </dependency>
       <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.12.1</version>
+      </dependency>
+      <dependency>
         <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-core</artifactId>
-        <version>5.4.27.Final</version>
+        <artifactId>hibernate-entitymanager</artifactId>
+        <version>5.1.0.Final</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.xml.bind</groupId>
+        <artifactId>jakarta.xml.bind-api</artifactId>
+        <version>2.3.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+        <version>2.3.2</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

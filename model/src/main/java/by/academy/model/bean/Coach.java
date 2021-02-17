@@ -5,12 +5,16 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Deque;
 
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
+@Entity
 public class Coach {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
     private Deque<Salary> salaries;
 
