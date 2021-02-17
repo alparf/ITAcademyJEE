@@ -6,7 +6,6 @@ import by.academy.model.bean.Salary;
 import by.academy.connection.ConnectionManager;
 import by.academy.repository.IRepository;
 import by.academy.specification.ISpecification;
-import by.academy.specification.SqlSpecification;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -69,7 +68,7 @@ public class SalaryRepositoryDB implements IRepository<Salary> {
                 throw new AppException(e);
             }
         }
-        salaries.removeIf(specification::isSpecific);
+        salaries.removeIf(specification::isNotCorrect);
         return salaries;
     }
 }

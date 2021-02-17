@@ -1,15 +1,9 @@
 package by.academy.specification.impl;
 
-import by.academy.constant.SqlQuery;
 import by.academy.model.bean.User;
 import by.academy.specification.ISpecification;
-import by.academy.specification.SqlSpecification;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-public class UserByIdSpecification implements ISpecification<User>, SqlSpecification {
+public class UserByIdSpecification implements ISpecification<User> {
 
     private final long userId;
 
@@ -18,16 +12,7 @@ public class UserByIdSpecification implements ISpecification<User>, SqlSpecifica
     }
 
     @Override
-    public PreparedStatement getPreparedStatement(Connection connection) throws SQLException {
-        final int USER_ID = 1;
-        PreparedStatement preparedStatement;
-        preparedStatement = connection.prepareStatement(SqlQuery.SELECT_USER_BY_ID);
-        preparedStatement.setLong(USER_ID, this.userId);
-        return preparedStatement;
-    }
-
-    @Override
-    public boolean isSpecific(User user) {
+    public boolean isNotCorrect(User user) {
         return false;
     }
 }

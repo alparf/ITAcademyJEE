@@ -1,15 +1,9 @@
 package by.academy.specification.impl;
 
-import by.academy.constant.SqlQuery;
 import by.academy.model.bean.Salary;
 import by.academy.specification.ISpecification;
-import by.academy.specification.SqlSpecification;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-public class SalaryByCoachIdSpecification implements ISpecification<Salary>, SqlSpecification {
+public class SalaryByCoachIdSpecification implements ISpecification<Salary> {
 
     private final long coachId;
 
@@ -18,15 +12,7 @@ public class SalaryByCoachIdSpecification implements ISpecification<Salary>, Sql
     }
 
     @Override
-    public PreparedStatement getPreparedStatement(Connection connection) throws SQLException {
-        final int COACH_ID = 1;
-        PreparedStatement preparedStatement = connection.prepareStatement(SqlQuery.SELECT_SALARY);
-        preparedStatement.setLong(COACH_ID, coachId);
-        return preparedStatement;
-    }
-
-    @Override
-    public boolean isSpecific(Salary salary) {
+    public boolean isNotCorrect(Salary salary) {
         return false;
     }
 }
