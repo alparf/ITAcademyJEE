@@ -3,11 +3,11 @@ package by.academy.specification.impl;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
 
-public class UsersByUserTypeSpecification extends UsersSpecification {
+public class FindUsersByUserType extends FindAllUsers {
 
     private final UserType userType;
 
-    public UsersByUserTypeSpecification(UserType userType) {
+    public FindUsersByUserType(UserType userType) {
         this.userType = userType;
     }
 

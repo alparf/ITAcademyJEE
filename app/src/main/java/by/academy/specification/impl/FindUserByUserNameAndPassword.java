@@ -1,16 +1,25 @@
 package by.academy.specification.impl;
 
 import by.academy.model.bean.User;
+import by.academy.specification.IHibernateSpecification;
 import by.academy.specification.ISpecification;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.SimpleExpression;
 
-public class UserLoginSpecification implements ISpecification<User> {
+public class FindUserByUserNameAndPassword implements ISpecification<User>, IHibernateSpecification {
 
     private final String userName;
     private final String password;
 
-    public UserLoginSpecification(String userName, String password) {
+    public FindUserByUserNameAndPassword(String userName, String password) {
         this.userName = userName;
         this.password = password;
+    }
+
+    @Override
+    public SimpleExpression getExpression() {
+        final String USER_NAME = "userName";
+        return Restrictions.eq(USER_NAME, this.userName);
     }
 
     @Override

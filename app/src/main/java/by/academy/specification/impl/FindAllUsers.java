@@ -3,13 +3,7 @@ package by.academy.specification.impl;
 import by.academy.model.bean.User;
 import by.academy.specification.ISpecification;
 
-public class UserByUserNameSpecification implements ISpecification<User> {
-
-    private final String userName;
-
-    public UserByUserNameSpecification(String userName) {
-        this.userName = userName;
-    }
+public class FindAllUsers implements ISpecification<User> {
 
     @Override
     public boolean isNotCorrect(User user) {

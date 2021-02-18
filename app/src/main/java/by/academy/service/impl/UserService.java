@@ -24,7 +24,7 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryHibernate();
-            userList = repository.query(new UserLoginSpecification(userName, password));
+            userList = repository.query(new FindUserByUserNameAndPassword(userName, password));
         } catch (AppException e) {
             log.error(e.getMessage());
         }
@@ -65,7 +65,7 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryHibernate();
-            userList = repository.query(new UsersSpecification());
+            userList = repository.query(new FindAllUsers());
         } catch (AppException e) {
             log.error(e.getMessage());
         }
@@ -77,7 +77,7 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryHibernate();
-            userList = repository.query(new UsersByUserTypeSpecification(userType));
+            userList = repository.query(new FindUsersByUserType(userType));
         } catch (AppException e) {
             log.error(e.getMessage());
         }
@@ -89,7 +89,7 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryHibernate();
-            userList = repository.query(new UserByIdSpecification(id));
+            userList = repository.query(new FindUserById(id));
         } catch (AppException e) {
             log.error(e.getMessage());
         }

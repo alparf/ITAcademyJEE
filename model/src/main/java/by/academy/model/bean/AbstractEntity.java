@@ -9,8 +9,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@MappedSuperclass
 public abstract class AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
