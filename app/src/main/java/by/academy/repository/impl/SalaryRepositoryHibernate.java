@@ -2,10 +2,10 @@ package by.academy.repository.impl;
 
 import by.academy.connection.HibernateUtil;
 import by.academy.model.bean.Salary;
-import by.academy.model.bean.User;
 import by.academy.repository.IRepository;
 import by.academy.specification.ISpecification;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -13,7 +13,19 @@ public class SalaryRepositoryHibernate implements IRepository<Salary> {
 
     @Override
     public boolean add(Salary salary) {
-        return false;
+        boolean added = true;
+        Session session = HibernateUtil.getEMFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.save(salary);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            added = false;
+        } finally {
+            session.close();
+        }
+        return added;
     }
 
     @Override
@@ -29,8 +41,8 @@ public class SalaryRepositoryHibernate implements IRepository<Salary> {
     @Override
     public List<Salary> query(ISpecification<Salary> specification) {
         Session session = HibernateUtil.getEMFactory().openSession();
-        List<Salary> userList = session.createCriteria(Salary.class).list();
-        userList.removeIf(specification::isNotCorrect);
-        return userList;
+        List<Salary> salaryList = session.createCriteria(Salary.class).list();
+        salaryList.removeIf(specification::isNotCorrect);
+        return salaryList;
     }
 }

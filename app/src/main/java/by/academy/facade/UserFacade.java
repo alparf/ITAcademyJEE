@@ -73,9 +73,11 @@ public class UserFacade {
                         .withUser(user)
                         .withSalaries(new LinkedList<>())
                         .build()));
-        coaches.forEach(coach -> salaryService.getAllByCoachId(
-                coach.getUser().getId()).forEach(coach::addSalary)
-        );
+        Iterator<Coach> iterator = coaches.iterator();
+        while (iterator.hasNext()) {
+            Coach coach = iterator.next();
+            salaryService.getAllByCoachId(coach.getUser().getId()).forEach(coach::addSalary);
+        }
         return coaches;
     }
 }

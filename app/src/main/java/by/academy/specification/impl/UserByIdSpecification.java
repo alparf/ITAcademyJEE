@@ -13,6 +13,6 @@ public class UserByIdSpecification implements ISpecification<User> {
 
     @Override
     public boolean isNotCorrect(User user) {
-        return false;
+        return this.userId != user.getId();
     }
 }

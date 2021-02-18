@@ -5,23 +5,16 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.Deque;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@Entity
-@Table(name = "coaches")
-public class Coach extends AbstractEntity {
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+public class Coach {
     private User user;
-    @OneToMany(mappedBy = "coach")
-    private List<Salary> salaries;
+    private Deque<Salary> salaries;
 
-    public Coach(User user, List<Salary> salaries) throws IllegalArgumentException {
+    public Coach(User user, Deque<Salary> salaries) throws IllegalArgumentException {
         this.setUser(user);
         this.salaries = salaries;
     }
@@ -51,13 +44,13 @@ public class Coach extends AbstractEntity {
         }
         int sum = this.getSalaries().stream()
                 .limit(monthCount)
-                .mapToInt(Salary::getValue)
+                .mapToInt(salary -> salary.getValue())
                 .sum();
         return sum / monthCount;
     }
 
     public void addSalary(Salary salary) {
-        this.getSalaries().add(salary);
+        this.getSalaries().addFirst(salary);
     }
 
     public static Builder newBuilder() {
@@ -71,7 +64,7 @@ public class Coach extends AbstractEntity {
             return this;
         }
 
-        public Builder withSalaries(List<Salary> salaries) {
+        public Builder withSalaries(Deque<Salary> salaries) {
             Coach.this.setSalaries(salaries);
             return this;
         }

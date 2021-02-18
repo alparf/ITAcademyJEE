@@ -13,6 +13,6 @@ public class SalaryByCoachIdSpecification implements ISpecification<Salary> {
 
     @Override
     public boolean isNotCorrect(Salary salary) {
-        return false;
+        return this.coachId != salary.getCoach().getId();
     }
 }
