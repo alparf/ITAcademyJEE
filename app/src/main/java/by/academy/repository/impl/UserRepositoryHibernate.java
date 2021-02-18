@@ -18,7 +18,7 @@ public class UserRepositoryHibernate implements IRepository<User> {
 
     @Override
     public boolean add(User user) {
-        boolean added = true;
+        boolean isSaved = true;
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -26,16 +26,16 @@ public class UserRepositoryHibernate implements IRepository<User> {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            added = false;
+            isSaved = false;
         } finally {
             session.close();
         }
-        return added;
+        return isSaved;
     }
 
     @Override
     public boolean remove(User user) {
-        boolean deleted = true;
+        boolean isDeleted = true;
         final String COACH = "coach";
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -50,16 +50,16 @@ public class UserRepositoryHibernate implements IRepository<User> {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            deleted = false;
+            isDeleted = false;
         } finally {
             session.close();
         }
-        return deleted;
+        return isDeleted;
     }
 
     @Override
     public boolean set(User user) {
-        boolean updated = true;
+        boolean isUpdated = true;
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -67,11 +67,11 @@ public class UserRepositoryHibernate implements IRepository<User> {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            updated = false;
+            isUpdated = false;
         } finally {
             session.close();
         }
-        return updated;
+        return isUpdated;
     }
 
     @Override

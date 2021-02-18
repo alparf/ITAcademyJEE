@@ -76,7 +76,8 @@ public class UserFacade {
         Iterator<Coach> iterator = coaches.iterator();
         while (iterator.hasNext()) {
             Coach coach = iterator.next();
-            salaryService.getAllByCoachId(coach.getUser().getId()).forEach(coach::addSalary);
+            salaryService.getAllByCoachId(coach.getUser().getId())
+                    .forEach(coach::addSalary);
         }
         return coaches;
     }

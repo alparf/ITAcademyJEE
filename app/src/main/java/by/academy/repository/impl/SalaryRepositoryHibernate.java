@@ -15,7 +15,7 @@ public class SalaryRepositoryHibernate implements IRepository<Salary> {
 
     @Override
     public boolean add(Salary salary) {
-        boolean added = true;
+        boolean isSaved = true;
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -23,21 +23,43 @@ public class SalaryRepositoryHibernate implements IRepository<Salary> {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            added = false;
+            isSaved = false;
         } finally {
             session.close();
         }
-        return added;
+        return isSaved;
     }
 
     @Override
     public boolean remove(Salary salary) {
-        return false;
+        boolean isDeleted = true;
+        Session session = HibernateUtil.getEMFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.delete(salary);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            isDeleted = false;
+        }
+        return isDeleted;
     }
 
     @Override
     public boolean set(Salary salary) {
-        return false;
+        boolean isUpdated = true;
+        Session session = HibernateUtil.getEMFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(salary);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            isUpdated = false;
+        } finally {
+            session.close();
+        }
+        return isUpdated;
     }
 
     @Override
