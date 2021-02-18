@@ -3,7 +3,9 @@ package by.academy.repository.impl;
 import by.academy.connection.HibernateUtil;
 import by.academy.model.bean.Salary;
 import by.academy.repository.IRepository;
+import by.academy.specification.IHibernateSpecification;
 import by.academy.specification.ISpecification;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -41,7 +43,12 @@ public class SalaryRepositoryHibernate implements IRepository<Salary> {
     @Override
     public List<Salary> query(ISpecification<Salary> specification) {
         Session session = HibernateUtil.getEMFactory().openSession();
-        List<Salary> salaryList = session.createCriteria(Salary.class).list();
+        Criteria criteria = session.createCriteria(Salary.class);
+        if (specification instanceof IHibernateSpecification) {
+            IHibernateSpecification hibernateSpecification = (IHibernateSpecification) specification;
+            criteria.add(hibernateSpecification.getExpression());
+        }
+        List<Salary> salaryList = criteria.list();
         salaryList.removeIf(specification::isNotCorrect);
         return salaryList;
     }
