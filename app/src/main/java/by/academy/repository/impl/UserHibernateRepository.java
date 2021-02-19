@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserHibernateRepository implements IRepository<User> {
-
     @Override
     public Optional<User> add(User user) {
         Optional<User> optional = Optional.of(user);

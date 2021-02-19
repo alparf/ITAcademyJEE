@@ -6,7 +6,6 @@ import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/AverageSalaries", "/UserList", "/CoachList"})
 public class JsonFilter implements Filter {
-
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
             throws IOException, ServletException {

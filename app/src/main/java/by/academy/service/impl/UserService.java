@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserService implements IUserService {
-
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Override

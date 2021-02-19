@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 
 @WebServlet("/UserList")
 public class UserList extends JsonController {
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

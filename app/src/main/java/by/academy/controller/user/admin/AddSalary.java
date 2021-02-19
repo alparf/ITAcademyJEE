@@ -16,7 +16,6 @@ import java.util.Map;
 
 @WebServlet("/AddSalary")
 public class AddSalary extends JsonController {
-
     private static final Logger log = LoggerFactory.getLogger(AddSalary.class);
 
     @Override

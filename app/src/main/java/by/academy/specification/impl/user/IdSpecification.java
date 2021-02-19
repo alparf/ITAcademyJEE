@@ -7,7 +7,6 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
 public class IdSpecification implements ISpecification<User>, IHibernateSpecification {
-
     private final long userId;
 
     public IdSpecification(long userId) {

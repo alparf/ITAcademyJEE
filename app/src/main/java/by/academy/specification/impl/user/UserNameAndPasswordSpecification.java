@@ -7,7 +7,6 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
 public class UserNameAndPasswordSpecification implements ISpecification<User>, IHibernateSpecification {
-
     private final String userName;
     private final String password;
 

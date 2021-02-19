@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class JsonController extends HttpServlet {
-
-    @SuppressWarnings("unchecked")
     protected Map<String, String> getRequestParameters(HttpServletRequest req) {
         Map<String, String> props = null;
         try (BufferedReader br = req.getReader()) {

@@ -7,7 +7,6 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
 public class UserNameSpecification implements ISpecification<User>, IHibernateSpecification {
-
     private final String userName;
 
     public UserNameSpecification(String userName) {

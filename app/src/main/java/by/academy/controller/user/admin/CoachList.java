@@ -13,7 +13,6 @@ import java.io.PrintWriter;
 
 @WebServlet("/CoachList")
 public class CoachList extends JsonController {
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

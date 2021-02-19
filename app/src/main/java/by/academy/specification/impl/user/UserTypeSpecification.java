@@ -4,7 +4,6 @@ import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
 
 public class UserTypeSpecification extends AllUsersSpecification {
-
     private final UserType userType;
 
     public UserTypeSpecification(UserType userType) {

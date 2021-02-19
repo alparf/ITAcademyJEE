@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class SalaryService implements ISalaryService {
-
     @Override
     public Optional<Salary> addSalary(Salary salary) {
         IRepository<Salary> salaryIRepository = new SalaryHibernateRepository();

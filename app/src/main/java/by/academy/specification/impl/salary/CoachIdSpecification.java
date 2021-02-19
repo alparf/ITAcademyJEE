@@ -8,7 +8,6 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
 public class CoachIdSpecification implements ISpecification<Salary>, IHibernateSpecification {
-
     private final User coach;
 
     public CoachIdSpecification(User coach) {

@@ -24,7 +24,6 @@ import java.util.Optional;
 
 @WebServlet("/UserController")
 public class UserController extends JsonController {
-
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Override
@@ -63,7 +62,7 @@ public class UserController extends JsonController {
                 .ifPresent(user -> log.info("Removed user, userId = {}", user.getId()));
         res.sendRedirect(PageName.HOME);
     }
-    
+
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.getSession().setAttribute(ServletProperties.EXCEPTION_MESSAGE, null);

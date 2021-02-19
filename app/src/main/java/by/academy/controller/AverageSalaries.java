@@ -13,7 +13,6 @@ import java.io.PrintWriter;
 
 @WebServlet("/AverageSalaries")
 public class AverageSalaries extends JsonController {
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String monthCountStr = req.getParameter(ServletProperties.MONTH_COUNT);

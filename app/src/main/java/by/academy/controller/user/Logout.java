@@ -11,7 +11,6 @@ import java.io.IOException;
 
 @WebServlet("/Logout")
 public class Logout extends HttpServlet {
-
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException {
         HttpSession session = req.getSession();

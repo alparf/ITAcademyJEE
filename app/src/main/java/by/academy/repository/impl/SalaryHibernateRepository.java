@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class SalaryHibernateRepository implements IRepository<Salary> {
-
     @Override
     public Optional<Salary> add(Salary salary) {
         Optional<Salary> optional = Optional.of(salary);

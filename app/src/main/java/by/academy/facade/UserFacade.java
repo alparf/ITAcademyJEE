@@ -12,7 +12,6 @@ import by.academy.service.impl.UserService;
 import java.util.*;
 
 public class UserFacade {
-
     public static Optional<Salary> addSalary(long coachId, double salaryValue) {
         ISalaryService salaryService = new SalaryService();
         IUserService userService = new UserService();
