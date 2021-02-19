@@ -71,8 +71,7 @@ public class UserHibernateRepository extends AbstractHibernateRepository impleme
         Session session = HibernateUtil.getEMFactory().openSession();
         Criteria criteria = session.createCriteria(User.class);
         if (specification instanceof IHibernateSpecification) {
-            IHibernateSpecification hibernateSpecification = (IHibernateSpecification) specification;
-            criteria.add(hibernateSpecification.getExpression());
+            criteria.add(((IHibernateSpecification) specification).getExpression());
         }
         List<User> userList = criteria.list();
         userList.removeIf(specification::isNotCorrect);

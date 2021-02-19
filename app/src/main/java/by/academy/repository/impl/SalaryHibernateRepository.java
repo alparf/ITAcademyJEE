@@ -59,8 +59,7 @@ public class SalaryHibernateRepository extends AbstractHibernateRepository imple
         Session session = HibernateUtil.getEMFactory().openSession();
         Criteria criteria = session.createCriteria(Salary.class);
         if (specification instanceof IHibernateSpecification) {
-            IHibernateSpecification hibernateSpecification = (IHibernateSpecification) specification;
-            criteria.add(hibernateSpecification.getExpression());
+            criteria.add(((IHibernateSpecification) specification).getExpression());
         }
         List<Salary> salaryList = criteria.list();
         salaryList.removeIf(specification::isNotCorrect);

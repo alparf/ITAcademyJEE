@@ -8,6 +8,7 @@ import by.academy.specification.IHibernateSpecification;
 import by.academy.specification.ISpecification;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,17 +16,42 @@ import java.util.Optional;
 public class GroupHibernateRepository extends AbstractHibernateRepository implements IRepository<Group> {
     @Override
     public Optional<Group> add(Group group) {
-        return Optional.empty();
+        Optional<Group> optional = Optional.of(group);
+        Session session = HibernateUtil.getEMFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try (session) {
+            group.setId((Long) session.save(group));
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+        }
+        return optional;
     }
 
     @Override
     public Optional<Group> remove(Group group) {
-        return Optional.empty();
+        Session session = HibernateUtil.getEMFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try (session) {
+            session.delete(group);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+        }
+        return Optional.of(group);
     }
 
     @Override
     public Optional<Group> set(Group group) {
-        return Optional.empty();
+        Session session = HibernateUtil.getEMFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try (session) {
+            session.update(group);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+        }
+        return Optional.of(group);
     }
 
     @Override
@@ -34,8 +60,7 @@ public class GroupHibernateRepository extends AbstractHibernateRepository implem
         Criteria criteria = session.createCriteria(Group.class);
         List<Group> groupList = criteria.list();
         if (specification instanceof IHibernateSpecification) {
-            IHibernateSpecification hibernateSpecification = (IHibernateSpecification) specification;
-            criteria.add(hibernateSpecification.getExpression());
+            criteria.add(((IHibernateSpecification) specification).getExpression());
         }
         groupList.removeIf(specification::isNotCorrect);
         closeSession(session);
