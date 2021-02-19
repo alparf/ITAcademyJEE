@@ -50,11 +50,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<User> removeUserById(long id) {
+    public Optional<User> removeUser(long id) {
         Optional<User> optional = Optional.empty();
         try {
             IRepository<User> repository = new UserHibernateRepository();
-            Optional<User> user = getUserByID(id);
+            Optional<User> user = getUser(id);
             if(user.isPresent()) {
                 optional = repository.remove(user.get());
             }
@@ -89,7 +89,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<User> getUserByID(long id) {
+    public Optional<User> getUser(long id) {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserHibernateRepository();

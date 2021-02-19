@@ -32,6 +32,6 @@ public class UserFacade {
 
     public static Optional<User> removeUserById(long id) {
         IUserService service = new UserService();
-        return service.removeUserById(id);
+        return service.removeUser(id);
     }
 }

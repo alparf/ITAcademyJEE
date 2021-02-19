@@ -12,9 +12,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +19,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
-import java.util.Optional;
 
 @WebServlet("/UserController")
 public class UserController extends JsonController {
@@ -65,7 +61,7 @@ public class UserController extends JsonController {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws IOException {
         Map<String, String> props = getRequestParameters(req);
         long userId = Long.parseLong(props.get(ServletProperties.USER_ID_TO_REMOVE));
         UserFacade.removeUserById(userId)

@@ -20,7 +20,7 @@ public class SalaryService implements ISalaryService {
     }
 
     @Override
-    public List<Salary> getAllByCoachId(long coachId) {
+    public List<Salary> getAll(long coachId) {
         IRepository<Salary> salaryIRepository = new SalaryHibernateRepository();
         IRepository<User> userIRepository = new UserHibernateRepository();
         User coach = userIRepository.query(new IdSpecification(coachId)).stream()

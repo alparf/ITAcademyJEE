@@ -11,7 +11,7 @@ public interface IUserService {
     Optional<User> getUserByUserNameAndPassword(String userName, String password);
     List<User> getAll();
     List<User> getAll(UserType userType);
-    Optional<User> getUserByID(long id);
+    Optional<User> getUser(long id);
     Optional<User> addUser(User user) throws UserServiceException;
-    Optional<User> removeUserById(long id);
+    Optional<User> removeUser(long id);
 }

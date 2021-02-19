@@ -15,7 +15,7 @@ public class CoachFacade {
     public static Optional<Salary> addSalary(long coachId, double salaryValue) {
         ISalaryService salaryService = new SalaryService();
         IUserService userService = new UserService();
-        User user = userService.getUserByID(coachId).get();
+        User user = userService.getUser(coachId).get();
         Salary salary = Salary.newBuilder()
                 .withValue(formatSalary(salaryValue))
                 .withCoach(user)
@@ -35,7 +35,7 @@ public class CoachFacade {
         Iterator<Coach> iterator = coaches.iterator();
         while (iterator.hasNext()) {
             Coach coach = iterator.next();
-            salaryService.getAllByCoachId(coach.getUser().getId())
+            salaryService.getAll(coach.getUser().getId())
                     .forEach(coach::addSalary);
         }
         return coaches;
