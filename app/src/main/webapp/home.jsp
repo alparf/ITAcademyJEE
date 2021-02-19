@@ -24,7 +24,6 @@
                         <a id="addUser-btn" class="home_nav_inner_link" href="#">Add new user</a>
                         <a id="userList-btn" class="home_nav_inner_link" href="#">User list</a>
                         <a id="coachList-btn" class="home_nav_inner_link" href="#">Coach list</a>
-                        <a id="salary-btn" class="home_nav_inner_link" href="#">Salaries</a>
                     </nav>
                 </div>
                 <div class="home_desktop">
@@ -61,14 +60,6 @@
                     </div>
                     <div id="coachList" class="coach shadow" hidden>
                         <h3>Coach List</h3>
-                    </div>
-                    <div id="salary" class="salary shadow" hidden><h3>Salaries</h3>
-                        <c:forEach var="entry" items="${coachList}">
-                            <div class="salary_inner">
-                                <span class="item">${entry.user.fio}</span>
-                                <span>${entry.salaries}</span>
-                            </div>
-                        </c:forEach>
                     </div>
                 </c:if>
             </c:if>

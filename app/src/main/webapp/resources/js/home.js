@@ -3,14 +3,12 @@ window.onload=function() {
         document.getElementById("addUser").hidden = false;
         document.getElementById("userList").hidden = true;
         document.getElementById("coachList").hidden = true;
-        document.getElementById("salary").hidden = true;
       }, false);
 
     document.getElementById("userList-btn").addEventListener("click", function() {
         document.getElementById("addUser").hidden = true;
         document.getElementById("userList").hidden = false;
         document.getElementById("coachList").hidden = true;
-        document.getElementById("salary").hidden = true;
         getItemList("UserList", buildUserList);
     }, false);
 
@@ -18,15 +16,7 @@ window.onload=function() {
         document.getElementById("addUser").hidden = true;
         document.getElementById("userList").hidden = true;
         document.getElementById("coachList").hidden = false;
-        document.getElementById("salary").hidden = true;
         getItemList("CoachList", buildCoachList);
-    }, false);
-
-    document.getElementById("salary-btn").addEventListener("click", function() {
-        document.getElementById("addUser").hidden = true;
-        document.getElementById("userList").hidden = true;
-        document.getElementById("coachList").hidden = true;
-        document.getElementById("salary").hidden = false;
     }, false);
 }
 
@@ -113,7 +103,7 @@ function buildCoachList(data) {
     let container = document.getElementById("coachList");
     let coachList = "<h3>Coach List</h3>";
     for (let coach of data) {
-        coachList += getCoach(coach);
+        coachList += getCoach(coach.user);
     }
     removeAllChildNodes(container);
     container.innerHTML = coachList;

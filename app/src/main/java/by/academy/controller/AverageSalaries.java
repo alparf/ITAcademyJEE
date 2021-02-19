@@ -1,7 +1,7 @@
 package by.academy.controller;
 
 import by.academy.constant.ServletProperties;
-import by.academy.facade.UserFacade;
+import by.academy.facade.CoachFacade;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -22,7 +22,7 @@ public class AverageSalaries extends JsonController {
         }
         ObjectMapper mapper = new ObjectMapper();
         PrintWriter printWriter = resp.getWriter();
-        printWriter.write(mapper.writeValueAsString(UserFacade.getAverageSalaries(monthCount)));
+        printWriter.write(mapper.writeValueAsString(CoachFacade.getAverageSalaries(monthCount)));
         printWriter.flush();
     }
 }

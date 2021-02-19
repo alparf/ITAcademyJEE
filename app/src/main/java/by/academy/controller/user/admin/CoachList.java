@@ -1,6 +1,7 @@
 package by.academy.controller.user.admin;
 
 import by.academy.controller.JsonController;
+import by.academy.facade.CoachFacade;
 import by.academy.facade.UserFacade;
 import by.academy.model.bean.UserType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +18,7 @@ public class CoachList extends JsonController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         PrintWriter printWriter = resp.getWriter();
-        printWriter.write(mapper.writeValueAsString(UserFacade.getAllUsers(UserType.COACH)));
+        printWriter.write(mapper.writeValueAsString(CoachFacade.getAllCoaches()));
         printWriter.flush();
     }
 }

@@ -4,7 +4,7 @@ import by.academy.constant.ExceptionMessage;
 import by.academy.constant.PageName;
 import by.academy.constant.ServletProperties;
 import by.academy.controller.JsonController;
-import by.academy.facade.UserFacade;
+import by.academy.facade.CoachFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +25,7 @@ public class AddSalary extends JsonController {
             if (null != props) {
                 long coachId = Long.parseLong(props.get(ServletProperties.COACH_ID), 10);
                 double salary = Double.parseDouble(props.get(ServletProperties.SALARY));
-                UserFacade.addSalary(coachId, salary)
+                CoachFacade.addSalary(coachId, salary)
                         .ifPresent(s -> log.info("Add salary = {} to Coach(" +
                                 s.getCoach().getUserName() + ")", s.getValue()));
             }
