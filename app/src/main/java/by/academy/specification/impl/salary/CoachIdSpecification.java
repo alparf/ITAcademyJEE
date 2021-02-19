@@ -17,7 +17,7 @@ public class CoachIdSpecification implements ISpecification<Salary>, IHibernateS
     @Override
     public SimpleExpression getExpression() {
         final String COACH = "coach";
-        return Restrictions.eq(COACH, coach);
+        return Restrictions.eq(COACH, this.coach);
     }
 
     @Override

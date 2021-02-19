@@ -16,7 +16,7 @@ public class IdSpecification implements ISpecification<User>, IHibernateSpecific
     @Override
     public SimpleExpression getExpression() {
         final String ID = "id";
-        return Restrictions.eq(ID, userId);
+        return Restrictions.eq(ID, this.userId);
     }
 
     @Override

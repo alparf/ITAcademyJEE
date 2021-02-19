@@ -4,6 +4,7 @@ import by.academy.connection.HibernateUtil;
 import by.academy.model.bean.Salary;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
+import by.academy.repository.AbstractHibernateRepository;
 import by.academy.repository.IRepository;
 import by.academy.specification.IHibernateSpecification;
 import by.academy.specification.ISpecification;
@@ -15,7 +16,7 @@ import org.hibernate.criterion.Restrictions;
 import java.util.List;
 import java.util.Optional;
 
-public class UserHibernateRepository implements IRepository<User> {
+public class UserHibernateRepository extends AbstractHibernateRepository implements IRepository<User> {
     @Override
     public Optional<User> add(User user) {
         Optional<User> optional = Optional.of(user);
@@ -75,6 +76,7 @@ public class UserHibernateRepository implements IRepository<User> {
         }
         List<User> userList = criteria.list();
         userList.removeIf(specification::isNotCorrect);
+        closeSession(session);
         return userList;
     }
 }

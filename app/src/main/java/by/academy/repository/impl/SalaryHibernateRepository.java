@@ -2,6 +2,7 @@ package by.academy.repository.impl;
 
 import by.academy.connection.HibernateUtil;
 import by.academy.model.bean.Salary;
+import by.academy.repository.AbstractHibernateRepository;
 import by.academy.repository.IRepository;
 import by.academy.specification.IHibernateSpecification;
 import by.academy.specification.ISpecification;
@@ -12,7 +13,7 @@ import org.hibernate.Transaction;
 import java.util.List;
 import java.util.Optional;
 
-public class SalaryHibernateRepository implements IRepository<Salary> {
+public class SalaryHibernateRepository extends AbstractHibernateRepository implements IRepository<Salary> {
     @Override
     public Optional<Salary> add(Salary salary) {
         Optional<Salary> optional = Optional.of(salary);
@@ -63,6 +64,7 @@ public class SalaryHibernateRepository implements IRepository<Salary> {
         }
         List<Salary> salaryList = criteria.list();
         salaryList.removeIf(specification::isNotCorrect);
+        closeSession(session);
         return salaryList;
     }
 }
