@@ -1,5 +1,6 @@
 package by.academy.service.impl;
 
+import by.academy.constant.ExceptionMessage;
 import by.academy.exception.AppException;
 import by.academy.exception.UserServiceException;
 import by.academy.model.bean.User;
@@ -7,10 +8,7 @@ import by.academy.model.bean.UserType;
 import by.academy.repository.IRepository;
 import by.academy.repository.impl.UserHibernateRepository;
 import by.academy.service.IUserService;
-import by.academy.specification.impl.user.AllUsersSpecification;
-import by.academy.specification.impl.user.IdSpecification;
-import by.academy.specification.impl.user.UserNameAndPasswordSpecification;
-import by.academy.specification.impl.user.UserTypeSpecification;
+import by.academy.specification.impl.user.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +38,11 @@ public class UserService implements IUserService {
         try {
             IRepository<User> repository = new UserHibernateRepository();
             if (null != user) {
-                optional = repository.add(user);
+                if (repository.query(new UserNameSpecification(user.getUserName())).isEmpty()) {
+                    optional = repository.add(user);
+                } else {
+                    throw new UserServiceException(ExceptionMessage.USER_NAME_ALREADY_USED);
+                }
             }
         } catch (AppException e) {
             log.error(e.getMessage());

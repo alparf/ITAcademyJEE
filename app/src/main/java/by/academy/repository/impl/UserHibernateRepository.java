@@ -22,13 +22,11 @@ public class UserHibernateRepository implements IRepository<User> {
         Optional<User> optional = Optional.of(user);
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        try {
+        try (session) {
             user.setId((Long) session.save(user));
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-        } finally {
-            session.close();
         }
         return optional;
     }
@@ -39,7 +37,7 @@ public class UserHibernateRepository implements IRepository<User> {
         Optional<User> optional = Optional.of(user);
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        try {
+        try (session) {
             user = session.load(User.class, user.getId());
             if (UserType.COACH == user.getUserType()) {
                 Criteria criteria = session.createCriteria(Salary.class);
@@ -51,8 +49,6 @@ public class UserHibernateRepository implements IRepository<User> {
         } catch (Exception e) {
             transaction.rollback();
             optional = Optional.empty();
-        } finally {
-            session.close();
         }
         return optional;
     }
@@ -61,13 +57,11 @@ public class UserHibernateRepository implements IRepository<User> {
     public Optional<User> set(User user) {
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        try {
+        try (session){
             session.update(user);
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-        } finally {
-            session.close();
         }
         return Optional.of(user);
     }

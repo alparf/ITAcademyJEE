@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,5 +62,11 @@ public class UserController extends JsonController {
         UserFacade.removeUserById(userId)
                 .ifPresent(user -> log.info("Removed user, userId = {}", user.getId()));
         res.sendRedirect(PageName.HOME);
+    }
+    
+    @Override
+    public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        req.getSession().setAttribute(ServletProperties.EXCEPTION_MESSAGE, null);
+        super.service(req, res);
     }
 }

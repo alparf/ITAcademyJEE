@@ -19,13 +19,11 @@ public class SalaryHibernateRepository implements IRepository<Salary> {
         Optional<Salary> optional = Optional.of(salary);
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        try {
+        try (session) {
             salary.setId((Long) session.save(salary));
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-        } finally {
-            session.close();
         }
         return optional;
     }
@@ -34,7 +32,7 @@ public class SalaryHibernateRepository implements IRepository<Salary> {
     public Optional<Salary> remove(Salary salary) {
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        try {
+        try (session) {
             session.delete(salary);
             transaction.commit();
         } catch (Exception e) {
@@ -47,13 +45,11 @@ public class SalaryHibernateRepository implements IRepository<Salary> {
     public Optional<Salary> set(Salary salary) {
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        try {
+        try (session) {
             session.update(salary);
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-        } finally {
-            session.close();
         }
         return Optional.of(salary);
     }
