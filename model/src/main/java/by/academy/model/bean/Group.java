@@ -17,7 +17,7 @@ import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "groups")
 public class Group extends AbstractEntity {
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
     @OneToOne
     @JoinColumn(name = "coach_id", referencedColumnName = "id")

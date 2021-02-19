@@ -7,7 +7,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
@@ -15,6 +17,8 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Table(name = "themes")
 public class Theme extends AbstractEntity {
+    @Column(name = "name", nullable = false)
     private String name;
 }
