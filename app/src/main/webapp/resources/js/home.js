@@ -36,7 +36,7 @@ function getCoach(coach, salaryList) {
         <div class="coach_form">
             <span name="coachName" class="item">${coach.fio}</span>
             <div class="coach_form_inner">
-                <input id="coach${coach.id}" name="salary" type="text" placeholder="235.15" required/>
+                <input id="coach${coach.id}" name="salary" type="text" required/>
                 <span>BYN</span>
                 <a class="btn" href="#" onclick="addSalary(${coach.id})">Add Salary</a>
             </div>
@@ -80,7 +80,7 @@ function addSalary(id) {
         coachId : coachId,
         salary : salary
     }
-    fetch("AddSalary", {
+    fetch("SalaryController", {
         method : "POST",
         body : JSON.stringify(data),
         headers: {

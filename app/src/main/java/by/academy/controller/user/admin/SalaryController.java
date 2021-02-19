@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet("/AddSalary")
-public class AddSalary extends JsonController {
-    private static final Logger log = LoggerFactory.getLogger(AddSalary.class);
+@WebServlet("/SalaryController")
+public class SalaryController extends JsonController {
+    private static final Logger log = LoggerFactory.getLogger(SalaryController.class);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
