@@ -31,7 +31,7 @@ function getUser(user) {
         </div>`
 }
 
-function getCoach(coach) {
+function getCoach(coach, salaryList) {
     return `
         <div class="coach_form">
             <span name="coachName" class="item">${coach.fio}</span>
@@ -40,6 +40,9 @@ function getCoach(coach) {
                 <span>BYN</span>
                 <a class="btn" href="#" onclick="addSalary(${coach.id})">Add Salary</a>
             </div>
+        </div>
+        <div>
+            ${salaryList}
         </div>`
 }
 
@@ -103,7 +106,11 @@ function buildCoachList(data) {
     let container = document.getElementById("coachList");
     let coachList = "<h3>Coach List</h3>";
     for (let coach of data) {
-        coachList += getCoach(coach.user);
+        let salaryList = [];
+        for (let salary of coach.salaries) {
+            salaryList.push(salary.value)
+        }
+        coachList += getCoach(coach.user, salaryList);
     }
     removeAllChildNodes(container);
     container.innerHTML = coachList;
