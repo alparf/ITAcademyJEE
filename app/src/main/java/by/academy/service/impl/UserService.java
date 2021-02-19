@@ -7,7 +7,10 @@ import by.academy.model.bean.UserType;
 import by.academy.repository.IRepository;
 import by.academy.repository.impl.UserRepositoryHibernate;
 import by.academy.service.IUserService;
-import by.academy.specification.impl.*;
+import by.academy.specification.impl.user.AllUsersSpecification;
+import by.academy.specification.impl.user.IdSpecification;
+import by.academy.specification.impl.user.UserNameAndPasswordSpecification;
+import by.academy.specification.impl.user.UserTypeSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +27,7 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryHibernate();
-            userList = repository.query(new FindUserByUserNameAndPassword(userName, password));
+            userList = repository.query(new UserNameAndPasswordSpecification(userName, password));
         } catch (AppException e) {
             log.error(e.getMessage());
         }
@@ -32,32 +35,32 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean addUser(User user) throws UserServiceException {
-        boolean added = false;
+    public Optional<User> addUser(User user) throws UserServiceException {
+        Optional<User> optional = Optional.empty();
         try {
             IRepository<User> repository = new UserRepositoryHibernate();
             if (null != user) {
-                added = repository.add(user);
+                optional = repository.add(user);
             }
         } catch (AppException e) {
             log.error(e.getMessage());
         }
-        return added;
+        return optional;
     }
 
     @Override
-    public boolean removeUserById(long id) {
-        boolean success = false;
+    public Optional<User> removeUserById(long id) {
+        Optional<User> optional = Optional.empty();
         try {
             IRepository<User> repository = new UserRepositoryHibernate();
             Optional<User> user = getUserByID(id);
             if(user.isPresent()) {
-                success = repository.remove(user.get());
+                optional = repository.remove(user.get());
             }
         } catch (AppException e) {
             log.error(e.getMessage());
         }
-        return success;
+        return optional;
     }
 
     @Override
@@ -65,7 +68,7 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryHibernate();
-            userList = repository.query(new FindAllUsers());
+            userList = repository.query(new AllUsersSpecification());
         } catch (AppException e) {
             log.error(e.getMessage());
         }
@@ -77,7 +80,7 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryHibernate();
-            userList = repository.query(new FindUsersByUserType(userType));
+            userList = repository.query(new UserTypeSpecification(userType));
         } catch (AppException e) {
             log.error(e.getMessage());
         }
@@ -89,7 +92,7 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserRepositoryHibernate();
-            userList = repository.query(new FindUserById(id));
+            userList = repository.query(new IdSpecification(id));
         } catch (AppException e) {
             log.error(e.getMessage());
         }

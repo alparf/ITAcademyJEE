@@ -13,30 +13,30 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserRepositoryHibernate implements IRepository<User> {
 
     @Override
-    public boolean add(User user) {
-        boolean isSaved = true;
+    public Optional<User> add(User user) {
+        Optional<User> optional = Optional.of(user);
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.save(user);
+            user.setId((Long) session.save(user));
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            isSaved = false;
         } finally {
             session.close();
         }
-        return isSaved;
+        return optional;
     }
 
     @Override
-    public boolean remove(User user) {
-        boolean isDeleted = true;
+    public Optional<User> remove(User user) {
         final String COACH = "coach";
+        Optional<User> optional = Optional.of(user);
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -50,16 +50,15 @@ public class UserRepositoryHibernate implements IRepository<User> {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            isDeleted = false;
+            optional = Optional.empty();
         } finally {
             session.close();
         }
-        return isDeleted;
+        return optional;
     }
 
     @Override
-    public boolean set(User user) {
-        boolean isUpdated = true;
+    public Optional<User> set(User user) {
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -67,11 +66,10 @@ public class UserRepositoryHibernate implements IRepository<User> {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            isUpdated = false;
         } finally {
             session.close();
         }
-        return isUpdated;
+        return Optional.of(user);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package by.academy.specification.impl;
+package by.academy.specification.impl.user;
 
 import by.academy.model.bean.User;
 import by.academy.specification.IHibernateSpecification;
@@ -6,12 +6,14 @@ import by.academy.specification.ISpecification;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
-public class FindUserByUserName implements ISpecification<User>, IHibernateSpecification {
+public class UserNameAndPasswordSpecification implements ISpecification<User>, IHibernateSpecification {
 
     private final String userName;
+    private final String password;
 
-    public FindUserByUserName(String userName) {
+    public UserNameAndPasswordSpecification(String userName, String password) {
         this.userName = userName;
+        this.password = password;
     }
 
     @Override
@@ -22,6 +24,9 @@ public class FindUserByUserName implements ISpecification<User>, IHibernateSpeci
 
     @Override
     public boolean isNotCorrect(User user) {
-        return !this.userName.equals(user.getUserName());
+        if ((null != user) && (null != this.password)) {
+            return !((user.getUserName().equals(this.userName)) && (this.password.equals(user.getPassword())));
+        }
+        return true;
     }
 }

@@ -1,4 +1,4 @@
-package by.academy.specification.impl;
+package by.academy.specification.impl.user;
 
 import by.academy.model.bean.User;
 import by.academy.specification.IHibernateSpecification;
@@ -6,11 +6,11 @@ import by.academy.specification.ISpecification;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
-public class FindUserById implements ISpecification<User>, IHibernateSpecification {
+public class IdSpecification implements ISpecification<User>, IHibernateSpecification {
 
     private final long userId;
 
-    public FindUserById(long userId) {
+    public IdSpecification(long userId) {
         this.userId = userId;
     }
 

@@ -10,29 +10,28 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
+import java.util.Optional;
 
 public class SalaryRepositoryHibernate implements IRepository<Salary> {
 
     @Override
-    public boolean add(Salary salary) {
-        boolean isSaved = true;
+    public Optional<Salary> add(Salary salary) {
+        Optional<Salary> optional = Optional.of(salary);
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.save(salary);
+            salary.setId((Long) session.save(salary));
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            isSaved = false;
         } finally {
             session.close();
         }
-        return isSaved;
+        return optional;
     }
 
     @Override
-    public boolean remove(Salary salary) {
-        boolean isDeleted = true;
+    public Optional<Salary> remove(Salary salary) {
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -40,14 +39,12 @@ public class SalaryRepositoryHibernate implements IRepository<Salary> {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            isDeleted = false;
         }
-        return isDeleted;
+        return Optional.of(salary);
     }
 
     @Override
-    public boolean set(Salary salary) {
-        boolean isUpdated = true;
+    public Optional<Salary> set(Salary salary) {
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -55,11 +52,10 @@ public class SalaryRepositoryHibernate implements IRepository<Salary> {
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            isUpdated = false;
         } finally {
             session.close();
         }
-        return isUpdated;
+        return Optional.of(salary);
     }
 
     @Override

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 @WebServlet("/UserController")
 public class UserController extends JsonController {
@@ -34,15 +35,14 @@ public class UserController extends JsonController {
         UserType userType = UserType.valueOf(req.getParameter(ServletProperties.USER_TYPE));
         synchronized (UserController.class) {
             try {
-                if (UserFacade.addUser(User.newBuilder()
+                Optional<User> optional = UserFacade.addUser(User.newBuilder()
                         .withFio(fio)
                         .withAge(age)
                         .withUserName(userName)
                         .withPassword(password)
                         .withUserType(userType)
-                        .build())) {
-                    log.info("New User = {}", userName);
-                }
+                        .build());
+                optional.ifPresent(user -> log.info("New User = {}", user.getUserName()));
             } catch (UserServiceException e) {
                 log.error(e.getMessage(), e);
                 session.setAttribute(
@@ -57,9 +57,8 @@ public class UserController extends JsonController {
     protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         Map<String, String> props = getRequestParameters(req);
         long userId = Long.parseLong(props.get(ServletProperties.USER_ID_TO_REMOVE));
-        if (UserFacade.removeUserById(userId)) {
-            log.info("Removed user, userId = {}", userId);
-        }
+        Optional<User> optional = UserFacade.removeUserById(userId);
+        optional.ifPresent(user -> log.info("Removed user, userId = {}", user.getId()));
         res.sendRedirect(PageName.HOME);
     }
 }

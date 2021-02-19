@@ -28,7 +28,7 @@ public class CoachTest extends TestCase {
         salaries.add(Salary.newBuilder()
                 .withValue(200)
                 .build());
-        Coach coach = Coach.newBuilder()
+        Coach coach = Coach.getBuilder()
                 .withUser(user)
                 .withSalaries(salaries)
                 .build();

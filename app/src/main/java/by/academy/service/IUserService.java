@@ -12,6 +12,6 @@ public interface IUserService {
     List<User> getAll();
     List<User> getAll(UserType userType);
     Optional<User> getUserByID(long id);
-    boolean addUser(User user) throws UserServiceException;
-    boolean removeUserById(long id);
+    Optional<User> addUser(User user) throws UserServiceException;
+    Optional<User> removeUserById(long id);
 }

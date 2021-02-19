@@ -28,7 +28,6 @@ public class Salary extends AbstractEntity {
     }
 
     public class Builder {
-
         public Builder withId(long id) {
             Salary.this.setId(id);
             return this;

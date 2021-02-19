@@ -13,7 +13,7 @@ import java.util.*;
 
 public class UserFacade {
 
-    public static boolean addSalary(long coachId, Integer salaryValue) {
+    public static Optional<Salary> addSalary(long coachId, Integer salaryValue) {
         ISalaryService salaryService = new SalaryService();
         IUserService userService = new UserService();
         User user = userService.getUserByID(coachId).get();
@@ -53,13 +53,13 @@ public class UserFacade {
         return service.getAll(userType);
     }
 
-    public static boolean addUser(User user) {
+    public static Optional<User> addUser(User user) {
         IUserService service = new UserService();
         user.setPassword(Base64.getEncoder().encodeToString(user.getPassword().getBytes()));
         return service.addUser(user);
     }
 
-    public static boolean removeUserById(long id) {
+    public static Optional<User> removeUserById(long id) {
         IUserService service = new UserService();
         return service.removeUserById(id);
     }
@@ -69,7 +69,7 @@ public class UserFacade {
         ISalaryService salaryService = new SalaryService();
         List<Coach> coaches = new LinkedList<>();
         userService.getAll(UserType.COACH).forEach(user -> coaches.add(
-                Coach.newBuilder()
+                Coach.getBuilder()
                         .withUser(user)
                         .withSalaries(new LinkedList<>())
                         .build()));

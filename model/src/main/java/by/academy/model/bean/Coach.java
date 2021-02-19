@@ -53,12 +53,11 @@ public class Coach {
         this.getSalaries().addFirst(salary);
     }
 
-    public static Builder newBuilder() {
+    public static Builder getBuilder() {
         return new Coach().new Builder();
     }
 
     public class Builder {
-
         public Builder withUser(User user) {
             Coach.this.setUser(user);
             return this;

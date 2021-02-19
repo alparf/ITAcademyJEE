@@ -1,4 +1,4 @@
-package by.academy.specification.impl;
+package by.academy.specification.impl.salary;
 
 import by.academy.model.bean.Salary;
 import by.academy.model.bean.User;
@@ -7,11 +7,11 @@ import by.academy.specification.ISpecification;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
-public class FindSalaryByCoachId implements ISpecification<Salary>, IHibernateSpecification {
+public class CoachIdSpecification implements ISpecification<Salary>, IHibernateSpecification {
 
     private final User coach;
 
-    public FindSalaryByCoachId(User coach) {
+    public CoachIdSpecification(User coach) {
         this.coach = coach;
     }
 

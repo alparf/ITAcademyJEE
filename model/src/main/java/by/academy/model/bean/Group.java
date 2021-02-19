@@ -44,4 +44,39 @@ public class Group extends AbstractEntity {
             throw new IllegalArgumentException(ExceptionMessage.USER_HAVE_TO_BE_COACH);
         }
     }
+
+    public static Builder getBuilder() {
+        return new Group().new Builder();
+    }
+
+    public class Builder {
+        public Builder withId(long id) {
+            Group.this.setId(id);
+            return this;
+        }
+
+        public Builder withName(String name) {
+            Group.this.setName(name);
+            return this;
+        }
+
+        public Builder withCoach(User coach) {
+            Group.this.setCoach(coach);
+            return this;
+        }
+
+        public Builder withThemes(List<Theme> themes) {
+            Group.this.setThemes(themes);
+            return this;
+        }
+
+        public Builder withStudents(List<User> students) {
+            Group.this.setStudents(students);
+            return this;
+        }
+
+        public Group build() {
+            return Group.this;
+        }
+    }
 }
