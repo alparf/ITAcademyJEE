@@ -1,6 +1,5 @@
 package by.academy.repository;
 
-import by.academy.model.bean.User;
 import by.academy.specification.ISpecification;
 
 import java.util.List;

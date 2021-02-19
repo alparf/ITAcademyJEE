@@ -26,8 +26,9 @@ public class AddSalary extends JsonController {
             if (null != props) {
                 long coachId = Long.parseLong(props.get(ServletProperties.COACH_ID), 10);
                 double salary = Double.parseDouble(props.get(ServletProperties.SALARY));
-                UserFacade.addSalary(coachId, salaryFormat(salary));
-                log.info("Add salary = {} to Coach(" + coachId + ")", salary);
+                UserFacade.addSalary(coachId, salary)
+                        .ifPresent(s -> log.info("Add salary = {} to Coach(" +
+                                s.getCoach().getUserName() + ")", s.getValue()));
             }
         } catch (NumberFormatException e) {
             log.error(e.getMessage(), e);
@@ -36,9 +37,5 @@ public class AddSalary extends JsonController {
                     ExceptionMessage.VALUE_HAVE_TO_BE_NUMBER);
         }
         resp.sendRedirect(PageName.HOME);
-    }
-
-    private int salaryFormat(Double salary) {
-        return (int) (salary * 100);
     }
 }

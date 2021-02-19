@@ -35,14 +35,14 @@ public class UserController extends JsonController {
         UserType userType = UserType.valueOf(req.getParameter(ServletProperties.USER_TYPE));
         synchronized (UserController.class) {
             try {
-                Optional<User> optional = UserFacade.addUser(User.newBuilder()
+                UserFacade.addUser(User.newBuilder()
                         .withFio(fio)
                         .withAge(age)
                         .withUserName(userName)
                         .withPassword(password)
                         .withUserType(userType)
-                        .build());
-                optional.ifPresent(user -> log.info("New User = {}", user.getUserName()));
+                        .build())
+                        .ifPresent(user -> log.info("New User = {}", user.getUserName()));
             } catch (UserServiceException e) {
                 log.error(e.getMessage(), e);
                 session.setAttribute(
@@ -57,8 +57,8 @@ public class UserController extends JsonController {
     protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         Map<String, String> props = getRequestParameters(req);
         long userId = Long.parseLong(props.get(ServletProperties.USER_ID_TO_REMOVE));
-        Optional<User> optional = UserFacade.removeUserById(userId);
-        optional.ifPresent(user -> log.info("Removed user, userId = {}", user.getId()));
+        UserFacade.removeUserById(userId)
+                .ifPresent(user -> log.info("Removed user, userId = {}", user.getId()));
         res.sendRedirect(PageName.HOME);
     }
 }

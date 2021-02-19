@@ -13,12 +13,12 @@ import java.util.*;
 
 public class UserFacade {
 
-    public static Optional<Salary> addSalary(long coachId, Integer salaryValue) {
+    public static Optional<Salary> addSalary(long coachId, double salaryValue) {
         ISalaryService salaryService = new SalaryService();
         IUserService userService = new UserService();
         User user = userService.getUserByID(coachId).get();
         Salary salary = Salary.newBuilder()
-                .withValue(salaryValue)
+                .withValue(formatSalary(salaryValue))
                 .withCoach(user)
                 .build();
         return salaryService.addSalary(salary);
@@ -80,5 +80,9 @@ public class UserFacade {
                     .forEach(coach::addSalary);
         }
         return coaches;
+    }
+
+    private static int formatSalary(double salaryValue) {
+        return (int) (100 * salaryValue);
     }
 }

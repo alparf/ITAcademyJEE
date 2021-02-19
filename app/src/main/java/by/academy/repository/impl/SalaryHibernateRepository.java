@@ -2,28 +2,25 @@ package by.academy.repository.impl;
 
 import by.academy.connection.HibernateUtil;
 import by.academy.model.bean.Salary;
-import by.academy.model.bean.User;
-import by.academy.model.bean.UserType;
 import by.academy.repository.IRepository;
 import by.academy.specification.IHibernateSpecification;
 import by.academy.specification.ISpecification;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 import java.util.Optional;
 
-public class UserRepositoryHibernate implements IRepository<User> {
+public class SalaryHibernateRepository implements IRepository<Salary> {
 
     @Override
-    public Optional<User> add(User user) {
-        Optional<User> optional = Optional.of(user);
+    public Optional<Salary> add(Salary salary) {
+        Optional<Salary> optional = Optional.of(salary);
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            user.setId((Long) session.save(user));
+            salary.setId((Long) session.save(salary));
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -34,54 +31,43 @@ public class UserRepositoryHibernate implements IRepository<User> {
     }
 
     @Override
-    public Optional<User> remove(User user) {
-        final String COACH = "coach";
-        Optional<User> optional = Optional.of(user);
+    public Optional<Salary> remove(Salary salary) {
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            user = session.load(User.class, user.getId());
-            if (UserType.COACH == user.getUserType()) {
-                Criteria criteria = session.createCriteria(Salary.class);
-                criteria.add(Restrictions.eq(COACH, user));
-                criteria.list().forEach(session::delete);
-            }
-            session.delete(user);
+            session.delete(salary);
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            optional = Optional.empty();
-        } finally {
-            session.close();
         }
-        return optional;
+        return Optional.of(salary);
     }
 
     @Override
-    public Optional<User> set(User user) {
+    public Optional<Salary> set(Salary salary) {
         Session session = HibernateUtil.getEMFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.update(user);
+            session.update(salary);
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
         } finally {
             session.close();
         }
-        return Optional.of(user);
+        return Optional.of(salary);
     }
 
     @Override
-    public List<User> query(ISpecification<User> specification) {
+    public List<Salary> query(ISpecification<Salary> specification) {
         Session session = HibernateUtil.getEMFactory().openSession();
-        Criteria criteria = session.createCriteria(User.class);
+        Criteria criteria = session.createCriteria(Salary.class);
         if (specification instanceof IHibernateSpecification) {
             IHibernateSpecification hibernateSpecification = (IHibernateSpecification) specification;
             criteria.add(hibernateSpecification.getExpression());
         }
-        List<User> userList = criteria.list();
-        userList.removeIf(specification::isNotCorrect);
-        return userList;
+        List<Salary> salaryList = criteria.list();
+        salaryList.removeIf(specification::isNotCorrect);
+        return salaryList;
     }
 }
