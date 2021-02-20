@@ -9,14 +9,14 @@ window.onload=function() {
         document.getElementById("addUser").hidden = true;
         document.getElementById("userList").hidden = false;
         document.getElementById("coachList").hidden = true;
-        getItemList("UserList", buildUserList);
+        getItemList("UserController", buildUserList);
     }, false);
 
     document.getElementById("coachList-btn").addEventListener("click", function() {
         document.getElementById("addUser").hidden = true;
         document.getElementById("userList").hidden = true;
         document.getElementById("coachList").hidden = false;
-        getItemList("CoachList", buildCoachList);
+        getItemList("CoachController", buildCoachList);
     }, false);
 }
 
