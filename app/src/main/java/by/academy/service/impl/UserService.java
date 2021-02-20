@@ -32,7 +32,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<User> addUser(User user) throws UserServiceException {
+    public Optional<User> newUser(User user) throws UserServiceException {
         Optional<User> optional = Optional.empty();
         try {
             IRepository<User> repository = new UserHibernateRepository();
@@ -50,7 +50,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<User> removeUser(long id) {
+    public Optional<User> remove(long id) {
         Optional<User> optional = Optional.empty();
         try {
             IRepository<User> repository = new UserHibernateRepository();
@@ -93,7 +93,7 @@ public class UserService implements IUserService {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserHibernateRepository();
-            userList = repository.query(new IdSpecification(id));
+            userList = repository.query(new UserIdSpecification(id));
         } catch (AppException e) {
             log.error(e.getMessage());
         }

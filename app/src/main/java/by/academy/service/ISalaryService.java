@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ISalaryService {
-    Optional<Salary> addSalary(Salary salary);
+    Optional<Salary> newSalary(Salary salary);
     List<Salary> getAll(long coachId);
 }

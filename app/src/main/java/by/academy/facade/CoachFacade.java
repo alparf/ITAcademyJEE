@@ -20,10 +20,10 @@ public class CoachFacade {
                 .withValue(formatSalary(salaryValue))
                 .withCoach(user)
                 .build();
-        return salaryService.addSalary(salary);
+        return salaryService.newSalary(salary);
     }
 
-    public static List<Coach> getAllCoaches() {
+    public static List<Coach> getAll() {
         IUserService userService = new UserService();
         ISalaryService salaryService = new SalaryService();
         List<Coach> coaches = new LinkedList<>();
@@ -42,7 +42,7 @@ public class CoachFacade {
     }
     public static Map<String, Integer> getAverageSalaries(int monthCount) {
         Map<String, Integer> averageSalaries = new HashMap<>();
-        List<Coach> coaches = getAllCoaches();
+        List<Coach> coaches = getAll();
         for(Coach coach: coaches) {
             if((null != coach) && (null != coach.getUser())) {
                 averageSalaries.put(

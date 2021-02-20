@@ -54,7 +54,7 @@ public class Login extends HttpServlet {
                 .withUserType(UserType.ADMIN)
                 .build();
         try {
-            UserFacade.addUser(admin);
+            UserFacade.newUser(admin);
         } catch (UserServiceException e) {
             e.printStackTrace();
         }

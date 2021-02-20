@@ -34,7 +34,7 @@ public class UserController extends JsonController {
         UserType userType = UserType.valueOf(req.getParameter(ServletProperties.USER_TYPE));
         synchronized (UserController.class) {
             try {
-                UserFacade.addUser(User.newBuilder()
+                UserFacade.newUser(User.newBuilder()
                         .withFio(fio)
                         .withAge(age)
                         .withUserName(userName)
@@ -56,7 +56,7 @@ public class UserController extends JsonController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         PrintWriter printWriter = resp.getWriter();
-        printWriter.write(mapper.writeValueAsString(UserFacade.getAllUsers()));
+        printWriter.write(mapper.writeValueAsString(UserFacade.getAll()));
         printWriter.flush();
     }
 
@@ -64,7 +64,7 @@ public class UserController extends JsonController {
     protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws IOException {
         Map<String, String> props = getRequestParameters(req);
         long userId = Long.parseLong(props.get(ServletProperties.USER_ID_TO_REMOVE));
-        UserFacade.removeUserById(userId)
+        UserFacade.remove(userId)
                 .ifPresent(user -> log.info("Removed user, userId = {}", user.getId()));
         res.sendRedirect(PageName.HOME);
     }

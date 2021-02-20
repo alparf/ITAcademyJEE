@@ -6,10 +6,10 @@ import by.academy.specification.ISpecification;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
-public class IdSpecification implements ISpecification<User>, IHibernateSpecification {
+public class UserIdSpecification implements ISpecification<User>, IHibernateSpecification {
     private final long userId;
 
-    public IdSpecification(long userId) {
+    public UserIdSpecification(long userId) {
         this.userId = userId;
     }
 

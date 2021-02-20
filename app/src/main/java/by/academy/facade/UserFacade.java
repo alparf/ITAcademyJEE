@@ -14,24 +14,24 @@ public class UserFacade {
         return service.getUserByUserNameAndPassword(userName, password);
     }
 
-    public static List<User> getAllUsers() {
+    public static List<User> getAll() {
         IUserService service = new UserService();
         return service.getAll();
     }
 
-    public static List<User> getAllUsers(UserType userType) {
+    public static List<User> getAll(UserType userType) {
         IUserService service = new UserService();
         return service.getAll(userType);
     }
 
-    public static Optional<User> addUser(User user) {
+    public static Optional<User> newUser(User user) {
         IUserService service = new UserService();
         user.setPassword(Base64.getEncoder().encodeToString(user.getPassword().getBytes()));
-        return service.addUser(user);
+        return service.newUser(user);
     }
 
-    public static Optional<User> removeUserById(long id) {
+    public static Optional<User> remove(long id) {
         IUserService service = new UserService();
-        return service.removeUser(id);
+        return service.remove(id);
     }
 }

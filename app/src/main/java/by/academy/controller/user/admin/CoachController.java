@@ -16,7 +16,7 @@ public class CoachController extends JsonController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         PrintWriter printWriter = resp.getWriter();
-        printWriter.write(mapper.writeValueAsString(CoachFacade.getAllCoaches()));
+        printWriter.write(mapper.writeValueAsString(CoachFacade.getAll()));
         printWriter.flush();
     }
 }
