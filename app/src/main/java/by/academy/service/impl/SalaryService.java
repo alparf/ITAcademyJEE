@@ -14,13 +14,13 @@ import java.util.Optional;
 
 public class SalaryService implements ISalaryService {
     @Override
-    public Optional<Salary> newSalary(Salary salary) {
+    public Optional<Salary> addSalary(Salary salary) {
         IRepository<Salary> salaryIRepository = new SalaryHibernateRepository();
         return salaryIRepository.add(salary);
     }
 
     @Override
-    public List<Salary> getAll(long coachId) {
+    public List<Salary> findAllSalaries(long coachId) {
         IRepository<Salary> salaryIRepository = new SalaryHibernateRepository();
         IRepository<User> userIRepository = new UserHibernateRepository();
         User coach = userIRepository.query(new UserIdSpecification(coachId)).stream()

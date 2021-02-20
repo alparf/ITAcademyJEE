@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IGroupService {
-    Optional<Group> newGroup(Group group);
-    Optional<Group> remove(long groupId);
-    List<Group> getAll();
+    Optional<Group> addGroup(Group group);
+    Optional<Group> setGroup(Group group);
+    Optional<Group> removeGroup(long groupId);
+    Optional<Group> findGroup(long groupId);
+    List<Group> findAllGroups();
 }

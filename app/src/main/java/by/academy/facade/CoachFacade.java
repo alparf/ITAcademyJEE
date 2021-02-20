@@ -15,19 +15,19 @@ public class CoachFacade {
     public static Optional<Salary> addSalary(long coachId, double salaryValue) {
         ISalaryService salaryService = new SalaryService();
         IUserService userService = new UserService();
-        User user = userService.getUser(coachId).get();
+        User user = userService.findUser(coachId).get();
         Salary salary = Salary.newBuilder()
                 .withValue(formatSalary(salaryValue))
                 .withCoach(user)
                 .build();
-        return salaryService.newSalary(salary);
+        return salaryService.addSalary(salary);
     }
 
     public static List<Coach> getAll() {
         IUserService userService = new UserService();
         ISalaryService salaryService = new SalaryService();
         List<Coach> coaches = new LinkedList<>();
-        userService.getAll(UserType.COACH).forEach(user -> coaches.add(
+        userService.findAllUsers(UserType.COACH).forEach(user -> coaches.add(
                 Coach.getBuilder()
                         .withUser(user)
                         .withSalaries(new LinkedList<>())
@@ -35,7 +35,7 @@ public class CoachFacade {
         Iterator<Coach> iterator = coaches.iterator();
         while (iterator.hasNext()) {
             Coach coach = iterator.next();
-            salaryService.getAll(coach.getUser().getId())
+            salaryService.findAllSalaries(coach.getUser().getId())
                     .forEach(coach::addSalary);
         }
         return coaches;

@@ -20,7 +20,7 @@ public class UserService implements IUserService {
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Override
-    public Optional<User> getUserByUserNameAndPassword(String userName, String password) {
+    public Optional<User> findUser(String userName, String password) {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserHibernateRepository();
@@ -32,7 +32,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<User> newUser(User user) throws UserServiceException {
+    public Optional<User> addUser(User user) throws UserServiceException {
         Optional<User> optional = Optional.empty();
         try {
             IRepository<User> repository = new UserHibernateRepository();
@@ -50,11 +50,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<User> remove(long id) {
+    public Optional<User> removeUser(long id) {
         Optional<User> optional = Optional.empty();
         try {
             IRepository<User> repository = new UserHibernateRepository();
-            Optional<User> user = getUser(id);
+            Optional<User> user = findUser(id);
             if(user.isPresent()) {
                 optional = repository.remove(user.get());
             }
@@ -65,7 +65,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> getAll() {
+    public List<User> findAllUsers() {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserHibernateRepository();
@@ -77,7 +77,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> getAll(UserType userType) {
+    public List<User> findAllUsers(UserType userType) {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserHibernateRepository();
@@ -89,7 +89,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<User> getUser(long id) {
+    public Optional<User> findUser(long id) {
         List<User> userList = new LinkedList<>();
         try {
             IRepository<User> repository = new UserHibernateRepository();

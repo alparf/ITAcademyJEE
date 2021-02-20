@@ -3,6 +3,7 @@ package by.academy.controller.user.admin;
 import by.academy.constant.ServletProperties;
 import by.academy.controller.JsonController;
 import by.academy.facade.GroupFacade;
+import by.academy.model.bean.Group;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.annotation.WebServlet;
@@ -38,6 +39,17 @@ public class GroupController extends JsonController {
         if (null != props) {
             Long groupId = Long.parseLong(props.get(ServletProperties.GROUP_ID));
             GroupFacade.remove(groupId);
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
+        Map<String, String> props = getRequestParameters(req);
+        if (null != props) {
+            String groupName = props.get(ServletProperties.GROUP_NAME);
+            Long groupId = Long.parseLong(props.get(ServletProperties.GROUP_ID));
+            Long coachId = Long.parseLong(props.get(ServletProperties.COACH_ID));
+            GroupFacade.setGroup(groupId, groupName, coachId);
         }
     }
 }
