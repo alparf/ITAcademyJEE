@@ -12,12 +12,10 @@ public class UserTypeSpecification extends AllUsersSpecification {
 
     @Override
     public boolean isNotCorrect(User user) {
-        boolean isCoach = true;
+        boolean isNotCorrect = false;
         if (null != user) {
-            if(user.getUserType() == userType) {
-                isCoach = false;
-            }
+            isNotCorrect = user.getUserType() != this.userType;
         }
-        return isCoach;
+        return isNotCorrect;
     }
 }
