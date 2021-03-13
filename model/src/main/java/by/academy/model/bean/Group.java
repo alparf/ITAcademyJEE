@@ -22,10 +22,10 @@ public class Group extends AbstractEntity {
     @OneToOne
     @JoinColumn(name = "coach_id", referencedColumnName = "id")
     private User coach;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "theme_id", referencedColumnName = "id")
     private List<Theme> themes;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "student_id", referencedColumnName = "id")
     private List<User> students;
 

@@ -69,7 +69,7 @@ function removeUser(id) {
         }
     }).
     then((response) => {
-        getItemList("UserList", buildUserList);
+        getItemList("UserController", buildUserList);
     })
 }
 
@@ -88,7 +88,7 @@ function addSalary(id) {
         }
     }).
     then((response) => {
-        getItemList("CoachList", buildCoachList);
+        getItemList("CoachController", buildCoachList);
     })
 }
 
