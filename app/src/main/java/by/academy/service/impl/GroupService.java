@@ -11,36 +11,49 @@ import java.util.List;
 import java.util.Optional;
 
 public class GroupService implements IGroupService {
+    private static volatile GroupService service;
+    private final IRepository<Group> repository = new GroupHibernateRepository();
+
+    public static GroupService getService() {
+        if (null == service) {
+            synchronized (GroupService.class) {
+                if (null == service) {
+                    service = new GroupService();
+                }
+            }
+        }
+        return service;
+    }
+
     @Override
     public Optional<Group> addGroup(Group group) {
-        IRepository<Group> groupIRepository = new GroupHibernateRepository();
-        return groupIRepository.add(group);
+        return this.repository.add(group);
     }
 
     @Override
     public Optional<Group> setGroup(Group group) {
-        IRepository<Group> groupIRepository = new GroupHibernateRepository();
-        return groupIRepository.set(group);
+        return this.repository.set(group);
     }
 
     @Override
     public Optional<Group> removeGroup(long groupId) {
-        IRepository<Group> groupIRepository = new GroupHibernateRepository();
-        return groupIRepository.remove(groupIRepository.query(new GroupIdSpecification(groupId)).stream()
+        return this.repository.remove(this.repository.query(new GroupIdSpecification(groupId)).stream()
                 .findFirst()
                 .get());
     }
 
     @Override
     public Optional<Group> findGroup(long groupId) {
-        IRepository<Group> groupIRepository = new GroupHibernateRepository();
-        return groupIRepository.query(new GroupIdSpecification(groupId)).stream()
+        return this.repository.query(new GroupIdSpecification(groupId)).stream()
                 .findFirst();
     }
 
     @Override
     public List<Group> findAllGroups() {
-        IRepository<Group> groupIRepository = new GroupHibernateRepository();
-        return groupIRepository.query(new AllGroupSpecification());
+        return this.repository.query(new AllGroupSpecification());
+    }
+
+    private GroupService() {
+
     }
 }

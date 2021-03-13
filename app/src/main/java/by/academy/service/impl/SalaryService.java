@@ -4,28 +4,38 @@ import by.academy.model.bean.Salary;
 import by.academy.model.bean.User;
 import by.academy.repository.IRepository;
 import by.academy.repository.impl.SalaryHibernateRepository;
-import by.academy.repository.impl.UserHibernateRepository;
 import by.academy.service.ISalaryService;
 import by.academy.specification.impl.salary.CoachIdSpecification;
-import by.academy.specification.impl.user.UserIdSpecification;
 
 import java.util.List;
 import java.util.Optional;
 
 public class SalaryService implements ISalaryService {
+    private static volatile SalaryService service;
+    private final IRepository<Salary> repository = new SalaryHibernateRepository();
+
+    public static SalaryService getService() {
+        if (null == service) {
+            synchronized (SalaryService.class) {
+                if (null == service) {
+                    service = new SalaryService();
+                }
+            }
+        }
+        return service;
+    }
     @Override
     public Optional<Salary> addSalary(Salary salary) {
-        IRepository<Salary> salaryIRepository = new SalaryHibernateRepository();
-        return salaryIRepository.add(salary);
+        return this.repository.add(salary);
     }
 
     @Override
     public List<Salary> findAllSalaries(long coachId) {
-        IRepository<Salary> salaryIRepository = new SalaryHibernateRepository();
-        IRepository<User> userIRepository = new UserHibernateRepository();
-        User coach = userIRepository.query(new UserIdSpecification(coachId)).stream()
-                .findFirst()
-                .get();
-        return salaryIRepository.query(new CoachIdSpecification(coach));
+        User coach = UserService.getService().findUser(coachId).get();
+        return this.repository.query(new CoachIdSpecification(coach));
+    }
+
+    private SalaryService() {
+
     }
 }

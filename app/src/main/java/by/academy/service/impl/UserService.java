@@ -18,13 +18,25 @@ import java.util.Optional;
 
 public class UserService implements IUserService {
     private final Logger log = LoggerFactory.getLogger(UserService.class);
+    private final IRepository<User> repository = new UserHibernateRepository();
+    private static volatile UserService service;
+
+    public static UserService getService() {
+        if (null == service) {
+            synchronized (UserService.class) {
+                if (null == service) {
+                    service = new UserService();
+                }
+            }
+        }
+        return service;
+    }
 
     @Override
     public Optional<User> findUser(String userName, String password) {
         List<User> userList = new LinkedList<>();
         try {
-            IRepository<User> repository = new UserHibernateRepository();
-            userList = repository.query(new UserNameAndPasswordSpecification(userName, password));
+            userList = this.repository.query(new UserNameAndPasswordSpecification(userName, password));
         } catch (AppException e) {
             log.error(e.getMessage());
         }
@@ -35,10 +47,9 @@ public class UserService implements IUserService {
     public Optional<User> addUser(User user) throws UserServiceException {
         Optional<User> optional = Optional.empty();
         try {
-            IRepository<User> repository = new UserHibernateRepository();
             if (null != user) {
-                if (repository.query(new UserNameSpecification(user.getUserName())).isEmpty()) {
-                    optional = repository.add(user);
+                if (this.repository.query(new UserNameSpecification(user.getUserName())).isEmpty()) {
+                    optional = this.repository.add(user);
                 } else {
                     throw new UserServiceException(ExceptionMessage.USER_NAME_ALREADY_USED);
                 }
@@ -53,10 +64,9 @@ public class UserService implements IUserService {
     public Optional<User> removeUser(long id) {
         Optional<User> optional = Optional.empty();
         try {
-            IRepository<User> repository = new UserHibernateRepository();
             Optional<User> user = findUser(id);
             if(user.isPresent()) {
-                optional = repository.remove(user.get());
+                optional = this.repository.remove(user.get());
             }
         } catch (AppException e) {
             log.error(e.getMessage());
@@ -68,8 +78,7 @@ public class UserService implements IUserService {
     public List<User> findAllUsers() {
         List<User> userList = new LinkedList<>();
         try {
-            IRepository<User> repository = new UserHibernateRepository();
-            userList = repository.query(new AllUsersSpecification());
+            userList = this.repository.query(new AllUsersSpecification());
         } catch (AppException e) {
             log.error(e.getMessage());
         }
@@ -80,8 +89,7 @@ public class UserService implements IUserService {
     public List<User> findAllUsers(UserType userType) {
         List<User> userList = new LinkedList<>();
         try {
-            IRepository<User> repository = new UserHibernateRepository();
-            userList = repository.query(new UserTypeSpecification(userType));
+            userList = this.repository.query(new UserTypeSpecification(userType));
         } catch (AppException e) {
             log.error(e.getMessage());
         }
@@ -92,11 +100,14 @@ public class UserService implements IUserService {
     public Optional<User> findUser(long id) {
         List<User> userList = new LinkedList<>();
         try {
-            IRepository<User> repository = new UserHibernateRepository();
-            userList = repository.query(new UserIdSpecification(id));
+            userList = this.repository.query(new UserIdSpecification(id));
         } catch (AppException e) {
             log.error(e.getMessage());
         }
         return userList.stream().findFirst();
+    }
+
+    private UserService() {
+
     }
 }
