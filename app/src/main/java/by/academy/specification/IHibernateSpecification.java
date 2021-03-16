@@ -1,7 +1,8 @@
 package by.academy.specification;
 
-import org.hibernate.criterion.SimpleExpression;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
-public interface IHibernateSpecification {
-    SimpleExpression getExpression();
+public interface IHibernateSpecification<T> {
+    CriteriaQuery<T> getCriteriaQuery(CriteriaBuilder criteriaBuilder);
 }

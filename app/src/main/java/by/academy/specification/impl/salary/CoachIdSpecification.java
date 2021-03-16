@@ -4,10 +4,12 @@ import by.academy.model.bean.Salary;
 import by.academy.model.bean.User;
 import by.academy.specification.IHibernateSpecification;
 import by.academy.specification.ISpecification;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.SimpleExpression;
 
-public class CoachIdSpecification implements ISpecification<Salary>, IHibernateSpecification {
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+public class CoachIdSpecification implements ISpecification<Salary>, IHibernateSpecification<Salary> {
     private final User coach;
 
     public CoachIdSpecification(User coach) {
@@ -15,13 +17,16 @@ public class CoachIdSpecification implements ISpecification<Salary>, IHibernateS
     }
 
     @Override
-    public SimpleExpression getExpression() {
-        final String COACH = "coach";
-        return Restrictions.eq(COACH, this.coach);
+    public CriteriaQuery<Salary> getCriteriaQuery(CriteriaBuilder criteriaBuilder) {
+        final String COACH_ID = "coach_id";
+        CriteriaQuery<Salary> criteriaQuery = criteriaBuilder.createQuery(Salary.class);
+        Root<Salary> root = criteriaQuery.from(Salary.class);
+        return criteriaQuery.select(root)
+                .where(criteriaBuilder.equal(root.get(COACH_ID), this.coach.getId()));
     }
 
     @Override
-    public boolean isNotCorrect(Salary salary) {
+    public boolean isInvalid(Salary salary) {
         return this.coach.getId() != salary.getCoach().getId();
     }
 }

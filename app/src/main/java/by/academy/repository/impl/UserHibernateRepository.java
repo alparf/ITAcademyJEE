@@ -8,11 +8,13 @@ import by.academy.repository.AbstractHibernateRepository;
 import by.academy.repository.IRepository;
 import by.academy.specification.IHibernateSpecification;
 import by.academy.specification.ISpecification;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +22,7 @@ public class UserHibernateRepository extends AbstractHibernateRepository impleme
     @Override
     public Optional<User> add(User user) {
         Optional<User> optional = Optional.of(user);
-        Session session = HibernateUtil.getEMFactory().openSession();
+        Session session = HibernateUtil.getFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try (session) {
             user.setId((Long) session.save(user));
@@ -33,16 +35,20 @@ public class UserHibernateRepository extends AbstractHibernateRepository impleme
 
     @Override
     public Optional<User> remove(User user) {
-        final String COACH = "coach";
+        final String COACH_ID = "coach_id";
         Optional<User> optional = Optional.of(user);
-        Session session = HibernateUtil.getEMFactory().openSession();
+        Session session = HibernateUtil.getFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try (session) {
             user = session.load(User.class, user.getId());
             if (UserType.COACH == user.getUserType()) {
-                Criteria criteria = session.createCriteria(Salary.class);
-                criteria.add(Restrictions.eq(COACH, user));
-                criteria.list().forEach(session::delete);
+                CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+                CriteriaQuery<Salary> criteriaQuery = criteriaBuilder.createQuery(Salary.class);
+                Root<Salary> root = criteriaQuery.from(Salary.class);
+                session.createQuery(criteriaQuery.select(root)
+                        .where(criteriaBuilder.equal(root.get(COACH_ID), user.getId())))
+                        .getResultList()
+                        .forEach(session::delete);
             }
             session.delete(user);
             transaction.commit();
@@ -55,7 +61,7 @@ public class UserHibernateRepository extends AbstractHibernateRepository impleme
 
     @Override
     public Optional<User> set(User user) {
-        Session session = HibernateUtil.getEMFactory().openSession();
+        Session session = HibernateUtil.getFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try (session){
             session.update(user);
@@ -68,14 +74,19 @@ public class UserHibernateRepository extends AbstractHibernateRepository impleme
 
     @Override
     public List<User> query(ISpecification<User> specification) {
-        Session session = HibernateUtil.getEMFactory().openSession();
-        Criteria criteria = session.createCriteria(User.class);
-        if (specification instanceof IHibernateSpecification) {
-            criteria.add(((IHibernateSpecification) specification).getExpression());
+        Session session = HibernateUtil.getFactory().openSession();
+        List<User> userList = new LinkedList<>();
+        try (session) {
+            if (specification instanceof IHibernateSpecification) {
+                IHibernateSpecification hibernateSpecification = (IHibernateSpecification) specification;
+                userList = session.createQuery(hibernateSpecification.getCriteriaQuery(session.getCriteriaBuilder()))
+                        .getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        List<User> userList = criteria.list();
-        userList.removeIf(specification::isNotCorrect);
-        closeSession(session);
+        userList.removeIf(specification::isInvalid);
+
         return userList;
     }
 }

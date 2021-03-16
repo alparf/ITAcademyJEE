@@ -11,7 +11,7 @@ public class UserTypeSpecification extends AllUsersSpecification {
     }
 
     @Override
-    public boolean isNotCorrect(User user) {
+    public boolean isInvalid(User user) {
         boolean isNotCorrect = false;
         if (null != user) {
             isNotCorrect = user.getUserType() != this.userType;
