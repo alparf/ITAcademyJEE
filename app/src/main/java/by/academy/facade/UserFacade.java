@@ -1,7 +1,6 @@
 package by.academy.facade;
 
 import by.academy.model.bean.User;
-import by.academy.model.bean.UserType;
 import by.academy.service.impl.UserService;
 
 import java.util.*;
@@ -14,10 +13,6 @@ public class UserFacade {
 
     public static List<User> getAll() {
         return UserService.getService().findAllUsers();
-    }
-
-    public static List<User> getAll(UserType userType) {
-        return UserService.getService().findAllUsers(userType);
     }
 
     public static Optional<User> newUser(User user) {
