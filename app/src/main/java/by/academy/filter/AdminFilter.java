@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
 
-@WebFilter(urlPatterns = {"/UserController", "/CoachList", "/SalaryController"})
+@WebFilter(urlPatterns = {"/UserController", "/CoachController", "/SalaryController"})
 public class AdminFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
