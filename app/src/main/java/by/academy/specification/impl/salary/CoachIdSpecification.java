@@ -18,15 +18,15 @@ public class CoachIdSpecification implements ISpecification<Salary>, IHibernateS
 
     @Override
     public CriteriaQuery<Salary> getCriteriaQuery(CriteriaBuilder criteriaBuilder) {
-        final String COACH_ID = "coach_id";
+        final String COACH = "coach";
         CriteriaQuery<Salary> criteriaQuery = criteriaBuilder.createQuery(Salary.class);
         Root<Salary> root = criteriaQuery.from(Salary.class);
         return criteriaQuery.select(root)
-                .where(criteriaBuilder.equal(root.get(COACH_ID), this.coach.getId()));
+                .where(criteriaBuilder.equal(root.get(COACH), this.coach));
     }
 
     @Override
     public boolean isInvalid(Salary salary) {
-        return this.coach.getId() != salary.getCoach().getId();
+        return !this.coach.equals(salary.getCoach());
     }
 }
