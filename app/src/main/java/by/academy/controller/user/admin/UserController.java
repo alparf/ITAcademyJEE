@@ -8,20 +8,20 @@ import by.academy.exception.UserServiceException;
 import by.academy.facade.UserFacade;
 import by.academy.model.bean.User;
 import by.academy.model.bean.UserType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 
 @WebServlet("/UserController")
 public class UserController extends JsonController {
-
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Override
@@ -34,15 +34,14 @@ public class UserController extends JsonController {
         UserType userType = UserType.valueOf(req.getParameter(ServletProperties.USER_TYPE));
         synchronized (UserController.class) {
             try {
-                if (UserFacade.addUser(User.newBuilder()
+                UserFacade.newUser(User.newBuilder()
                         .withFio(fio)
                         .withAge(age)
                         .withUserName(userName)
                         .withPassword(password)
                         .withUserType(userType)
-                        .build())) {
-                    log.info("New User = {}", userName);
-                }
+                        .build())
+                        .ifPresent(user -> log.info("New User = {}", user.getUserName()));
             } catch (UserServiceException e) {
                 log.error(e.getMessage(), e);
                 session.setAttribute(
@@ -54,12 +53,19 @@ public class UserController extends JsonController {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        PrintWriter printWriter = resp.getWriter();
+        printWriter.write(mapper.writeValueAsString(UserFacade.getAll()));
+        printWriter.flush();
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws IOException {
         Map<String, String> props = getRequestParameters(req);
         long userId = Long.parseLong(props.get(ServletProperties.USER_ID_TO_REMOVE));
-        if (UserFacade.removeUserById(userId)) {
-            log.info("Removed user, userId = {}", userId);
-        }
+        UserFacade.remove(userId)
+                .ifPresent(user -> log.info("Removed user, userId = {}", user.getId()));
         res.sendRedirect(PageName.HOME);
     }
 }

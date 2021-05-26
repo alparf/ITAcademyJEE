@@ -3,30 +3,20 @@ window.onload=function() {
         document.getElementById("addUser").hidden = false;
         document.getElementById("userList").hidden = true;
         document.getElementById("coachList").hidden = true;
-        document.getElementById("salary").hidden = true;
       }, false);
 
     document.getElementById("userList-btn").addEventListener("click", function() {
         document.getElementById("addUser").hidden = true;
         document.getElementById("userList").hidden = false;
         document.getElementById("coachList").hidden = true;
-        document.getElementById("salary").hidden = true;
-        getItemList("UserList", buildUserList);
+        getItemList("UserController", buildUserList);
     }, false);
 
     document.getElementById("coachList-btn").addEventListener("click", function() {
         document.getElementById("addUser").hidden = true;
         document.getElementById("userList").hidden = true;
         document.getElementById("coachList").hidden = false;
-        document.getElementById("salary").hidden = true;
-        getItemList("CoachList", buildCoachList);
-    }, false);
-
-    document.getElementById("salary-btn").addEventListener("click", function() {
-        document.getElementById("addUser").hidden = true;
-        document.getElementById("userList").hidden = true;
-        document.getElementById("coachList").hidden = true;
-        document.getElementById("salary").hidden = false;
+        getItemList("CoachController", buildCoachList);
     }, false);
 }
 
@@ -41,15 +31,18 @@ function getUser(user) {
         </div>`
 }
 
-function getCoach(coach) {
+function getCoach(coach, salaryList) {
     return `
         <div class="coach_form">
             <span name="coachName" class="item">${coach.fio}</span>
             <div class="coach_form_inner">
-                <input id="coach${coach.id}" name="salary" type="text" placeholder="235.15" required/>
+                <input id="coach${coach.id}" name="salary" type="text" required/>
                 <span>BYN</span>
                 <a class="btn" href="#" onclick="addSalary(${coach.id})">Add Salary</a>
             </div>
+        </div>
+        <div>
+            ${salaryList}
         </div>`
 }
 
@@ -76,7 +69,7 @@ function removeUser(id) {
         }
     }).
     then((response) => {
-        getItemList("UserList", buildUserList);
+        getItemList("UserController", buildUserList);
     })
 }
 
@@ -87,7 +80,7 @@ function addSalary(id) {
         coachId : coachId,
         salary : salary
     }
-    fetch("AddSalary", {
+    fetch("SalaryController", {
         method : "POST",
         body : JSON.stringify(data),
         headers: {
@@ -95,7 +88,7 @@ function addSalary(id) {
         }
     }).
     then((response) => {
-        getItemList("CoachList", buildCoachList);
+        getItemList("CoachController", buildCoachList);
     })
 }
 
@@ -113,7 +106,11 @@ function buildCoachList(data) {
     let container = document.getElementById("coachList");
     let coachList = "<h3>Coach List</h3>";
     for (let coach of data) {
-        coachList += getCoach(coach);
+        let salaryList = [];
+        for (let salary of coach.salaries) {
+            salaryList.push(salary.value)
+        }
+        coachList += getCoach(coach.user, salaryList);
     }
     removeAllChildNodes(container);
     container.innerHTML = coachList;

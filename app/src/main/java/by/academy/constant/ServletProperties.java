@@ -12,6 +12,8 @@ public final class ServletProperties {
     public static final String COACH_ID = "coachId";
     public static final String SALARY = "salary";
     public static final String MONTH_COUNT = "monthCount";
+    public static final String GROUP_NAME = "groupName";
+    public static final String GROUP_ID = "groupId";
 
     private ServletProperties() {
 

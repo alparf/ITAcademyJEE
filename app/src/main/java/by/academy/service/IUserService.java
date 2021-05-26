@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IUserService {
-    Optional<User> getUserByUserNameAndPassword(String userName, String password);
-    List<User> getAll();
-    List<User> getAll(UserType userType);
-    Optional<User> getUserByID(long id);
-    boolean addUser(User user) throws UserServiceException;
-    boolean removeUserById(long id);
+    Optional<User> addUser(User user) throws UserServiceException;
+    Optional<User> removeUser(long id);
+    Optional<User> findUser(String userName, String password);
+    Optional<User> findUser(long id);
+    List<User> findAllUsers();
+    List<User> findAllUsers(UserType userType);
 }

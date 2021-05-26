@@ -4,7 +4,7 @@ import by.academy.constant.ExceptionMessage;
 import by.academy.constant.PageName;
 import by.academy.constant.ServletProperties;
 import by.academy.controller.JsonController;
-import by.academy.facade.UserFacade;
+import by.academy.facade.CoachFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,10 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet("/AddSalary")
-public class AddSalary extends JsonController {
-
-    private static final Logger log = LoggerFactory.getLogger(AddSalary.class);
+@WebServlet("/SalaryController")
+public class SalaryController extends JsonController {
+    private static final Logger log = LoggerFactory.getLogger(SalaryController.class);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -26,8 +25,9 @@ public class AddSalary extends JsonController {
             if (null != props) {
                 long coachId = Long.parseLong(props.get(ServletProperties.COACH_ID), 10);
                 double salary = Double.parseDouble(props.get(ServletProperties.SALARY));
-                UserFacade.addSalary(coachId, salaryFormat(salary));
-                log.info("Add salary = {} to Coach(" + coachId + ")", salary);
+                CoachFacade.addSalary(coachId, salary)
+                        .ifPresent(s -> log.info("Add salary = {} to Coach(" +
+                                s.getCoach().getUserName() + ")", s.getValue()));
             }
         } catch (NumberFormatException e) {
             log.error(e.getMessage(), e);
@@ -36,9 +36,5 @@ public class AddSalary extends JsonController {
                     ExceptionMessage.VALUE_HAVE_TO_BE_NUMBER);
         }
         resp.sendRedirect(PageName.HOME);
-    }
-
-    private int salaryFormat(Double salary) {
-        return (int) (salary * 100);
     }
 }

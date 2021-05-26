@@ -1,19 +1,32 @@
 package by.academy.model.bean;
 
 import by.academy.model.constant.ExceptionMessage;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = false)
+@Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Table(name = "users")
 public class User extends AbstractEntity {
+    @Column(name = "fio", nullable = false)
     private String fio;
+    @Column(name = "age", nullable = false)
     private int age;
+    @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
+    @Column(name = "password", nullable = false)
     private @JsonIgnore String password;
+    @Column(name = "user_type", nullable = false)
+    @Enumerated(EnumType.ORDINAL)
     private UserType userType;
 
     public static Builder newBuilder() {
@@ -45,7 +58,6 @@ public class User extends AbstractEntity {
     }
 
     public class Builder {
-
         public Builder withId(long id) {
             User.this.setId(id);
             return this;
